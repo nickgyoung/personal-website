@@ -31,7 +31,7 @@ googleAnalytics = ""
 	description = "Analysis and visualizations - for the interesting and the inane."
 
 	# Add pagetitle to homepage <title> tag
-	pagetitle = "All about static site generation"
+	pagetitle = "Analysis and viz"
 
 	# Add a subtitle to your website
 	subtitle = "Analysis and visualizations - for the interesting and inane."
@@ -109,7 +109,7 @@ weight = 5
 [[params.social]]
 name = "Github"
 icon = "fab fa-github"
-url = "https://github.com/nickgyoung"
+cmd = "https://github.com/nickgyoung"
 
 [[params.social]]
 name = "Email"
