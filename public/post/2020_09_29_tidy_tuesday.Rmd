@@ -4,7 +4,7 @@ author: "Nick Young"
 date: "2020-09-29"
 output: html_document
 ---
-![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](beyonce_swift.jpg)
+![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](/img/beyonce_swift.jpg)
 
 
 # TidyTuesday
@@ -333,4 +333,4 @@ I'm deciding to call this analysis to an end. Tidy Tuesday is a way for me to pr
 
 In retrospect, I feel satisfied nonetheless as I have had my first foray into NLP and sentiment analysis, I've ventured outside of ggplot for the first time with the use of wordcloud, I've created my first interactive table with reactable, and made some long for loops that I look back on in awe. It can hard to uncover meaningful learnings from data you lack domain knowledge in. Ever worse, it can be especially difficult to uncover meaningful learning from data you lack any real interest in. Nonetheless, I feel like I've learned from this Tidy Tuesday, if not a little about Beyonce and Taylor Swift, then at least a bit about NLP and sentiment analysis.
 
-For next time, I'd like to get more practice with other viz packages, particularly ggarrange or other 
+For next time, I'd like to get more practice with other viz packages, particularly ggarrange or other viz packages that collate multiple plots and graphs.

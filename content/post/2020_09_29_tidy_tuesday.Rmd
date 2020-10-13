@@ -4,7 +4,7 @@ author: "Nick Young"
 date: "2020-09-29"
 output: html_document
 ---
-![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](beyonce_swift.jpg)
+![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](/img/beyonce_swift.jpg)
 
 
 # TidyTuesday
