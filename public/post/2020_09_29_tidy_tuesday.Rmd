@@ -1,0 +1,336 @@
+---
+title: "Beyoncé and Taylor Swift Lyrics"
+author: "Nick Young"
+date: "2020-09-29"
+output: html_document
+---
+![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](beyonce_swift.jpg)
+
+
+# TidyTuesday
+
+Join the R4DS Online Learning Community in the weekly #TidyTuesday event!
+Every week we post a raw dataset, a chart or article related to that dataset, and ask you to explore the data.
+While the dataset will be “tamed”, it will not always be tidy! As such you might need to apply various R for Data Science techniques to wrangle the data into a true tidy format.
+The goal of TidyTuesday is to apply your R skills, get feedback, explore other’s work, and connect with the greater #RStats community!
+As such we encourage everyone of all skills to participate!
+
+# Personal Intent
+My intentions with Tidy Tuesday projects are to learn new R packages in regards to data-mining and visualization, to practice tidying data, refine best practices in writing code, and lastly to uncover new learnings within the data that I am working on and convey those in effective and meaningful ways to readers. 
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(tidytuesdayR)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(lubridate)
+library(tidytext)
+library(reactable)
+library(textcat)
+library(ggpubr)
+library(reshape2)
+library(wordcloud)
+library(RColorBrewer)
+library(syuzhet)
+
+
+```
+
+# Load the weekly Data
+
+Dowload the weekly data and make available in the `tt` object or variables of your choosing.
+
+``` {r echo =FALSE}
+dangerously_in_love_songs <- c('Crazy in Love','Naughty Girl','Baby Boy','Hip Hop Star', 'Be with You','Me, Myself, and I' , 'Yes', 'Signs','Speechless',"That's How You Like It" , 'The Closer I Get to You','Dangerously in Love 2','Beyoncé Interlude','Gift from Virgo','Daddy')
+
+#inclusive of all the deluxe edition songs, but not including alternate language versions or remixes. So, all original songs appearing on any versions.
+
+bday_songs <- c('Déjà Vu', 'get me bodied','suga mama','upgrade u','ring the alarm', 'kitty kat','freakum dress','green light','irreplaceable','resentment','listen','check on it','lost yo mind','creole','back up','green light','welcome to hollywood','flaws and all','world wide woman','still in love','ring the alarm','my first time','if')
+
+i_am_sasha_fierce_songs <- c('if i were a boy','halo','disappear','broken-hearted girl','ave maria','satellites','single ladied (put a ring on it)','radio','diva','sweet dreams','video phone',"why don't you love me",'smash into you',"That's why you're beautiful",'hello','ego','scared of lonely','poison','save the hero')
+
+four_songs <- c('1+1', 'i care','i miss you','best thing i never had','party','rather die young','start over','love on top','countdown','end of time','i was here','run the world (girls)','dreaming','lay up under me',"schoolin' life",'dance for you','grown woman')
+
+beyonce_songs <- c('pretty hurts','ghost','haunted','drunk in love','blow','no angel','yoncé','partition','jealous','rocket','mine','xo','flawless','superpower','heaven','blue','grown woman')
+
+lemonade_songs <- c('pray you catch me','hold up',"don't hurt yourself" , 'sorry','6 inch','daddy lessons','love drought','sandcastles','forward','freedom','all night','formation')
+
+bey_studio_album_songs <- c(lemonade_songs, beyonce_songs, dangerously_in_love_songs, i_am_sasha_fierce_songs, four_songs, bday_songs)
+
+```
+
+```{r Load, echo = FALSE, warning = FALSE, message = FALSE}
+
+
+beyonce_lyrics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/beyonce_lyrics.csv')
+
+#reformating the df to contain all lyrics per song on one line, same as the taylor_swift_lyrics df.
+beyonce_lyrics <- beyonce_lyrics %>%
+  group_by(song_id, song_name, artist_name) %>%
+  summarize(song_lyrics = toString(line)) %>%
+  
+#removing live songs as they are duplicative, removing remixes as the Taylor Swift df omits remixes, removing song_names containing 'version|mix|edit|dub|translation|demo' as this implies it is alternative to the original, removing songs ft. Mekhi as this was from an MTV hip hopera, and other keywords relating to non-studio-album songs.
+  
+  filter(!str_detect(song_name, regex('remix|mix|edit|dub|translation|live|version|mekhi|demo|rap|tour', ignore_case = T))) %>%  
+  filter(str_detect(song_name, regex(paste(bey_studio_album_songs, collapse = '|'), ignore_case = T))) %>% #just a few non-album stragglers
+  filter(!song_id %in% c(5784155, 5588404, 5234286, 3763706, 3109922, 2817363, 2715227, 2473119, 2419713, 516315, 2076890))
+
+#A labor of love to accuracy and analysis, I've never actively listened to any of these songs and likewise don't know what albums they're from. Thanks Wikipedia!
+beyonce_lyrics <- beyonce_lyrics %>%
+  mutate(album = 
+           
+if_else(
+  str_detect(song_name , regex(paste(dangerously_in_love_songs, collapse = '|') , ignore_case = T)) , 'Dangerously In Love' ,
+  if_else(str_detect(song_name , regex(paste(bday_songs, collapse = '|') , ignore_case = TRUE)) , "B'Day" , if_else(str_detect(song_name, regex(paste(i_am_sasha_fierce_songs, collapse = '|') , ignore_case = T)) , 'I Am... Sasha Fierce' , if_else(str_detect(song_name , regex(paste(four_songs , collapse = '|') , ignore_case = T)) , '4' , if_else(str_detect(song_name , regex(paste(beyonce_songs , collapse = '|') , ignore_case = T)) , 'Beyoncé' , if_else(str_detect(song_name , regex(paste(lemonade_songs , collapse = '|') , ignore_case = T)) , 'Lemonade' , 'Other')))))))
+  
+ 
+
+taylor_swift_lyrics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/taylor_swift_lyrics.csv')
+sales <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/sales.csv')
+charts <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/charts.csv')
+
+#updating chart position to numeric
+charts$chart_position <- as.numeric(charts$chart_position)
+
+#tidying and converting release date to actual mdy() format date
+charts$released <- mdy(str_remove(charts$released, '\\(..\\)\\[..\\]'))
+
+#adding separate column for release year for comparison of chart positions and sales
+charts$release_year <- year(charts$released)
+
+
+```
+
+# The Shape of the Data and Possible Explorations
+We're kicking off this analysis with 4 data frames given to us that give us context around the lyrics contained in both Beyonce and Taylor Swift's songs and their album performances in terms of sales and chart position. The Taylor Swift data re: lyrics was already provided with an album variable to determine what album the song and lyrics came from. The Beyonce lyrics data did not have specificity to this level. I originally did not want to update the Beyonce data frame to provide info at this level, but I later decided to add it in myself for the purpose of using it for further analysis into Beyonce's lyrics as a rough map to distinguish her emotional state and personal life given public knowledge into major personal events that are available given her life as a celebrity. 
+
+Furthermore, this gives us the potential to compare sentiment analysis between Beyonce and Taylor Swift at an album level to see if there are any distinguishing lingual characteristics of their lyrics that might explain their sales or chart positions in English speaking countries.
+
+Taking all songs into consideration, does Taylor Swift write 'happier' music than Beyonce, or is she angrier? 
+How do these perceptions affect their global performance in English speaking countries? Does Canada like songs about love more than the US? Do Beyonce albums consistently chart lower in New Zealand than the US because they find her lyrics around slavery and emancipation a twinge unrelatable? I've got no idea, I personally don't like either of these artists. Yet still, we've got data, and with that I can suggest something plausible that's got little merit besides that numbers I'm building upon. Sometimes that's all the merit needed, and sometimes domain knowledge is everything. Let's code!
+
+# Chart Positions by Album
+
+```{r echo = TRUE}
+
+charts %>%
+  filter(!is.na(chart_position)) %>%
+  arrange(artist) %>%
+  mutate(title = fct_inorder(title)) %>%
+  
+ggplot(aes(title, factor(chart_position),fill = artist)) + geom_col() +
+  facet_wrap(~chart, scales = 'free_y') + 
+  labs(title = 'Chart Positions of Beyonce & Taylor Swift Albums', subtitle = 'Lower is better') +
+  xlab('Album Title') + ylab('Chart Position #') + 
+  theme_minimal() + theme(axis.text.x = element_text(angle = -45, vjust= 0.2, hjust= 0.1, size = 6), axis.text.y = element_text(size = 6)) + 
+  scale_fill_manual(values=c("#999999", "#E69F00")) + scale_color_manual(values=c("#999999", "#E69F00"))
+```
+
+Taylor Swift has released more #1 albums (US) than Beyonce, but Beyonce has a better #1 rate. 6 of 6 Beyonce albums have made #1 in the US. Only 7 of 8 Taylor Swift albums have made #1.
+
+How many #1 placements have Beyonce and Taylor Swift had each globally?
+
+``` {r echo = TRUE}
+
+charts %>%
+  filter(chart_position == 1) %>%
+  select(artist) %>% table()
+
+```
+Taylor swift has had more #1 placements globally for all her albums than Beyonce.
+
+What countries are these that buy so much of Swift's albums that she gets that #1 spot? Are they different from the countries that propel Beyonce to #1?
+
+``` {r echo = TRUE}
+
+charts %>% 
+  filter(chart_position ==1, artist == 'Beyoncé') %>%
+  select(chart) %>% table()
+
+charts %>% 
+  filter(chart_position ==1, artist == 'Taylor Swift') %>%
+  select(chart) %>% table()
+
+```
+Taylor Swift has considerably more or equal #1 placements in almost all the countries that Beyonce has placements in, except for two where Taylor Swift hasn't made it to #1 at all: Germany and Japan. In contrast, Taylor Swift has had 7 of her albums make it to #1 in New Zealand, where Beyonce has only made it once. 
+
+However, this just observes how many #1 placements each artist has had and where. What's important to ask is if they ever competed directly with each other. Otherwise, if we're trying to compare the general musical agreeableness between Swift and Beyonce, it doesn't really matter if Taylor Swift got a string of #1 albums during years when Beyonce hadn't released anything.
+
+``` {r echo = TRUE}
+
+inner_join(
+charts %>%
+  filter(artist == 'Taylor Swift') %>%
+  select(release_year) %>% unique()
+,
+charts %>%
+  filter(artist == regex('Beyoncé')) %>%
+  select(release_year) %>% unique()
+, by = "release_year")
+
+
+```
+It seems very much to be the case that Taylor Swift and Beyonce albums have never had to compete judging based on their release years - except for two years. What albums were these that may have competed with each other for chart position and sales?
+
+``` {r echo = FALSE}
+
+charts %>%
+  filter(release_year %in% c(2006, 2008)) %>%
+  group_by(title) %>%
+  summarize(artist = min(artist), release_year = min(release_year)) %>%
+  arrange(release_year)
+
+charts %>%
+  mutate(title_year = paste(title, release_year)) %>%
+  filter(!is.na(chart_position), release_year %in% c(2008,2006)) %>%
+  arrange(artist) %>%
+  mutate(title = fct_inorder(title)) %>%
+  ggplot(aes(title, factor(chart_position), fill = artist)) + geom_col() + facet_grid(release_year~chart, scales = 'free') + theme_minimal() + theme(axis.text.x = element_text(angle = -45, vjust= 0.2, hjust= 0.1, size = 6), axis.text.y = element_text(size = 6)) + scale_fill_manual(values=c("#999999", "#E69F00")) + scale_color_manual(values=c("#999999", "#E69F00")) + labs(title = 'Album Charting Performance for Beyonce & Taylor Swift' , subtitle = 'In 2006 and 2008 (lower is better)') + xlab('Album Title') + ylab('Chart Position #')
+
+```
+
+
+Readability is a little messy, but what's important to note is that in 2006, Beyonce consistently outplaced Taylor Swift in all charts, if Taylor swift even placed on the charts at all. Then, come 2008, Taylor Swift outperformed or equaled in chart position with Beyonce in 5 of 9 countries. Ever since 2008, Beyonce and Taylor Swift have never released an album in the same year. Could that be an intentional choice on from either's management? I may not know much about either of their music, but I know enough about music and competition to know that release date is often a contentious matter. Just recall all the hullabaloo around Kanye West and 50 Cent's album releases for *Graduation* and *Curtis* respectively. The release dates were a week apart until Kanye West bumped his release date up to coincide with *Curtis*. Famously, Kanye West outperformed 50 Cent, but was this a risky move that cannibalized both of their sales? So then, couldn't it be possible Beyonce hasn't released an album in the same year as Taylor Swift after 2008 to keep her sales and chart positions high? Again, a plausible possibility worth questioning, but not for this write-up.
+
+# Is there a Lyrical Cause for their Chart Placement?
+
+We could certainly attribute Taylor Swift's consistent #1 placements to a matter of taste: maybe her pop sound is just more catholic than the R&B and rap sound Beyonce sports. But then I wouldn't get to do all this cool sentiment and emotion analysis of their lyrics! Let's wrongly assume there's no difference in their sound and the lyrical content is a perfectly valid, even the only, explanation for chart positions and album sales.
+
+# Word Frequency for Taylor Swift
+
+``` {r echo = FALSE}
+
+custom_ts_stop_words <- c('ooh','yeah','ah','uh','ha','hey','whoa','mmm','ey','em','eh','til','eeh','huh','la','mm','till','hoo','ahh','na','ya','aah','ohh','oooh','uuh','ayy','wanna','gonna')
+taylor_swift_lyrics_total <- unnest_tokens(taylor_swift_lyrics, output = word, input = Lyrics, token = 'words') %>% anti_join(stop_words, by = c('word' = 'word')) %>% count(word, sort = TRUE) %>% subset(!(word %in% custom_ts_stop_words))
+
+reactable(taylor_swift_lyrics_total, filterable = TRUE, minRows = 10)
+
+```
+
+Not at all shocked that 'love' and 'time' are the top two words. It also makes me laugh that 'bad' and 'girl' appear with the same frequency. Perhaps Swift has been a bit less than good.
+
+# Word Frequency for Beyonce
+
+``` {r echo = FALSE}
+#removing many words from Spanish versions and onomatopoeias with n > 2
+custom_bey_stop_words <- c('yo','gon','woo','de','tu','cuz','mi','el','da','lo','se','dem','di','wit','ay','dat','ne','en','con','nah','yea','ni','por','si','te','all','ed','los','ti','yep','ce','del','fi','je','más','ms','nos','soy','voy','vu','aw','es','hay','le','ing','kno','nuh','seh','una','ves','vez', 'bo','fo','deh','luz','mek','mí','muy','qué','su','tú','tus','uhh','weh','yah','yuh','así','au','aye','ça','das','ee','chu','cha','est','las','mas','mill','mio','mon','nas','naw','ow','pas','san','sus','tho','une','unk','va','ve','wuk','yup','zz','ɲi','για')
+
+
+beyonce_lyrics_total <- beyonce_lyrics %>% unnest_tokens(word, song_lyrics) %>% anti_join(stop_words, by = c('word' = 'word')) %>% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %>% group_by(word) %>% summarize(n = n()) %>% arrange(desc(n))
+
+reactable(beyonce_lyrics_total, filterable = TRUE)
+
+
+```
+For how boy-crazy I'd always assumed Taylor Swift was, it's pretty interesting that 'boy' is in Beyonce's top 10, but not Swift's. 
+
+# Top 10 Words Compared
+
+``` {r echo = FALSE}
+
+beyonce_top_10_plt <- head(beyonce_lyrics_total , n = 10) %>% arrange(n) %>% ggplot(aes(x = n, y = fct_inorder(word))) + geom_col(aes(fill = word)) + labs(title= "Beyonce's top 10 words" , subtitle = 'Common words excluded') + ylab('Word') + xlab('Times used') + scale_fill_brewer(palette = 'Paired') + theme(legend.position = 'none')
+
+taylor_swift_top_10_plt <- head(taylor_swift_lyrics_total , n = 10) %>% arrange(n) %>% ggplot(aes(x = n, y = fct_inorder(word))) + geom_col(aes(fill = word)) + labs(title= "Taylor Swift's top 10 words" , subtitle = 'Common words excluded') + ylab('Word') + xlab('Times used') + scale_fill_brewer(palette = 'Paired') + theme(legend.position = 'none')
+
+ggarrange(taylor_swift_top_10_plt, beyonce_top_10_plt, ncol = 2, widths = c(2,2))
+
+```
+
+
+Some overlap for sure, but enough uniqueness to make some characterizations of both artists. Swift mentions 'girl' as a top 10 word, but never boy. Could be that her lyrics are a bit more introspective or deal much with feminine identity. She also uses the word 'night' pretty frequently, slightly more than Beyonce. Is she a night owl? On the other hand, Beyonce says 'baby' a significant amount more than Swift. Is 'baby' more than just a romantic pet name to Beyonce? Taylor Swift doesn't have any children, whereas Beyonce has 3.
+
+# Positive/Negative Analysis of Beyonce
+
+``` {r echo = FALSE, warning = FALSE, message = FALSE}
+negvpos_bey <- beyonce_lyrics_total %>%
+  inner_join(get_sentiments('bing')) %>%
+    acast(word ~ sentiment, value.var = 'n', fill = 0) %>%
+  comparison.cloud(max.words = 100, scale = c(3.5, 0.5))
+
+negvpos_bey
+
+```
+
+As I understand it, these are Beyonce's strongest words ranked by positive/negative connotation. The size of the word represents how often it is used.
+
+# Positive/Negative Analysis of Taylor Swift
+
+``` {r echo = FALSE, warning = FALSE, message = FALSE}
+
+negvpos_swift <- taylor_swift_lyrics_total %>%
+  inner_join(get_sentiments('bing')) %>%
+    acast(word ~ sentiment, value.var = 'n', fill = 0) %>%
+  comparison.cloud(max.words = 100, scale = c(3.5, 0.50))
+
+negvpos_swift
+```
+
+Let's not put too much weight into either of these. Language is so subjective to really say this is representive of the distribution of positive/negative words for either artist. A neat visualization nonetheless.
+
+# Sentiment Analysis for Beyonce
+
+``` {r echo = TRUE}
+bey_lyrics_vector <- as.character(beyonce_lyrics_total)
+bey_lyrics_sentiment <- get_nrc_sentiment((bey_lyrics_vector))
+bey_sent_scores <- data.frame(colSums(bey_lyrics_sentiment[,]))
+names(bey_sent_scores) <- 'Score'
+bey_sent_scores <- cbind('sentiment' = rownames(bey_sent_scores), bey_sent_scores)
+
+ggplot(bey_sent_scores %>%  mutate(sentiment = fct_inorder(sentiment)), aes(sentiment, Score)) + geom_bar(aes(fill = fct_inorder(sentiment)), stat = 'identity', show.legend = FALSE) + labs(title = "Emotions in Beyonce's Entire Discography")
+```
+
+
+``` {r echo = TRUE}
+
+ts_lyrics_vector <- as.character(taylor_swift_lyrics_total)
+ts_lyrics_sentiment <- get_nrc_sentiment((ts_lyrics_vector))
+ts_sent_scores <- data.frame(colSums(ts_lyrics_sentiment[,]))
+names(ts_sent_scores) <- 'Score'
+ts_sent_scores <- cbind('sentiment' = rownames(ts_sent_scores), ts_sent_scores)
+
+ggplot(ts_sent_scores %>% mutate(sentiment = fct_inorder(sentiment)), aes(sentiment, Score)) + geom_bar(aes(fill = fct_inorder(sentiment)), stat = 'identity', show.legend = FALSE) + labs(title = "Emotions in Taylor Swift's Entire Discography")
+```
+
+Judging from this, it seems like Taylor Swift's music is sadder in general and brings about more perceptions of negativity.
+
+# Beyonce's Lyrics Chronologically
+It's time to put any mirage of my impartiality to rest. I may not listen to either of these artists actively, but if I had to pick one over the other I'd choose Beyonce. 1000%. I think I just enjoy Beyonce's collaborators, producers, and general creative circle much more than Taylor Swift's. Also, Beyonce as a musical star came to prominence much earlier in my life, when pop music was a lot more pervasive despite what my actual taste in music was. Taylor Swift came up when I had more autonomy in the choosing of my musical environment. So, that said, I will admit I know a bit more about Beyonce and her life. This is also because of a lot of the Wikipedia scouring I had to do to see what songs belonged to what albums to transform the beyonce_lyrics data frame.
+
+For example, I am aware that she has had three children in the years (checks Wikipedia) 2012 and 2017. Only her first child, Blue Ivy, born in 2012, was likely conceived during the time which she may have been writing music for her 2013 self-titled album. The quick wiki check also informed me she had a grievous miscarriagearound 2010 or 2011 which spurred a bout of song-writing as catharsis, the progeny of which is most likely included in her album 4. Lastly, it's relatively common knowledge that Jay-Z had an alleged affair and some of the content around her album Lemonade is written about that. Without outlining Beyonce's life any further, let's see if the word count of her albums chronologically can give us any insight into her life during those times. 
+
+``` {r echo= F}
+beyonce_lyrics$album <- factor(beyonce_lyrics$album, levels = c('Dangerously In Love', "B'Day" , 'I Am... Sasha Fierce','4', "Beyoncé" , 'Lemonade'))
+
+
+for (i in 1:length(sort(as.integer(unique(beyonce_lyrics$album))))){
+  print(head(beyonce_lyrics %>% filter(as.integer(album) == i) %>% unnest_tokens(word, song_lyrics) %>% anti_join(stop_words, by = c('word' = 'word')) %>% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %>% group_by(word) %>% summarize(n = n()) %>% arrange(desc(n)) , 10) %>% ggplot(aes(fct_inorder(word), n)) + geom_col(aes(fill = word)) + labs(title = paste('Top 10 Words in', sort(unique(beyonce_lyrics$album))[i])) + xlab('Word') + ylab('Times used') + scale_fill_brewer(palette = 'Paired') + theme(legend.position = 'none'))
+
+}
+
+```
+
+It's a hard thing to say whether or not the top words used can indicate events in Beyonce's personal life, but we can point out some interesting connections nonetheless, as long as we refrain from assuming any statistical significance. For example, Beyonce used the word 'love' in her debut album a bit more than 125 times. This is the most she's used it across any of her albums. This album also happens to mark right around when her relationship with Jay-Z was only inchoate and perhaps still in a phase of 'puppy-love.' It should be noted, she says 'love' 22 times in her single 'Crazy In Love,' which contributes to about 17% of the total times used. In the album 4, which was the subsequent album after her miscarriage, Beyonce's second most used word is 'baby.' Lemonade, which is the only album containing lyrics regarding Jay-Z's infidelity (that we know of) is the only album to feature 'hurt' as a top 10 word.
+
+``` {r echo = T}
+
+for (i in 1:length(sort(unique(as.integer(beyonce_lyrics$album))))){
+print(get_nrc_sentiment(as.character(beyonce_lyrics %>% filter(as.integer(album) == i) %>% unnest_tokens(word, song_lyrics) %>% anti_join(stop_words, by = c('word' = 'word')) %>% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %>% group_by(word) %>% summarize(n = n()) %>% arrange(desc(n)))) %>% pivot_longer(cols = c(anger, anticipation, disgust, fear, joy, sadness, surprise, trust, negative, positive) , names_to = 'emotion') %>% arrange(desc(value)) %>% ggplot(aes(fct_inorder(emotion), value)) + geom_col(aes(fill = emotion)) + theme(legend.position = 'none') + labs(title = paste('Sentiment Analysis of', sort(unique(beyonce_lyrics$album))[i])) + xlab('Sentiment'))
+}
+
+  
+
+```
+
+Overall, Beyonce's albums are more positive than negative. Except for Lemonade, that is. Trust also ranks high in all her albums (#1 aside from negative/positive), but suddenly drops as of Lemonade.
+
+# Reflections and Learnings
+I'm deciding to call this analysis to an end. Tidy Tuesday is a way for me to practice new R packages, learn new methodologies, brush up on viz techniques or gain experience in data-wrangling. At this point in the project, I feel like I am going in circles with my visualizations and am no longer interested to continue on exploring the data. 
+
+In retrospect, I feel satisfied nonetheless as I have had my first foray into NLP and sentiment analysis, I've ventured outside of ggplot for the first time with the use of wordcloud, I've created my first interactive table with reactable, and made some long for loops that I look back on in awe. It can hard to uncover meaningful learnings from data you lack domain knowledge in. Ever worse, it can be especially difficult to uncover meaningful learning from data you lack any real interest in. Nonetheless, I feel like I've learned from this Tidy Tuesday, if not a little about Beyonce and Taylor Swift, then at least a bit about NLP and sentiment analysis.
+
+For next time, I'd like to get more practice with other viz packages, particularly ggarrange or other 
