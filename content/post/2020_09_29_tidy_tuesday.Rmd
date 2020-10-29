@@ -3,7 +3,9 @@ title: "Beyoncé and Taylor Swift Lyrics"
 author: "Nick Young"
 date: "2020-09-29"
 tags: [Beyonce, Taylor Swift, ggplot, R, wordcloud, reactable, NLP, sentiment analysis]
-output: html_document
+output: 
+  html_document: 
+    theme: cosmo
 ---
 ![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](/img/beyonce_swift.jpg)
 
