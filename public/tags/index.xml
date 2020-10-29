@@ -83,6 +83,90 @@
 				
 			</description>
 		</item>
+		<item>
+			<title>Beyonce</title>
+			<link>/tags/beyonce/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/beyonce/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>ggplot</title>
+			<link>/tags/ggplot/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/ggplot/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>NLP</title>
+			<link>/tags/nlp/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/nlp/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>reactable</title>
+			<link>/tags/reactable/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/reactable/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>sentiment analysis</title>
+			<link>/tags/sentiment-analysis/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/sentiment-analysis/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Taylor Swift</title>
+			<link>/tags/taylor-swift/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/taylor-swift/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>wordcloud</title>
+			<link>/tags/wordcloud/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/tags/wordcloud/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
 		
 	</channel>
 </rss>
