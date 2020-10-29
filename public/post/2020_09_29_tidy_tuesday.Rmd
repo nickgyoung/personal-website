@@ -2,6 +2,7 @@
 title: "Beyoncé and Taylor Swift Lyrics"
 author: "Nick Young"
 date: "2020-09-29"
+tags: [Beyonce, Taylor Swift, ggplot, R, wordcloud, reactable, NLP, sentiment analysis]
 output: html_document
 ---
 ![Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone](/img/beyonce_swift.jpg)
@@ -223,8 +224,9 @@ Not at all shocked that 'love' and 'time' are the top two words. It also makes m
 #removing many words from Spanish versions and onomatopoeias with n > 2
 custom_bey_stop_words <- c('yo','gon','woo','de','tu','cuz','mi','el','da','lo','se','dem','di','wit','ay','dat','ne','en','con','nah','yea','ni','por','si','te','all','ed','los','ti','yep','ce','del','fi','je','más','ms','nos','soy','voy','vu','aw','es','hay','le','ing','kno','nuh','seh','una','ves','vez', 'bo','fo','deh','luz','mek','mí','muy','qué','su','tú','tus','uhh','weh','yah','yuh','así','au','aye','ça','das','ee','chu','cha','est','las','mas','mill','mio','mon','nas','naw','ow','pas','san','sus','tho','une','unk','va','ve','wuk','yup','zz','ɲi','για')
 
+beyonce_lyrics <- beyonce_lyrics %>% ungroup() %>% select(artist_name, album, song_name, song_lyrics)
 
-beyonce_lyrics_total <- beyonce_lyrics %>% unnest_tokens(word, song_lyrics) %>% anti_join(stop_words, by = c('word' = 'word')) %>% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %>% group_by(word) %>% summarize(n = n()) %>% arrange(desc(n))
+beyonce_lyrics_total <- unnest_tokens(beyonce_lyrics, output = word, input = song_lyrics, token = 'words') %>% anti_join(stop_words, by = c('word' = 'word')) %>% count(word, sort = TRUE) %>% subset(!(word %in% custom_ts_stop_words)) %>% subset(!(word %in% custom_bey_stop_words))
 
 reactable(beyonce_lyrics_total, filterable = TRUE)
 

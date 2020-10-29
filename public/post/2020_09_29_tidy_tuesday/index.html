@@ -30,12 +30,12 @@
 <body><header>
 	
 	<div id="avatar">
-		<a href="/">
+		<a href="">
 		  <img src="/img/linkedin_headshot.jpg" alt="Nick Young">
 		</a>
 	</div>
 	
-	<div id="titletext"><h2 id="title"><a href="/">Nick Young</a></h2></div>
+	<div id="titletext"><h2 id="title"><a href="">Nick Young</a></h2></div>
 	<div id="title-description"><p id="subtitle">Analysis and visualizations - for the interesting and inane.</p><div id="social">
 			<nav>
 				<ul><li><a href="https://github.com/nickgyoung"><i title="Github" class="icons fab fa-github"></i></a></li><li><a href="mailto:nick.g.young@gmail.com"><i title="Email" class="icons fas fa-envelope"></i></a></li></ul>
@@ -84,6 +84,8 @@
 	</div>
 	<div class="markdown">
 		
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 <script src="/rmarkdown-libs/core-js/shim.min.js"></script>
 <script src="/rmarkdown-libs/react/react.min.js"></script>
 <script src="/rmarkdown-libs/react/react-dom.min.js"></script>
@@ -93,7 +95,7 @@
 
 
 <div class="figure">
-<img src="/img/beyonce_swift.jpg" alt="Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone" />
+<img src="/img/beyonce_swift.jpg" alt="" />
 <p class="caption">Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone</p>
 </div>
 <div id="tidytuesday" class="section level1">
@@ -176,6 +178,7 @@ charts %&gt;%
 ## 1         2006
 ## 2         2008</code></pre>
 <p>It seems very much to be the case that Taylor Swift and Beyonce albums have never had to compete judging based on their release years - except for two years. What albums were these that may have competed with each other for chart position and sales?</p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 4 x 3
 ##   title                artist       release_year
 ##   &lt;chr&gt;                &lt;chr&gt;               &lt;dbl&gt;
@@ -223,6 +226,16 @@ For how boy-crazy I’d always assumed Taylor Swift was, it’s pretty interesti
 <h1>Sentiment Analysis for Beyonce</h1>
 <pre class="r"><code>bey_lyrics_vector &lt;- as.character(beyonce_lyrics_total)
 bey_lyrics_sentiment &lt;- get_nrc_sentiment((bey_lyrics_vector))</code></pre>
+<pre><code>## Warning: `filter_()` is deprecated as of dplyr 0.7.0.
+## Please use `filter()` instead.
+## See vignette(&#39;programming&#39;) for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## Warning: `group_by_()` is deprecated as of dplyr 0.7.0.
+## Please use `group_by()` instead.
+## See vignette(&#39;programming&#39;) for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <pre><code>## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
 ## Please use `tibble()` instead.
 ## This warning is displayed once every 8 hours.
@@ -247,12 +260,32 @@ ggplot(ts_sent_scores %&gt;% mutate(sentiment = fct_inorder(sentiment)), aes(sen
 <h1>Beyonce’s Lyrics Chronologically</h1>
 <p>It’s time to put any mirage of my impartiality to rest. I may not listen to either of these artists actively, but if I had to pick one over the other I’d choose Beyonce. 1000%. I think I just enjoy Beyonce’s collaborators, producers, and general creative circle much more than Taylor Swift’s. Also, Beyonce as a musical star came to prominence much earlier in my life, when pop music was a lot more pervasive despite what my actual taste in music was. Taylor Swift came up when I had more autonomy in the choosing of my musical environment. So, that said, I will admit I know a bit more about Beyonce and her life. This is also because of a lot of the Wikipedia scouring I had to do to see what songs belonged to what albums to transform the beyonce_lyrics data frame.</p>
 <p>For example, I am aware that she has had three children in the years (checks Wikipedia) 2012 and 2017. Only her first child, Blue Ivy, born in 2012, was likely conceived during the time which she may have been writing music for her 2013 self-titled album. The quick wiki check also informed me she had a grievous miscarriagearound 2010 or 2011 which spurred a bout of song-writing as catharsis, the progeny of which is most likely included in her album 4. Lastly, it’s relatively common knowledge that Jay-Z had an alleged affair and some of the content around her album Lemonade is written about that. Without outlining Beyonce’s life any further, let’s see if the word count of her albums chronologically can give us any insight into her life during those times.</p>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-1.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-2.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-3.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-4.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
+## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
 <p>It’s a hard thing to say whether or not the top words used can indicate events in Beyonce’s personal life, but we can point out some interesting connections nonetheless, as long as we refrain from assuming any statistical significance. For example, Beyonce used the word ‘love’ in her debut album a bit more than 125 times. This is the most she’s used it across any of her albums. This album also happens to mark right around when her relationship with Jay-Z was only inchoate and perhaps still in a phase of ‘puppy-love.’ It should be noted, she says ‘love’ 22 times in her single ‘Crazy In Love,’ which contributes to about 17% of the total times used. In the album 4, which was the subsequent album after her miscarriage, Beyonce’s second most used word is ‘baby.’ Lemonade, which is the only album containing lyrics regarding Jay-Z’s infidelity (that we know of) is the only album to feature ‘hurt’ as a top 10 word.</p>
 <pre class="r"><code>for (i in 1:length(sort(unique(as.integer(beyonce_lyrics$album))))){
 print(get_nrc_sentiment(as.character(beyonce_lyrics %&gt;% filter(as.integer(album) == i) %&gt;% unnest_tokens(word, song_lyrics) %&gt;% anti_join(stop_words, by = c(&#39;word&#39; = &#39;word&#39;)) %&gt;% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %&gt;% group_by(word) %&gt;% summarize(n = n()) %&gt;% arrange(desc(n)))) %&gt;% pivot_longer(cols = c(anger, anticipation, disgust, fear, joy, sadness, surprise, trust, negative, positive) , names_to = &#39;emotion&#39;) %&gt;% arrange(desc(value)) %&gt;% ggplot(aes(fct_inorder(emotion), value)) + geom_col(aes(fill = emotion)) + theme(legend.position = &#39;none&#39;) + labs(title = paste(&#39;Sentiment Analysis of&#39;, sort(unique(beyonce_lyrics$album))[i])) + xlab(&#39;Sentiment&#39;))
 }</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-1.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-2.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-3.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-4.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-6.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
+## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-4.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-6.png" width="672" /></p>
 <p>Overall, Beyonce’s albums are more positive than negative. Except for Lemonade, that is. Trust also ranks high in all her albums (#1 aside from negative/positive), but suddenly drops as of Lemonade.</p>
 </div>
 <div id="reflections-and-learnings" class="section level1">
