@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Interactive Charts on Nick Young</title>
+		<link>/tags/interactive-charts/</link>
+		<description>Recent content in Interactive Charts on </description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
+		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
+		
+		<atom:link href="/tags/interactive-charts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>US Government Spending On Kids</title>
+			<link>/post/2020_10_13_tidy_tuesday/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/post/2020_10_13_tidy_tuesday/</guid>
+			<description>
+				
+				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>
