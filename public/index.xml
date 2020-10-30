@@ -7,9 +7,35 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
+		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>US Government Spending On Kids</title>
+			<link>/post/2020_10_13_tidy_tuesday/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/post/2020_10_13_tidy_tuesday/</guid>
+			<description>
+				
+				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
+				
+			</description>
+		</item>
+		<item>
+			<title>Beyoncé and Taylor Swift Lyrics</title>
+			<link>/post/2020_09_29_tidy_tuesday/</link>
+			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+			
+			<guid>/post/2020_09_29_tidy_tuesday/</guid>
+			<description>
+				
+				Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone
+TidyTuesdayJoin the R...
+				
+			</description>
+		</item>
 		<item>
 			<title>About</title>
 			<link>/about/</link>
