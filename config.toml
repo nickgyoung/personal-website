@@ -1,4 +1,4 @@
-#baseURL = "http://nyoung.rbind.io"
+#baseURL = "https://vigorous-chandrasekhar-51207d.netlify.app/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 author = "Hugo Authors"
