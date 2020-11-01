@@ -8,14 +8,14 @@ output:
     theme: cosmo
 ---
 
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
-<script src="/rmarkdown-libs/core-js/shim.min.js"></script>
-<script src="/rmarkdown-libs/react/react.min.js"></script>
-<script src="/rmarkdown-libs/react/react-dom.min.js"></script>
-<script src="/rmarkdown-libs/reactwidget/react-tools.js"></script>
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/reactable-binding/reactable.js"></script>
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+<script src="index_files/core-js/shim.min.js"></script>
+<script src="index_files/react/react.min.js"></script>
+<script src="index_files/react/react-dom.min.js"></script>
+<script src="index_files/reactwidget/react-tools.js"></script>
+<script src="index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="index_files/reactable-binding/reactable.js"></script>
 
 
 <div class="figure">
@@ -62,7 +62,7 @@ ggplot(aes(title, factor(chart_position),fill = artist)) + geom_col() +
   xlab(&#39;Album Title&#39;) + ylab(&#39;Chart Position #&#39;) + 
   theme_minimal() + theme(axis.text.x = element_text(angle = -45, vjust= 0.2, hjust= 0.1, size = 6), axis.text.y = element_text(size = 6)) + 
   scale_fill_manual(values=c(&quot;#999999&quot;, &quot;#E69F00&quot;)) + scale_color_manual(values=c(&quot;#999999&quot;, &quot;#E69F00&quot;))</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Taylor Swift has released more #1 albums (US) than Beyonce, but Beyonce has a better #1 rate. 6 of 6 Beyonce albums have made #1 in the US. Only 7 of 8 Taylor Swift albums have made #1.</p>
 <p>How many #1 placements have Beyonce and Taylor Swift had each globally?</p>
 <pre class="r"><code>charts %&gt;%
@@ -110,7 +110,7 @@ charts %&gt;%
 ## 2 Taylor Swift         Taylor Swift         2006
 ## 3 Fearless             Taylor Swift         2008
 ## 4 I Am... Sasha Fierce Beyoncé              2008</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Readability is a little messy, but what’s important to note is that in 2006, Beyonce consistently outplaced Taylor Swift in all charts, if Taylor swift even placed on the charts at all. Then, come 2008, Taylor Swift outperformed or equaled in chart position with Beyonce in 5 of 9 countries. Ever since 2008, Beyonce and Taylor Swift have never released an album in the same year. Could that be an intentional choice on from either’s management? I may not know much about either of their music, but I know enough about music and competition to know that release date is often a contentious matter. Just recall all the hullabaloo around Kanye West and 50 Cent’s album releases for <em>Graduation</em> and <em>Curtis</em> respectively. The release dates were a week apart until Kanye West bumped his release date up to coincide with <em>Curtis</em>. Famously, Kanye West outperformed 50 Cent, but was this a risky move that cannibalized both of their sales? So then, couldn’t it be possible Beyonce hasn’t released an album in the same year as Taylor Swift after 2008 to keep her sales and chart positions high? Again, a plausible possibility worth questioning, but not for this write-up.</p>
 </div>
 <div id="is-there-a-lyrical-cause-for-their-chart-placement" class="section level1">
@@ -131,18 +131,18 @@ For how boy-crazy I’d always assumed Taylor Swift was, it’s pretty interesti
 </div>
 <div id="top-10-words-compared" class="section level1">
 <h1>Top 10 Words Compared</h1>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Some overlap for sure, but enough uniqueness to make some characterizations of both artists. Swift mentions ‘girl’ as a top 10 word, but never boy. Could be that her lyrics are a bit more introspective or deal much with feminine identity. She also uses the word ‘night’ pretty frequently, slightly more than Beyonce. Is she a night owl? On the other hand, Beyonce says ‘baby’ a significant amount more than Swift. Is ‘baby’ more than just a romantic pet name to Beyonce? Taylor Swift doesn’t have any children, whereas Beyonce has 3.</p>
 </div>
 <div id="positivenegative-analysis-of-beyonce" class="section level1">
 <h1>Positive/Negative Analysis of Beyonce</h1>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre><code>## NULL</code></pre>
 <p>As I understand it, these are Beyonce’s strongest words ranked by positive/negative connotation. The size of the word represents how often it is used.</p>
 </div>
 <div id="positivenegative-analysis-of-taylor-swift" class="section level1">
 <h1>Positive/Negative Analysis of Taylor Swift</h1>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre><code>## NULL</code></pre>
 <p>Let’s not put too much weight into either of these. Language is so subjective to really say this is representive of the distribution of positive/negative words for either artist. A neat visualization nonetheless.</p>
 </div>
@@ -169,7 +169,7 @@ names(bey_sent_scores) &lt;- &#39;Score&#39;
 bey_sent_scores &lt;- cbind(&#39;sentiment&#39; = rownames(bey_sent_scores), bey_sent_scores)
 
 ggplot(bey_sent_scores %&gt;%  mutate(sentiment = fct_inorder(sentiment)), aes(sentiment, Score)) + geom_bar(aes(fill = fct_inorder(sentiment)), stat = &#39;identity&#39;, show.legend = FALSE) + labs(title = &quot;Emotions in Beyonce&#39;s Entire Discography&quot;)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>ts_lyrics_vector &lt;- as.character(taylor_swift_lyrics_total)
 ts_lyrics_sentiment &lt;- get_nrc_sentiment((ts_lyrics_vector))
 ts_sent_scores &lt;- data.frame(colSums(ts_lyrics_sentiment[,]))
@@ -177,7 +177,7 @@ names(ts_sent_scores) &lt;- &#39;Score&#39;
 ts_sent_scores &lt;- cbind(&#39;sentiment&#39; = rownames(ts_sent_scores), ts_sent_scores)
 
 ggplot(ts_sent_scores %&gt;% mutate(sentiment = fct_inorder(sentiment)), aes(sentiment, Score)) + geom_bar(aes(fill = fct_inorder(sentiment)), stat = &#39;identity&#39;, show.legend = FALSE) + labs(title = &quot;Emotions in Taylor Swift&#39;s Entire Discography&quot;)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Judging from this, it seems like Taylor Swift’s music is sadder in general and brings about more perceptions of negativity.</p>
 </div>
 <div id="beyonces-lyrics-chronologically" class="section level1">
@@ -186,30 +186,30 @@ ggplot(ts_sent_scores %&gt;% mutate(sentiment = fct_inorder(sentiment)), aes(sen
 <p>For example, I am aware that she has had three children in the years (checks Wikipedia) 2012 and 2017. Only her first child, Blue Ivy, born in 2012, was likely conceived during the time which she may have been writing music for her 2013 self-titled album. The quick wiki check also informed me she had a grievous miscarriagearound 2010 or 2011 which spurred a bout of song-writing as catharsis, the progeny of which is most likely included in her album 4. Lastly, it’s relatively common knowledge that Jay-Z had an alleged affair and some of the content around her album Lemonade is written about that. Without outlining Beyonce’s life any further, let’s see if the word count of her albums chronologically can give us any insight into her life during those times.</p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
 ## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-5.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
 <p>It’s a hard thing to say whether or not the top words used can indicate events in Beyonce’s personal life, but we can point out some interesting connections nonetheless, as long as we refrain from assuming any statistical significance. For example, Beyonce used the word ‘love’ in her debut album a bit more than 125 times. This is the most she’s used it across any of her albums. This album also happens to mark right around when her relationship with Jay-Z was only inchoate and perhaps still in a phase of ‘puppy-love.’ It should be noted, she says ‘love’ 22 times in her single ‘Crazy In Love,’ which contributes to about 17% of the total times used. In the album 4, which was the subsequent album after her miscarriage, Beyonce’s second most used word is ‘baby.’ Lemonade, which is the only album containing lyrics regarding Jay-Z’s infidelity (that we know of) is the only album to feature ‘hurt’ as a top 10 word.</p>
 <pre class="r"><code>for (i in 1:length(sort(unique(as.integer(beyonce_lyrics$album))))){
 print(get_nrc_sentiment(as.character(beyonce_lyrics %&gt;% filter(as.integer(album) == i) %&gt;% unnest_tokens(word, song_lyrics) %&gt;% anti_join(stop_words, by = c(&#39;word&#39; = &#39;word&#39;)) %&gt;% filter(!word %in% custom_ts_stop_words, !word %in% custom_bey_stop_words) %&gt;% group_by(word) %&gt;% summarize(n = n()) %&gt;% arrange(desc(n)))) %&gt;% pivot_longer(cols = c(anger, anticipation, disgust, fear, joy, sadness, surprise, trust, negative, positive) , names_to = &#39;emotion&#39;) %&gt;% arrange(desc(value)) %&gt;% ggplot(aes(fct_inorder(emotion), value)) + geom_col(aes(fill = emotion)) + theme(legend.position = &#39;none&#39;) + labs(title = paste(&#39;Sentiment Analysis of&#39;, sort(unique(beyonce_lyrics$album))[i])) + xlab(&#39;Sentiment&#39;))
 }</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
 ## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-4.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-4.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-5.png" width="672" /><img src="/post/2020_09_29_tidy_tuesday_files/figure-html/unnamed-chunk-15-6.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-5.png" width="672" /><img src="index_files/figure-html/unnamed-chunk-15-6.png" width="672" /></p>
 <p>Overall, Beyonce’s albums are more positive than negative. Except for Lemonade, that is. Trust also ranks high in all her albums (#1 aside from negative/positive), but suddenly drops as of Lemonade.</p>
 </div>
 <div id="reflections-and-learnings" class="section level1">
