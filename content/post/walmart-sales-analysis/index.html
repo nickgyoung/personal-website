@@ -1,0 +1,513 @@
+---
+title: "Walmart Sales Analysis"
+author: "Nick Young"
+date: '2020-11-18'
+tags: [R, Walmart, Sales Forecasting, Linear Regression, Multivariate Regression, ggplot]
+output: 
+  html_document: 
+    theme: cosmo
+---
+
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="purpose" class="section level2">
+<h2>Purpose:</h2>
+<p>This post is made to address a <a href="https://www.kaggle.com/vik2012kvs/walmart-dataretail-analysis/tasks?taskId=2434">task</a> from a data set posted to Kaggle. I will comply with task requests to exhibit how I would go about real-world analysis in regards to weekly-sales over a number of years to drive insights and then develop a model to forecast sales.
+For this particular post, more important to me than the chance to practice visualization is how well I fare in forecasting through multiple linear regression. I will only include code chunks beginning with my regression analysis, but full code for this markdown file and my drafting script will be available on Github.</p>
+<style type="text/css">
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-y: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+  max-height: 30vh !important;
+}
+</style>
+<p><a title="see Image talk:Walmart exterior.jpg
+
+Walmart Exterior
+
+This file was made by User:Sven from Wikipedia under Creative Commons Attribution-Share Alike 3.0 licensing
+
+ &lt;http://creativecommons.org/licenses/by-sa/3.0/&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Walmart_exterior.jpg"><img width="512" alt="Walmart exterior" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Walmart_exterior.jpg/512px-Walmart_exterior.jpg"></a></p>
+</div>
+<div id="the-shape-of-the-data" class="section level2">
+<h2>The Shape of the Data</h2>
+<pre><code>## [1] &quot;A summary of our data&quot;</code></pre>
+<pre><code>##      store         date             weekly_sales      holiday_flag      temperature       fuel_price         cpi         unemployment   
+##  Min.   : 1   Min.   :2010-02-05   Min.   : 209986   Min.   :0.00000   Min.   : -2.06   Min.   :2.472   Min.   :126.1   Min.   : 3.879  
+##  1st Qu.:12   1st Qu.:2010-10-08   1st Qu.: 553350   1st Qu.:0.00000   1st Qu.: 47.46   1st Qu.:2.933   1st Qu.:131.7   1st Qu.: 6.891  
+##  Median :23   Median :2011-06-17   Median : 960746   Median :0.00000   Median : 62.67   Median :3.445   Median :182.6   Median : 7.874  
+##  Mean   :23   Mean   :2011-06-17   Mean   :1046965   Mean   :0.06993   Mean   : 60.66   Mean   :3.359   Mean   :171.6   Mean   : 7.999  
+##  3rd Qu.:34   3rd Qu.:2012-02-24   3rd Qu.:1420159   3rd Qu.:0.00000   3rd Qu.: 74.94   3rd Qu.:3.735   3rd Qu.:212.7   3rd Qu.: 8.622  
+##  Max.   :45   Max.   :2012-10-26   Max.   :3818686   Max.   :1.00000   Max.   :100.14   Max.   :4.468   Max.   :227.2   Max.   :14.313</code></pre>
+<pre><code>## [1] &quot;The first 6 rows&quot;</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   store date       weekly_sales holiday_flag temperature fuel_price   cpi unemployment
+##   &lt;dbl&gt; &lt;date&gt;            &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
+## 1     1 2010-02-05     1643691.            0        42.3       2.57  211.         8.11
+## 2     1 2010-02-12     1641957.            1        38.5       2.55  211.         8.11
+## 3     1 2010-02-19     1611968.            0        39.9       2.51  211.         8.11
+## 4     1 2010-02-26     1409728.            0        46.6       2.56  211.         8.11
+## 5     1 2010-03-05     1554807.            0        46.5       2.62  211.         8.11
+## 6     1 2010-03-12     1439542.            0        57.8       2.67  211.         8.11</code></pre>
+<p>This data set is a time series of 45 unique Walmart stores, their reported weekly sales from 2010-02-05 to 2012-10-26, and measurements of their CPI (consumer price index - a measurement of inflation), unemployment rate, local fuel price, temperature, and whether or not that sales week marked a holiday sales event.</p>
+</div>
+<div id="which-store-has-maximum-sales" class="section level2">
+<h2>Which store has maximum sales?</h2>
+<p>Store 14 had the highest reported sales on the week ending 2010-12-24. For that week, they sold a total of $3,818,686 USD.</p>
+<div id="in-total" class="section level3">
+<h3>In Total?</h3>
+<p>For the whole time period, Store 20 had the highest amount of sales with an aggregate total of $301,397,792.</p>
+</div>
+<div id="on-average" class="section level3">
+<h3>On Average?</h3>
+<p>Store 20 had the highest average weekly sales figure of $2,107,676</p>
+</div>
+</div>
+<div id="which-store-had-max-standard-deviation-std-dev" class="section level2">
+<h2>Which store had max standard deviation (std dev)?</h2>
+<p>Store 14 had the largest std dev of $317,569. It should be noted that the weekly sales of this store do not follow a normal distribution, so we should not draw conclusions about the spread of the sales in regards to the std dev.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div id="how-does-std-dev-compare-to-the-mean-coefficient-of-variation" class="section level3">
+<h3>How does std dev compare to the mean? (coefficient of variation)</h3>
+<pre><code>## [1] &quot;A table arranged by stores with highest coefficient of variation, truncated at store 14&quot;</code></pre>
+<pre><code>## # A tibble: 13 x 4
+##    store    sdev      avg coef_var
+##    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1    35 211243.  919725.     23.0
+##  2     7 112585.  570617.     19.7
+##  3    15 120539.  623312.     19.3
+##  4    29  99120.  539451.     18.4
+##  5    23 249788. 1389864.     18.0
+##  6    21 128753.  756069.     17.0
+##  7    45 130169.  785981.     16.6
+##  8    16  85770.  519248.     16.5
+##  9    18 176642. 1084718.     16.3
+## 10    36  60725.  373512.     16.3
+## 11    25 112977.  706722.     16.0
+## 12    10 302262. 1899425.     15.9
+## 13    14 317570. 2020978.     15.7</code></pre>
+<p>Despite store 14 having the largest std dev, in regards to its own mean weekly sales, the standard deviation is not all that big. That is to say, store 14 makes an average weekly sales rate of $2,020,978. Compare to that number, a std dev of $317,569 is not all that large. On the other hand, the store with largest relative std dev (coefficient of variation) is store 35 that makes a average weekly sales of $919,725 and has a std dev of $211,243. Coefficient of variation, or the relative standard deviation is expressed as the ratio between std dev and the mean.</p>
+</div>
+</div>
+<div id="which-stores-had-good-quarterly-growth-rate-in-q3-2012" class="section level2">
+<h2>Which Store/s Had Good Quarterly Growth Rate in Q3’ 2012</h2>
+<p>Addressing this task appropriately requires an understanding of Walmart’s fiscal calendar. Being that I don’t work there or have any connections in the know, I consulted Google. <a href="https://www.8thandwalton.com/blog/walmart-fiscal-year-calendar/">These</a> are the results I took a cue from and proceeded with my analysis based on. The fiscal year begins in February.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Store 39 had the highest growth percent in Q3 2012 from the previous quarter. They grew sales by ~2.7%.
+Only the 7 stores shown in the plot had a positive growth rate.
+How many stores had a positive growth rate compared to last year Q3?</p>
+</div>
+<div id="and-yearly-growth-rate-of-q3-2012" class="section level2">
+<h2>And Yearly Growth Rate of Q3 2012?</h2>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre><code>## [1] &quot;A total of 32 stores had positive Q3 growth rate from 2011 to 2012&quot;</code></pre>
+<p>A lot more stores had positive growth from Q3 2011 to 2012 than stores that had positive growth from Q2 to Q3 in 2012.</p>
+</div>
+<div id="holidays-and-their-impact-on-sales" class="section level2">
+<h2>Holidays and their Impact on Sales</h2>
+<p>The kaggle task post suggests that some holiday events have a negative impact on sales, whereas some others have a positive impact on sales. I find issue with that suggestion or how it is worded: sales events are usually used in reaction to current sales. They’re used to sell through inventory, to invigorate sales growth in an otherwise dull period, to attract customers into the store on well-established holidays. I do believe it’s possible for a holiday to have a positive impact on sales (see Black Friday), but I find it strange to suggest a holiday sales event could incur worse sales than if it were not a holiday sales event. It would have to be one universally tasteless and insensitive holiday sales event to turn people away from shopping.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>This scatter plot allows us to see the average sales for the whole company (meaning our sample of 45 stores) for all weeks in our dataset. Weeks containing a Holiday sales event are filled with color. Immediately we might notice that ‘Thanksgiving’ is quite high when compared to its neighbor sales weeks and ‘Christmas’ is rather low. It should be noted these holiday events don’t actually fall on the holiday they are named for. ‘Thanksgiving’ falls on Black Friday and ‘Christmas’ is always the last Friday in December. Now it makes sense as to how these holiday sales are impacted by when they occur: Black Friday is a long-running and possibly the largest shopping holiday in America. This is probably the only holiday I would argue has a direct impact on sales. The ‘Christmas’ holiday event sees such a low performance in sales as this is likely due to many markdowns meant to clear inventory of gifts and decorations that were not picked up at full price just a week earlier. That is, it’s not because it is a Christmas holiday sales event that causes it to see such poor performance, it is because it happens a few days after Christmas when shopping is no longer a priority.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>This bar chart allows us to visualize the average weekly sale per season against the average weekly sales for a holiday within that season. Black Friday has much higher sales than the average for the season. ‘Christmas’ performs much worse, Labor Day and Superbowl perform slightly better than the average.</p>
+</div>
+<div id="sales-by-month" class="section level2">
+<h2>Sales by Month</h2>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>The problem with this chart is that we don’t have a full three years of dates represented in our data set. As mentioned previously, weekly sales recording begins with 2010-02-05 and ends in 2012-10-26. There is only one year we have a full range of months available to observe. If any years had markedly different sales overall, then an average of two observations compared to three would not be reliable to compare.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>This chart gives us a better understanding of each month compared by total sales, but can be difficult given how many colors there are to discern. Nonetheless, we can see that December is consistently the highest selling month and January is the lowest selling month, just as our previous plot had shown.</p>
+<pre><code>## [1] &quot;Not everything needs a plot. Here is a table of total sales instead.&quot;</code></pre>
+<pre><code>## # A tibble: 12 x 4
+##    month         `2010`     `2011`     `2012`
+##    &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1 April     231412368. 226526511. 188920906.
+##  2 August    187640111. 188599332. 236850766.
+##  3 December  288760533. 288078102.        NA 
+##  4 February  190332983. 186331328. 192063580.
+##  5 July      232580126. 229911399. 187509452.
+##  6 June      192246172. 189773385. 240610329.
+##  7 March     181919802. 179356448. 231509650.
+##  8 May       186710934. 181648158. 188766479.
+##  9 November  202853370. 210162355.        NA 
+## 10 October   217161824. 183261283. 184361680.
+## 11 September 177267896. 220847738. 180645544.
+## 12 January          NA  163703967. 168894472.</code></pre>
+<p>Sometimes a chart is necessary, sometimes there’s too much information to visualize. This should be sufficient to understand the yearly growth of sales in a given month per year and when a month in a given year is missing.</p>
+</div>
+<div id="sales-by-semester" class="section level2">
+<h2>Sales by Semester</h2>
+<p>I’m not sure if semester has any different type of meaning in business, but how I understand it is by an academic semester. The first semester beginning in the Fall and ending in the Winter. The second Semester comprising the other seasons.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>A semester view isn’t too meaningful in this case, being that we are missing months of data here and there. Nevertheless, we can see that sales have bounced up since the 2010-2011 academic year.</p>
+</div>
+<div id="statistical-forecasting-and-linear-regression" class="section level2">
+<h2>Statistical Forecasting and Linear Regression</h2>
+<p>A linear regression is a statistical model meant to simulate the relationship between a dependent variable (Y) and independent variable/s (x). When there is only one independent variable, this is known as simple linear regression, when there are multiple independent variables, this is known as multiple linear regression.</p>
+<p>Today, the kaggle prompt requests that we make a multiple linear regression to forecast weekly sales. Now knowing that sales is our Y variable, we can construct a formula to give shape to our model. We will only design a linear regression model for one location (store 1) as forecasting with the x variables we will use should only be done at the individual location level.</p>
+<div id="the-first-model" class="section level3">
+<h3>The first model</h3>
+<pre class="r"><code>#a separate df for observations at store 1
+store1_all_dates &lt;- walmart_sales %&gt;% 
+  mutate(value = 1) %&gt;%
+  
+  #this line one-hot encodes the holiday variable 
+  spread(holiday, value, fill = 0) %&gt;% 
+  filter(store ==1) %&gt;%
+  select(date, weekly_sales, temperature,
+         fuel_price, cpi, unemployment, 
+         christmas, `labour day` , superbowl, thanksgiving) %&gt;%
+  
+  #this changes the date into a numeric integer based on day of the year
+  mutate(day_of_year = yday(date)) %&gt;% 
+  arrange(date)
+
+fmla &lt;- as.formula(&#39;log(weekly_sales) ~ temperature + cpi + 
+                   fuel_price +  unemployment + 
+                   christmas + `labour day` + superbowl + 
+                   thanksgiving + day_of_year + I(temperature^2) +
+                   I(cpi^2) + I(fuel_price^2) + I(unemployment^2)&#39;)
+
+full_dates_model &lt;- lm(fmla, store1_all_dates)
+
+summary(full_dates_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = fmla, data = store1_all_dates)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.16142 -0.04571 -0.00123  0.03805  0.36633 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       97.64760866 56.54849002   1.727 0.086598 .  
+## temperature       -0.00989945  0.00531067  -1.864 0.064585 .  
+## cpi               -0.85912555  0.54038461  -1.590 0.114319    
+## fuel_price        -0.04774192  0.38635691  -0.124 0.901848    
+## unemployment       2.35659961  0.84803887   2.779 0.006270 ** 
+## christmas         -0.19448142  0.06126889  -3.174 0.001879 ** 
+## `labour day`       0.01682828  0.04646154   0.362 0.717797    
+## superbowl          0.06967459  0.05143332   1.355 0.177894    
+## thanksgiving       0.21835273  0.05797075   3.767 0.000251 ***
+## day_of_year        0.00033153  0.00008709   3.807 0.000217 ***
+## I(temperature^2)   0.00005839  0.00003924   1.488 0.139210    
+## I(cpi^2)           0.00200254  0.00125030   1.602 0.111678    
+## I(fuel_price^2)    0.01611603  0.05803260   0.278 0.781682    
+## I(unemployment^2) -0.15350291  0.05600452  -2.741 0.006997 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.07844 on 129 degrees of freedom
+## Multiple R-squared:  0.349,  Adjusted R-squared:  0.2834 
+## F-statistic: 5.319 on 13 and 129 DF,  p-value: 0.0000001392</code></pre>
+<p>This model attempts to describe linear relationships between our X variables,</p>
+<ul>
+<li>recorded <strong>temperature</strong> at store 1 corresponding to the date recorded</li>
+<li><strong>CPI</strong> (consumer price index), which is a measurement of inflation, for store 1 corresponding to the date recorded</li>
+<li>the prevailing <strong>fuel price</strong> of the region around store 1 for the recorded date</li>
+<li>the prevailing <strong>unemployment rate</strong> for the area around store 1 on the recorded date</li>
+<li>Whether or not it was any of our four <strong>Holiday</strong> events (marked by a 1 for yes and 0 for no)</li>
+<li>the <strong>day of the year</strong> given that January 1st will be recorded as 1 and the last day in December will be recorded as 365 or 364</li>
+</ul>
+<p>and our Y variable of weekly sales (put into log form - which can be read as a percent change).</p>
+<pre><code>## [1] &quot;Model Coefficient Estimates&quot;</code></pre>
+<pre><code>##       (Intercept)       temperature               cpi        fuel_price      unemployment         christmas      `labour day`         superbowl      thanksgiving       day_of_year  I(temperature^2) 
+##    97.64760866188    -0.00989945213    -0.85912554510    -0.04774192215     2.35659960882    -0.19448141639     0.01682828089     0.06967459434     0.21835272692     0.00033152991     0.00005838647 
+##          I(cpi^2)   I(fuel_price^2) I(unemployment^2) 
+##     0.00200254220     0.01611603351    -0.15350290575</code></pre>
+<p>So we can interpret the coefficient estimates of our model as a percent change in weekly sales given one unit of increase for that given variable (controlled for all other variables). Meaning, on two days that are exactly the same in all the ways our independent variables can describe (except for ‘Christmas’), one of those days would be estimated to have 19.4% less sales than the other day if it happened to be a ‘Christmas’ sales event. Recall from our earlier graph that the ‘Christmas’ holiday sales event average weekly sales was substantially lower than the average for the season. Likewise, the model estimates a 4.7% decrease in sales given a dollar increase in fuel price, and 21.8% increase in sales if its ‘Thanksgiving’ AKA Black Friday.</p>
+<p>One thing to be aware of is that not all of these estimates are statistically significant. Our model also provides the P-value for every coefficient estimate it has, which is the probability that this relationship it is describing numerically is happening due to random chance rather than an actual statistically evident relationship. When a p-value is less than 5%, we can claim that estimate as ‘statistically significant.’ Our model reports that the following variable coefficient estimates are statistically significant:</p>
+<ul>
+<li>Unemployment</li>
+<li>Unemployment squared</li>
+<li>Christmas</li>
+<li>Thanksgiving</li>
+<li>The day of the year</li>
+</ul>
+<p>Also, there is our R-squared value, and adjusted R-squared. R-Squared is a statistic used to describe just how much of the variance in our observed Y value is explained by our variables. Meaning, this model only accounts for 34.9% of the variance we see in weekly sales. The balance is unexplained by our model. Adjusted R-squared is the R-squared variable penalized for however many variable we have.</p>
+<p>Here is a poor – but hopefully still useful – analogy to explain adjusted R-squared. If I were a psychic and told you to pick a number between 1 and 10, I could possibly guess your number on the first try, or the next, or the next and so on. I could go through all those numbers until I ‘guess’ your number, but my psychic abilities would be less and less impressive the more I guess. That is what the adjusted R-squared does: it penalizes our model for however many variables we have fitted. This is because of a concept called overfitting. Like being a psychic, we can pack our model full of independent variables (guess as many times as we like) and that would improve the model’s ability to make estimates by some amount (any new information is just info for the model to work with). Just like being a psychic, adding in a ton of variables to hopefully improve the R-squared is not a meaningful tactic, and so our adjusted R-square gives us a new form of R-squared penalized by how many variables we have.</p>
+</div>
+</div>
+<div id="model-diagnostics" class="section level2">
+<h2>Model diagnostics</h2>
+<p>There are many ways to diagnose how well a model ‘performs.’ Oftentimes, people will turn to the R-squared value, they may also look at their residuals versus fitted values, assessing the distribution of the residuals, etc. However, one of the more useful diagnostics of modeling, and perhaps the best, as far as our use case goes, is testing it by making predictions. Typically, when statisticians devise a model, they will use it on data the model has not seen to make predictions. Then they can visibly observe what the model will predict given new information versus what the actual observed value is. Unfortunately, in this instance we have used all of our weekly sales observations (for store 1) to make our previous model. I’d like to believe that our model as it is now would perform the best of alternatives known to me, but I’ll have no way of testing this without making predictions. For my next model, I will split the last data set we made into two testing and training data sets so that we can build a model and then test how it performs on data it has never seen before.</p>
+</div>
+<div id="the-second-model" class="section level2">
+<h2>The second model</h2>
+<pre class="r"><code>#training data
+ store1_train &lt;- walmart_sales %&gt;% 
+  mutate(value = 1) %&gt;%
+  #this line one-hot encodes the holiday variable 
+  spread(holiday, value, fill = 0) %&gt;% 
+  filter(store ==1) %&gt;%
+  select(date, weekly_sales, temperature,
+         fuel_price, cpi, unemployment, 
+         christmas, `labour day` , superbowl, thanksgiving) %&gt;%
+  #this changes the date into a numeric integer based on day of the year
+  mutate(day_of_year = yday(date)) %&gt;% 
+  #this filters the data to only dates in 2011
+  filter(str_detect(date, regex(&#39;^2011.*$&#39;))) 
+
+#test data
+store1_test &lt;- walmart_sales %&gt;% 
+  mutate(value = 1) %&gt;%
+  #this line one hot encodes the holiday variable 
+  spread(holiday, value, fill = 0) %&gt;% 
+  filter(store ==1) %&gt;%
+  select(date, weekly_sales, temperature,
+         fuel_price, cpi, unemployment, 
+         christmas, `labour day` , superbowl, thanksgiving) %&gt;%
+  #this changes the date into a numeric integer based on day of the year
+  mutate(day_of_year = yday(date)) %&gt;% 
+  #this filters the data to dates not in 2011
+  filter(!str_detect(date, regex(&#39;^2011.*$&#39;))) 
+
+fmla &lt;-  as.formula(&#39;log(weekly_sales) ~ unemployment +
+                    I(temperature^2) + christmas +
+                    `labour day` + superbowl + thanksgiving&#39;)
+
+#our new model
+single_year_test_model &lt;- lm(fmla ,  data = store1_train)
+
+summary(single_year_test_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = fmla, data = store1_train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.18794 -0.03813  0.00000  0.03794  0.35307 
+## 
+## Coefficients:
+##                      Estimate   Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)      13.793180836  0.994170989  13.874 &lt; 0.0000000000000002 ***
+## unemployment      0.065711653  0.128931658   0.510              0.61278    
+## I(temperature^2) -0.000012069  0.000006984  -1.728              0.09081 .  
+## christmas        -0.066831767  0.095488859  -0.700              0.48760    
+## `labour day`      0.000934911  0.094009654   0.010              0.99211    
+## superbowl         0.030114709  0.095244063   0.316              0.75332    
+## thanksgiving      0.258765043  0.093337580   2.772              0.00807 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.09139 on 45 degrees of freedom
+## Multiple R-squared:  0.2206, Adjusted R-squared:  0.1167 
+## F-statistic: 2.123 on 6 and 45 DF,  p-value: 0.06905</code></pre>
+<pre class="r"><code>store1_test &lt;- store1_test %&gt;%
+  mutate(prediction = predict(single_year_test_model, newdata = store1_test))
+
+ggplot(store1_test, aes(date, weekly_sales)) + 
+  geom_line() + 
+  geom_point(aes(date, exp(prediction), color = &#39;prediction&#39;)) +
+  ggtitle(&#39;Forecast of Sales for Store 1&#39;) + 
+  labs(subtitle = &#39;For 2010 and 2012&#39;) + 
+  ylab(&#39;Weekly Sales&#39;) + 
+  theme_minimal() + 
+  theme(legend.title = element_blank())</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+Our new model takes the following x variables:</p>
+<ul>
+<li>unemployment</li>
+<li>temperature squared</li>
+<li>and the four holidays</li>
+</ul>
+<p>These were chosen by iteratively adjusting the model and using it to plot prediction against observations in my test data. Despite having a higher R-squared value in different models, those same models had predictions that were astoundingly off from the observed values of weekly sales. R-Squared isn’t always a good metric for model performance, it can be very misleading.</p>
+<p>It’s also worth noting that no predictions are made between 2011 and 2012 given those were the observations used to train our model. Likewise, the line of observed sales between 2011 and 2012 is not meaningful either, this is just the plot connecting the two last know points.</p>
+<p>This model is not too bad, but still I wonder… could it be improved by sampling observations from all three years? I only used 2011 observations in my training data. There must be variations between all my independent variables between all three years that the model is not being shown. Let’s try again.</p>
+</div>
+<div id="the-third-and-final-model" class="section level2">
+<h2>The third and final model</h2>
+<pre class="r"><code>#initializing counts for a for loop
+x&lt;- 1
+y&lt;- 54
+z&lt;- 107
+
+#initializing empty vectors to later filter by index
+num_vec1 &lt;- vector(&#39;numeric&#39;, 18L)
+num_vec2 &lt;-  vector(&#39;numeric&#39;, 17L)
+num_vec3 &lt;-  vector(&#39;numeric&#39;, 17L)
+
+#creates first vector of row-indices for filtering
+for (i in 1:18){
+  num_vec1[i] &lt;- x
+  x&lt;- x+3
+}
+
+#creates second vector of row-indices
+for(i in 1:17){
+  num_vec2[i] &lt;- y
+  y&lt;- y+3
+}
+
+#creates third vector of row-indices
+for(i in 1:17){
+  num_vec3[i] &lt;- z
+  z &lt;- z+3
+}
+
+#creates one vector from all above
+count &lt;- 1
+dates_vec &lt;- vector(&#39;numeric&#39;, 52L)
+for (i in 1:18){
+  dates_vec[count] &lt;- num_vec1[i]
+  dates_vec[count+1] &lt;- num_vec2[i]
+  dates_vec[count+2] &lt;- num_vec3[i]
+  count &lt;- count + 3}
+
+#rearranges the indices appropriately 
+dates_vec &lt;- dates_vec[1:52]
+
+
+# several dates are NA since 2012 doesn&#39;t go past October. 
+#We will replace these dates with its 2010 or 2011 comparable
+
+dates_vec[42] &lt;- 42
+dates_vec[45] &lt;- 97
+dates_vec[48] &lt;- 48
+dates_vec[51] &lt;- 103
+
+fmla &lt;- as.formula(&#39;log(weekly_sales) ~ unemployment + 
+                   temperature + cpi + fuel_price + 
+                   christmas + `labour day` + superbowl+ 
+                   thanksgiving + day_of_year&#39;)
+
+#new model from training
+rndm_date_train_model &lt;- lm(fmla, data = store1_all_dates[dates_vec,])
+
+
+rndm_dates_test_store_1 &lt;- store1_all_dates[-dates_vec,]
+
+rndm_dates_test_store_1 &lt;- rndm_dates_test_store_1 %&gt;%
+  mutate(prediction = predict(rndm_date_train_model, newdata = rndm_dates_test_store_1))
+
+summary(rndm_date_train_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = fmla, data = store1_all_dates[dates_vec, ])
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.14485 -0.05177  0.00000  0.04609  0.25152 
+## 
+## Coefficients:
+##                Estimate Std. Error t value     Pr(&gt;|t|)    
+## (Intercept)  12.3089928  1.7630941   6.981 0.0000000154 ***
+## unemployment  0.0416296  0.0563743   0.738       0.4643    
+## temperature  -0.0025826  0.0009746  -2.650       0.0113 *  
+## cpi           0.0076970  0.0069091   1.114       0.2716    
+## fuel_price    0.0252805  0.0494330   0.511       0.6117    
+## christmas    -0.1899576  0.0927410  -2.048       0.0468 *  
+## `labour day` -0.0212437  0.0856425  -0.248       0.8053    
+## superbowl     0.0511178  0.0881454   0.580       0.5651    
+## thanksgiving  0.2222830  0.0858365   2.590       0.0131 *  
+## day_of_year   0.0002919  0.0001317   2.216       0.0322 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.08144 on 42 degrees of freedom
+## Multiple R-squared:  0.4336, Adjusted R-squared:  0.3122 
+## F-statistic: 3.572 on 9 and 42 DF,  p-value: 0.002264</code></pre>
+<pre class="r"><code>ggplot(rndm_dates_test_store_1, aes(date, weekly_sales)) + 
+  geom_line() + 
+  geom_point(aes(y = exp(prediction), color = &#39;predition&#39;)) + 
+  ggtitle(&#39;Forecast of sales for Walmart Store 1&#39;) + 
+  ylab(&#39;Weekly Sales $&#39;) + 
+  labs(subtitle = &#39;Prediction in red&#39;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>This looks like our best performing model yet! One annoying thing is that it does not capture the huge spike in sales the week ending before Christmas. Even though this is not considered a holiday event from Walmart’s perspective, we should use our domain knowledge of there being last minute Christmas gift shopping during this week</p>
+<pre class="r"><code>store1_all_dates &lt;- store1_all_dates %&gt;% 
+  mutate(before_xmas = if_else(grepl(regex(&#39;^.{4}-12-24|^.{4}-12-23|
+                                           ^.{4}-12-22|^.{4}-12-21|
+                                           ^.{4}-12-20|^.{4}-12-19|
+                                           ^.{4}-12-18&#39;), date), 1, 0))
+
+fmla &lt;- as.formula(&#39;log(weekly_sales) ~ unemployment + 
+                   temperature + cpi + fuel_price + christmas +
+                   `labour day` + superbowl + thanksgiving +
+                   before_xmas + day_of_year&#39;)
+
+rndm_date_test_model &lt;- lm(fmla, data = store1_all_dates[dates_vec,])
+
+rndm_dates_removed_store_1 &lt;- store1_all_dates[-dates_vec,]
+
+rndm_dates_removed_store_1 &lt;- rndm_dates_removed_store_1 %&gt;%
+  mutate(prediction = predict(rndm_date_test_model, newdata = rndm_dates_removed_store_1))
+
+summary(rndm_date_test_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = fmla, data = store1_all_dates[dates_vec, ])
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.15422 -0.04224  0.00000  0.04136  0.16310 
+## 
+## Coefficients:
+##                Estimate Std. Error t value        Pr(&gt;|t|)    
+## (Intercept)  14.0000319  1.5619178   8.963 0.0000000000329 ***
+## unemployment -0.0109531  0.0498459  -0.220        0.827165    
+## temperature  -0.0021363  0.0008395  -2.545        0.014796 *  
+## cpi           0.0012840  0.0061070   0.210        0.834518    
+## fuel_price    0.0482429  0.0425915   1.133        0.263926    
+## christmas    -0.1706284  0.0793446  -2.150        0.037464 *  
+## `labour day` -0.0027748  0.0732807  -0.038        0.969979    
+## superbowl     0.0507517  0.0752778   0.674        0.503973    
+## thanksgiving  0.2383726  0.0734123   3.247        0.002328 ** 
+## before_xmas   0.3189611  0.0783194   4.073        0.000207 ***
+## day_of_year   0.0002051  0.0001145   1.791        0.080655 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.06955 on 41 degrees of freedom
+## Multiple R-squared:  0.5967, Adjusted R-squared:  0.4983 
+## F-statistic: 6.066 on 10 and 41 DF,  p-value: 0.00001377</code></pre>
+<pre class="r"><code>ggplot(rndm_dates_removed_store_1, aes(date, weekly_sales)) +
+  geom_line() + 
+  geom_point(aes(y = exp(prediction)), color = &#39;red&#39;) +
+  ggtitle(&#39;Forecast of sales for Walmart Store 1&#39;) + 
+  ylab(&#39;Weekly Sales $&#39;) + 
+  labs(subtitle = &#39;Prediction in red&#39;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>I feel quite satisfied with out results! From a training model that utilized 52 observations of</p>
+<ul>
+<li>unemployment</li>
+<li>temperature</li>
+<li>CPI</li>
+<li>fuel price</li>
+<li>binary values indicating whether it was Christmas, Labor Day, Thanksgiving, or a Superbowl sales event</li>
+<li>Whether or not it was the week before Christmas</li>
+<li>The numeric day of the year</li>
+</ul>
+<p>we were able to predict with some accuracy for 91 observations of weekly sales.</p>
+</div>
+<div id="hypothesis-to-the-relationships-of-the-variables" class="section level2">
+<h2>Hypothesis to the relationships of the variables</h2>
+<p>However the model interprets the relationship between our variables can be seen above from the output of the code chunk, but I wanted to provide my generalized estimation of the relationships between the variables.</p>
+<ol style="list-style-type: decimal">
+<li>Unemployment - across the various models that have been devised, the multiple linear regression has estimated both sales increases and decreases given a one unit increase in unemployment. My intuition tells me the more people that are unemployed in a society then the less discretionary spending there is. I would believe there is a negative linear relationship between unemployment and sales. I believe our model estimated any positive linear relationships based on their being more observations (and particularly high sales outliers) at greater levels of unemployment - see below.</li>
+</ol>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Temperature - at large, I believe the relationship between temperature and sales to be more of a closed parabola than a line. Controlling for other variables, on days of extreme cold or heat sales would be lower being that it might be too uncomfortable to leave the house. However, not all climates have ranges of extreme cold and extreme heat. Most stores will fall into one climate zone where they would see one end of the spectrum. In the case of store 1, the lowest temperature is 35 degrees farenheit and the highest is 91. Since the coldest likely comes around the Winter, near sales-driving holidays/event, and the hottest would be in the Summer which we know has the lowest average weekly sales of all seasons, this is likely why our model estimates a negative linear relationship for increase in temperature.</li>
+<li>CPI - being that Consumer Price Index is a measure of inflation, I would imagine that as this number goes up then sales would too. At higher levels of CPI a typical group of consumer goods would cost more money. Being that Walmart is a retailer in consumer goods, as CPI goes up their products would likely have an increased base retail price which would show up in our data as an increase in sales amount, although it is likely a better predictor of price than sales.</li>
+<li>Fuel price - controlling for all other variables, I would imagine as fuel price goes up then people would stay at home more, avoid travel, and likewise shop less.</li>
+<li>Holidays
+<ul>
+<li>I expect sales to increase for Black Friday</li>
+<li>Sales to decrease in the sales event after Christmas</li>
+<li>Labor Day and Superbowl to increase or decrease slightly - more data would be helpful to better determine this relationship</li>
+</ul></li>
+<li>The week before Christmas - sales should see a significant increase during this period</li>
+<li>Day of the year - I imagine this is best approximated by an exponential curve. Sales appear to be quite low throughout Winter after December and appear relatively stationary until the near end of the year during the holiday season when they increase significantly.</li>
+</ol>
+</div>
+<div id="reflections-and-learnings" class="section level2">
+<h2>Reflections and Learnings</h2>
+<p>The inspiration behind this post was a yearning to tackle a more traditional business issue and foster my skills in linear regression and its interpretation. Being that this statistical method is still relatively new to me, I welcome any criticisms and advice in model development, diagnostics, and analysis. In attempting this task I also developed skills in R coding by utilizing adept for loops, one-hot encoding variables for regression analysis, and creating user-defined functions to condense repeat tasks.</p>
+<p>I’m happy with the results of my linear model and would have been happy to test it on more data outside of the set provided. In the future, I think I would like to try other statistical models for forecasting. I made an attempt to learn ARIMA modeling (a typical model for forecasting time series data), but found it to be recondite and difficult to get grasp of in the time frame of which I wanted this post to go live.</p>
+</div>
