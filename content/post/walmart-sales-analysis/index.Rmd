@@ -2,7 +2,7 @@
 title: "Walmart Sales Analysis"
 author: "Nick Young"
 date: '2020-11-18'
-tags: [R, Walmart, Sales Forecasting, Linear Regression, Multivariate Regression, ggplot]
+tags: [R, Walmart, Sales Forecasting, Multiple Linear Regress, ggplot]
 output: 
   html_document: 
     theme: cosmo
