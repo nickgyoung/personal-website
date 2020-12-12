@@ -334,7 +334,7 @@ So New York has consistently spent more money on their children than New Jersey 
 # Reflections and Learnings
 This TidyTuesday post has come to an end. I've done much EDA and visualizations on data from the `tidykids` package. At first I chose to dig deeper into variables that excited me - ones that I felt were relevant to me as a child given the intersection of the time data and my life. These variables were any that related to education at large, libraries, and parks & rec. While I did initially plot a choropleth map for library and parks & rec spending, I decided not to pursue it any further; the amount of money state government spends on these is not much, and perhaps with good possible reason.
 
-In the face of technology, libraries have greatly changed the services they offer society. Who needs to rent a book when you can pirate it to you tablet or buy the digital version? This is not to diminish the importance of the other services libraries offer (video media, language tools, classes, college and job prep), but to say that perhaps a library budget does not need to be reactive as an education system's budget.
+In the face of technology, libraries have greatly changed the services they offer society. Who needs to rent a book when you can pirate it to your tablet or buy the digital version? This is not to diminish the importance of the other services libraries offer (video media, language tools, classes, college and job prep), but to say that perhaps a library budget does not need to be as reactive as an education system's budget.
 
 The same rings true for parks & rec. Most public parks I know of have stayed the same for years, even decades. 
 
