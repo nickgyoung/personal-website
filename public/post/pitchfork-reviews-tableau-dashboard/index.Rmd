@@ -1,0 +1,25 @@
+---
+title: "A Tableau Story of Pitchfork Reviews (1999 - 2017)"
+author: "Nick Young"
+date: '2021-01-24'
+tags: [Music, Pitchfork, Dashboard, Tableau, Condé Nast,]
+output: 
+  html_document: 
+    theme: cosmo
+---
+
+# First Let Me Say...
+
+It's been a while since I've made a posting. A lot of changes have been going on with me - we had the holidays, then I moved out of state, and then I started a volunteer data analysis project. The work is confidential, but I hope one day I'll be able to share what the problem was and my solution.
+
+## Without Further Ado
+
+I've been working on another personal project without a [Pitchfork dataset](https://www.kaggle.com/nolanbconaway/pitchfork-data) I found on Kaggle. If you know me well, you know that music is my life. I'm a multi-instrumentalist that studied classical-violin, and self-taught myself guitar, bass, and piano. I write and produce my own music. I need to listen to music like someone needs to drink water. To say the least, I was very excited to work with this data.  
+
+This post isn't going to be the project I made working with this data. That will come soon! I decided though there was a lot of interesting stuff to say with this data alone aside from what's yet to come. I wanted to give people an opportunity to explore the data and make their own insights in an interactive way. I also wanted to practice a bit more with Tableau. A Tableau story seemed like a great way to do both. Hope you like it! Shoot me an email if you like any of the album recommendations I make, or let me know if you've got any recommendations of your own.
+
+
+<div class="tab-container">
+<iframe class="resp-iframe" src="https://public.tableau.com/views/PitchforkReviews_16115055036780/PitchforkReviews99-17?:language=en&:display_count=y&:publish=yes&:origin=viz_share_link&:embed=y" align="center" width="1225" height="850" frameborder="0" allowfullscreen></iframe></div>
+
+

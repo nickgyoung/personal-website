@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>NLP on Nick Young</title>
-		<link>/tags/nlp/</link>
-		<description>Recent content in NLP on </description>
+		<link>https://nyoung.rbind.io/tags/nlp/</link>
+		<description>Recent content in NLP on nyoung.rbind.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
 		<lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://nyoung.rbind.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>Beyoncé and Taylor Swift Lyrics</title>
-			<link>/post/2020_09_29_tidy_tuesday/</link>
+			<link>https://nyoung.rbind.io/post/beyonce_swift_nlp/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/post/2020_09_29_tidy_tuesday/</guid>
+			<guid>https://nyoung.rbind.io/post/beyonce_swift_nlp/</guid>
 			<description>
 				
 				Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone

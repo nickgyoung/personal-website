@@ -2,33 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Posts on Nick Young</title>
-		<link>/post/</link>
-		<description>Recent content in Posts on </description>
+		<link>https://nyoung.rbind.io/post/</link>
+		<description>Recent content in Posts on nyoung.rbind.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
+		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://nyoung.rbind.io/post/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>US Government Spending On Kids</title>
-			<link>/post/2020-10-29-test/test/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>A Tableau Story of Pitchfork Reviews (1999 - 2017)</title>
+			<link>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/post/2020-10-29-test/test/</guid>
+			<guid>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</guid>
 			<description>
 				
-				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
+				First Let Me Say…It’s been a while since I’ve made a posting. A lot of changes have been going on with me - we had th...
+				
+			</description>
+		</item>
+		<item>
+			<title>Walmart Sales Analysis</title>
+			<link>https://nyoung.rbind.io/post/walmart-sales-analysis/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/post/walmart-sales-analysis/</guid>
+			<description>
+				
+				Purpose:This post is made to address a task from a data set posted to Kaggle. I will comply with task requests to exh...
 				
 			</description>
 		</item>
 		<item>
 			<title>US Government Spending On Kids</title>
-			<link>/post/2020_10_13_tidy_tuesday/</link>
+			<link>https://nyoung.rbind.io/post/government_spending/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/post/2020_10_13_tidy_tuesday/</guid>
+			<guid>https://nyoung.rbind.io/post/government_spending/</guid>
 			<description>
 				
 				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
@@ -37,10 +49,10 @@
 		</item>
 		<item>
 			<title>Beyoncé and Taylor Swift Lyrics</title>
-			<link>/post/2020_09_29_tidy_tuesday/</link>
+			<link>https://nyoung.rbind.io/post/beyonce_swift_nlp/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/post/2020_09_29_tidy_tuesday/</guid>
+			<guid>https://nyoung.rbind.io/post/beyonce_swift_nlp/</guid>
 			<description>
 				
 				Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone

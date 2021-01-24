@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Condé Nast on Nick Young</title>
+		<link>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</link>
+		<description>Recent content in Condé Nast on nyoung.rbind.io</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
+		
+		<atom:link href="https://nyoung.rbind.io/tags/cond%C3%A9-nast/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>A Tableau Story of Pitchfork Reviews (1999 - 2017)</title>
+			<link>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</guid>
+			<description>
+				
+				First Let Me Say…It’s been a while since I’ve made a posting. A lot of changes have been going on with me - we had th...
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

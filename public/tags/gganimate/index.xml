@@ -2,33 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>GGanimate on Nick Young</title>
-		<link>/tags/gganimate/</link>
-		<description>Recent content in GGanimate on </description>
+		<link>https://nyoung.rbind.io/tags/gganimate/</link>
+		<description>Recent content in GGanimate on nyoung.rbind.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
 		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/tags/gganimate/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://nyoung.rbind.io/tags/gganimate/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>US Government Spending On Kids</title>
-			<link>/post/2020-10-29-test/test/</link>
+			<link>https://nyoung.rbind.io/post/government_spending/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/post/2020-10-29-test/test/</guid>
-			<description>
-				
-				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
-				
-			</description>
-		</item>
-		<item>
-			<title>US Government Spending On Kids</title>
-			<link>/post/2020_10_13_tidy_tuesday/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
-			<guid>/post/2020_10_13_tidy_tuesday/</guid>
+			<guid>https://nyoung.rbind.io/post/government_spending/</guid>
 			<description>
 				
 				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...

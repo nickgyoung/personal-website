@@ -3,110 +3,155 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/tags/child-education/</loc>
+    <loc>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/dashboard/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/music/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/pitchfork/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/post/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/tableau/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/</loc>
+    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/ggplot/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/multiple-linear-regress/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/r/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/sales-forecasting/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/walmart/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/post/walmart-sales-analysis/</loc>
+    <lastmod>2020-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nyoung.rbind.io/tags/child-education/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/gganimate/</loc>
+    <loc>https://nyoung.rbind.io/tags/gganimate/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/government-spending/</loc>
+    <loc>https://nyoung.rbind.io/tags/government-spending/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/interactive-charts/</loc>
+    <loc>https://nyoung.rbind.io/tags/interactive-charts/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://nyoung.rbind.io/tags/plotly/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/plotly/</loc>
+    <loc>https://nyoung.rbind.io/post/government_spending/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2020-10-29-test/test/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2020_10_13_tidy_tuesday/</loc>
-    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/beyonce/</loc>
+    <loc>https://nyoung.rbind.io/tags/beyonce/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2020_09_29_tidy_tuesday/</loc>
+    <loc>https://nyoung.rbind.io/post/beyonce_swift_nlp/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/ggplot/</loc>
+    <loc>https://nyoung.rbind.io/tags/nlp/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/nlp/</loc>
+    <loc>https://nyoung.rbind.io/tags/reactable/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/reactable/</loc>
+    <loc>https://nyoung.rbind.io/tags/sentiment-analysis/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/sentiment-analysis/</loc>
+    <loc>https://nyoung.rbind.io/tags/taylor-swift/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/taylor-swift/</loc>
+    <loc>https://nyoung.rbind.io/tags/wordcloud/</loc>
     <lastmod>2020-09-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/wordcloud/</loc>
-    <lastmod>2020-09-29T00:00:00+00:00</lastmod>
+    <loc>https://nyoung.rbind.io/about/</loc>
   </url>
   
   <url>
-    <loc>/about/</loc>
+    <loc>https://nyoung.rbind.io/categories/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>/series/</loc>
+    <loc>https://nyoung.rbind.io/series/</loc>
   </url>
   
 </urlset>

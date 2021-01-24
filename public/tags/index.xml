@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Tags on Nick Young</title>
-		<link>/tags/</link>
-		<description>Recent content in Tags on </description>
+		<link>https://nyoung.rbind.io/tags/</link>
+		<description>Recent content in Tags on nyoung.rbind.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
+		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
 		
-		<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://nyoung.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Child Education</title>
-			<link>/tags/child-education/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>Condé Nast</title>
+			<link>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/child-education/</guid>
+			<guid>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</guid>
 			<description>
 				
 				
@@ -24,11 +24,11 @@
 			</description>
 		</item>
 		<item>
-			<title>GGanimate</title>
-			<link>/tags/gganimate/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>Dashboard</title>
+			<link>https://nyoung.rbind.io/tags/dashboard/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/gganimate/</guid>
+			<guid>https://nyoung.rbind.io/tags/dashboard/</guid>
 			<description>
 				
 				
@@ -36,11 +36,11 @@
 			</description>
 		</item>
 		<item>
-			<title>Government Spending</title>
-			<link>/tags/government-spending/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>Music</title>
+			<link>https://nyoung.rbind.io/tags/music/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/government-spending/</guid>
+			<guid>https://nyoung.rbind.io/tags/music/</guid>
 			<description>
 				
 				
@@ -48,11 +48,11 @@
 			</description>
 		</item>
 		<item>
-			<title>Interactive Charts</title>
-			<link>/tags/interactive-charts/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>Pitchfork</title>
+			<link>https://nyoung.rbind.io/tags/pitchfork/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/interactive-charts/</guid>
+			<guid>https://nyoung.rbind.io/tags/pitchfork/</guid>
 			<description>
 				
 				
@@ -60,35 +60,11 @@
 			</description>
 		</item>
 		<item>
-			<title>Plotly</title>
-			<link>/tags/plotly/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			<title>Tableau</title>
+			<link>https://nyoung.rbind.io/tags/tableau/</link>
+			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/plotly/</guid>
-			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>R</title>
-			<link>/tags/r/</link>
-			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
-			<guid>/tags/r/</guid>
-			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>Beyonce</title>
-			<link>/tags/beyonce/</link>
-			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
-			<guid>/tags/beyonce/</guid>
+			<guid>https://nyoung.rbind.io/tags/tableau/</guid>
 			<description>
 				
 				
@@ -97,10 +73,130 @@
 		</item>
 		<item>
 			<title>ggplot</title>
-			<link>/tags/ggplot/</link>
+			<link>https://nyoung.rbind.io/tags/ggplot/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/ggplot/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Multiple Linear Regress</title>
+			<link>https://nyoung.rbind.io/tags/multiple-linear-regress/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/multiple-linear-regress/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>R</title>
+			<link>https://nyoung.rbind.io/tags/r/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/r/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Sales Forecasting</title>
+			<link>https://nyoung.rbind.io/tags/sales-forecasting/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/sales-forecasting/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Walmart</title>
+			<link>https://nyoung.rbind.io/tags/walmart/</link>
+			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/walmart/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Child Education</title>
+			<link>https://nyoung.rbind.io/tags/child-education/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/child-education/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>GGanimate</title>
+			<link>https://nyoung.rbind.io/tags/gganimate/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/gganimate/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Government Spending</title>
+			<link>https://nyoung.rbind.io/tags/government-spending/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/government-spending/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Interactive Charts</title>
+			<link>https://nyoung.rbind.io/tags/interactive-charts/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/interactive-charts/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Plotly</title>
+			<link>https://nyoung.rbind.io/tags/plotly/</link>
+			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+			
+			<guid>https://nyoung.rbind.io/tags/plotly/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>Beyonce</title>
+			<link>https://nyoung.rbind.io/tags/beyonce/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/ggplot/</guid>
+			<guid>https://nyoung.rbind.io/tags/beyonce/</guid>
 			<description>
 				
 				
@@ -109,10 +205,10 @@
 		</item>
 		<item>
 			<title>NLP</title>
-			<link>/tags/nlp/</link>
+			<link>https://nyoung.rbind.io/tags/nlp/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/nlp/</guid>
+			<guid>https://nyoung.rbind.io/tags/nlp/</guid>
 			<description>
 				
 				
@@ -121,10 +217,10 @@
 		</item>
 		<item>
 			<title>reactable</title>
-			<link>/tags/reactable/</link>
+			<link>https://nyoung.rbind.io/tags/reactable/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/reactable/</guid>
+			<guid>https://nyoung.rbind.io/tags/reactable/</guid>
 			<description>
 				
 				
@@ -133,10 +229,10 @@
 		</item>
 		<item>
 			<title>sentiment analysis</title>
-			<link>/tags/sentiment-analysis/</link>
+			<link>https://nyoung.rbind.io/tags/sentiment-analysis/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/sentiment-analysis/</guid>
+			<guid>https://nyoung.rbind.io/tags/sentiment-analysis/</guid>
 			<description>
 				
 				
@@ -145,10 +241,10 @@
 		</item>
 		<item>
 			<title>Taylor Swift</title>
-			<link>/tags/taylor-swift/</link>
+			<link>https://nyoung.rbind.io/tags/taylor-swift/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/taylor-swift/</guid>
+			<guid>https://nyoung.rbind.io/tags/taylor-swift/</guid>
 			<description>
 				
 				
@@ -157,10 +253,10 @@
 		</item>
 		<item>
 			<title>wordcloud</title>
-			<link>/tags/wordcloud/</link>
+			<link>https://nyoung.rbind.io/tags/wordcloud/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
 			
-			<guid>/tags/wordcloud/</guid>
+			<guid>https://nyoung.rbind.io/tags/wordcloud/</guid>
 			<description>
 				
 				
