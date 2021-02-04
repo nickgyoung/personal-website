@@ -1,89 +1,13 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-	
-	<meta name="generator" content="Hugo 0.75.1" />
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-	<meta property="og:title" content="Beyoncé and Taylor Swift Lyrics">
-	
-	
-	<meta name="author" content="Nick Young"><meta name="keywords" content="Beyonce,Taylor Swift,ggplot,R,wordcloud,reactable,NLP,sentiment analysis"><meta name="description" content=""><meta property="og:title" content="Beyoncé and Taylor Swift Lyrics" />
-<meta property="og:description" content="Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone
-TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a raw dataset, a chart or article related to that dataset, and ask you to explore the data.While the dataset will be “tamed”, it will not always be tidy! As such you might need to apply various R for Data Science techniques to wrangle the data into a true tidy format." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nyoung.rbind.io/post/beyonce_swift_nlp/" />
-<meta property="article:published_time" content="2020-09-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-09-29T00:00:00+00:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Beyoncé and Taylor Swift Lyrics"/>
-<meta name="twitter:description" content="Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone
-TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a raw dataset, a chart or article related to that dataset, and ask you to explore the data.While the dataset will be “tamed”, it will not always be tidy! As such you might need to apply various R for Data Science techniques to wrangle the data into a true tidy format."/>
+---
+title: "Beyoncé and Taylor Swift Lyrics"
+author: "Nick Young"
+date: "2020-09-29"
+tags: [Beyonce, Taylor Swift, ggplot, R, wordcloud, reactable, NLP, sentiment analysis]
+output: 
+  html_document: 
+    theme: cosmo
+---
 
-	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" />
-	<link rel="stylesheet" href="/css/katex.min.css" crossorigin="anonymous">
-	<script defer src="/js/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-	<script defer src="/js/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><title>Beyoncé and Taylor Swift Lyrics | Nick Young</title></head>
-<body><header>
-	
-	<div id="avatar">
-		<a href="https://nyoung.rbind.io/">
-		  <img src="/img/linkedin_headshot.jpg" alt="Nick Young">
-		</a>
-	</div>
-	
-	<div id="titletext"><h2 id="title"><a href="https://nyoung.rbind.io/">Nick Young</a></h2></div>
-	<div id="title-description"><p id="subtitle">Analysis and visualizations - for the interesting and inane.</p><div id="social">
-			<nav>
-				<ul><li><a href="https://github.com/nickgyoung"><i title="Github" class="icons fab fa-github"></i></a></li><li><a href="mailto:nick.g.young@gmail.com"><i title="Email" class="icons fas fa-envelope"></i></a></li></ul>
-			</nav>
-		</div>
-	</div>
-	
-	<div id="mainmenu">
-		<nav>
-			<ul>
-				
-				<li><a href="/">Home</a></li>
-				
-				<li><a href="/post">All Posts</a></li>
-				
-				<li><a href="/about">About</a></li>
-				
-				<li><a href="/tags">Tags</a></li>
-				
-				<li><a href="/categories">Categories</a></li>
-				
-			</ul>
-		</nav>
-	</div>
-	
-</header>
-<main><div class="post">
-	
-	<div class="author">
-	
-	</div>
-	<div class="post-header">
-	
-		<div class="meta">
-			
-			<div class="date">
-				<span class="day">29</span>
-				<span class="rest">Sep 2020</span>
-			</div>
-			
-		</div>
-		
-		<div class="matter">
-			<h1 class="title">Beyoncé and Taylor Swift Lyrics</h1>
-		</div>
-	</div>
-	<div class="markdown">
-		
 <link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 <script src="index_files/core-js/shim.min.js"></script>
@@ -294,150 +218,3 @@ print(get_nrc_sentiment(as.character(beyonce_lyrics %&gt;% filter(as.integer(alb
 <p>In retrospect, I feel satisfied nonetheless as I have had my first foray into NLP and sentiment analysis, I’ve ventured outside of ggplot for the first time with the use of wordcloud, I’ve created my first interactive table with reactable, and made some long for loops that I look back on in awe. It can hard to uncover meaningful learnings from data you lack domain knowledge in. Ever worse, it can be especially difficult to uncover meaningful learning from data you lack any real interest in. Nonetheless, I feel like I’ve learned from this Tidy Tuesday, if not a little about Beyonce and Taylor Swift, then at least a bit about NLP and sentiment analysis.</p>
 <p>For next time, I’d like to get more practice with other viz packages, particularly ggarrange or other viz packages that collate multiple plots and graphs.</p>
 </div>
-
-	</div>
-	
-	
-	
-	
-	
-		
-	
-		
-	
-	
-	
-	<div class="tags">
-		<div class="taxosfloating_left">
-			<p>Tags</p>
-		</div>
-		<div class="termsfloating_right">
-			<p>
-			
-			
-			
-			<a href="/tags/beyonce/"> beyonce </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/ggplot/"> ggplot </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/nlp/"> nlp </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/r/"> r </a>
-			
-			
-			
-			
-			
-			<a href="/tags/reactable/"> reactable </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/sentiment-analysis/"> sentiment-analysis </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/taylor-swift/"> taylor-swift </a>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<a href="/tags/wordcloud/"> wordcloud </a>
-			
-			
-			
-			</p>
-		</div>
-		<div class="clearit"></div>
-		
-		
-		
-		
-		
-	</div></div>
-
-  </main>
-<footer>
-	 © Copyright notice | <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
-	
-	
-	
-</footer>
-
-
-</body>
-</html>

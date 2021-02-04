@@ -6,6 +6,7 @@ tags: [R, Walmart, Sales Forecasting, Multiple Linear Regress, ggplot]
 output: 
   html_document: 
     theme: cosmo
+description: This post addresses a Kaggle task and attempts to create a model to predict weekly sales.
 ---
 
 ## Purpose:
