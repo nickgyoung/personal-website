@@ -1,0 +1,48 @@
+---
+title: "Using Spotify's API to Analyze Pitchfork's Best New Albums (1999 - 2017)"
+author: "Nick Young"
+date: '2021-02-01'
+tags: [R, SQL, Spotify, K-Means Clustering, SpotifyR API, Music, Music Reviews, Pitchfork]
+output: 
+  html_document:
+  theme: cosmo
+    
+description: 'I sure love music, how about you? Have you ever wondered if a particular magazine or website only gives a certain type of music favorable reviews? Me too.'
+---
+
+![](/img/blocks-T3mKJXfdims-unsplash.jpg)
+
+``` {css echo = FALSE, include = TRUE}
+
+a.anchor-section::before {content: '';}
+
+```
+
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE)
+devtools::source_gist("c83e078bf8c81b035e32c3fc0cf04ee8", 
+                      filename = 'render_toc.R')
+
+```
+
+## Table of Contents
+
+```{r, echo=FALSE} 
+render_toc('C:/Users/Nick/Documents/personal-website/content/post/pitchfork-best-new-album-cluster-analysis/index.Rmd')
+
+```
+
+# Abstract
+
+Music has always been a big part of my life. I'm a classically trained violinist, and a self-taught guitarist, bassist, and pianist. I write and produce my own music and I used to go to near 30 concerts a year. 
+~~I'm gonna cry on the dance floor the next time I can even see a concert without worrying about the pandemic. ~~ 
+
+You might have guessed it, I also listen to a lot of music. I used to carry Apple's final iPod iteration, the iPod Classic 160gb, so I could listen to MY music collection at all times. Years into the age of streaming, I was the only one in my friend group still downloading music and putting it on an iPod. I filled ~109gb of the iPod before I decided to give Spotify a shot.
+
+
+
+
+# Insights with SQL
+
+# 
