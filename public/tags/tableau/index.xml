@@ -7,22 +7,25 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
-		
+		<lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://nyoung.rbind.io/tags/tableau/index.xml" rel="self" type="application/rss+xml" />
-		
+		<item>
+			<title>Texas Elected Officials by ZIP: in Response to Winter Storm Uri</title>
+			<link>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</guid>
+			<description>
+			This is a Tableau dashboard in which anyone can look up a TX zip code to find out their national and local elected officials. If you live in TX, give a call and push for changes you want to see in energy.
+			</description>
+		</item>
 		<item>
 			<title>A Tableau Story of Pitchfork Reviews (1999 - 2017)</title>
 			<link>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</link>
 			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</guid>
 			<description>
-				
-				First Let Me Say…It’s been a while since I’ve made a post. A lot of changes have been going on with me - we had the h...
-				
+			A neat little dashboard so you can learn a bit more about Pitchfork&#39;s reviews from 1999 - 2017
 			</description>
 		</item>
-		
 	</channel>
 </rss>

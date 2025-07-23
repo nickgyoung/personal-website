@@ -4,7 +4,7 @@ defaultContentLanguage = "en"
 author = "Hugo Authors"
 title = "Nick Young"
 theme = "hugo-vitae"
-paginate = 5
+# paginate = 5
 enableRobotsTXT = true
 
 
@@ -15,6 +15,9 @@ pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
 googleAnalytics = ""
+
+[pagination]
+  pagerSize = 10
 
 [taxonomies]
 	tag = "tags"

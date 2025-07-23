@@ -8,21 +8,15 @@
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
 		<lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
-		
 		<atom:link href="https://nyoung.rbind.io/tags/plotly/index.xml" rel="self" type="application/rss+xml" />
-		
 		<item>
 			<title>US Government Spending On Kids</title>
 			<link>https://nyoung.rbind.io/post/government_spending/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/government_spending/</guid>
 			<description>
-				
-				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
-				
+			Where would you have had the &#39;best&#39; education growing up?
 			</description>
 		</item>
-		
 	</channel>
 </rss>

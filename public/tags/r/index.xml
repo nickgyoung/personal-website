@@ -7,47 +7,61 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate>
-		
+		<lastBuildDate>Wed, 16 Jul 2025 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://nyoung.rbind.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
-		
+		<item>
+			<title>Grade Expectations: Exploring A/B Testing &amp; Feature Selection Through Student GPAs</title>
+			<link>https://nyoung.rbind.io/post/grade-expectations/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/grade-expectations/</guid>
+			<description>
+			A little educational primer on various statistical methods and feature selection by regression
+			</description>
+		</item>
+		<item>
+			<title>Texas Elected Officials by ZIP: in Response to Winter Storm Uri</title>
+			<link>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</guid>
+			<description>
+			This is a Tableau dashboard in which anyone can look up a TX zip code to find out their national and local elected officials. If you live in TX, give a call and push for changes you want to see in energy.
+			</description>
+		</item>
+		<item>
+			<title>Using Spotify&#39;s API to Analyze Pitchfork&#39;s Best New Albums (1999 - 2017)</title>
+			<link>https://nyoung.rbind.io/post/pitchfork-best-new-album-cluster-analysis/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/pitchfork-best-new-album-cluster-analysis/</guid>
+			<description>
+			I sure love music, how about you? Have you ever wondered if a particular magazine or website only gives a certain type of music favorable reviews? Me too.
+			</description>
+		</item>
 		<item>
 			<title>Walmart Sales Analysis</title>
 			<link>https://nyoung.rbind.io/post/walmart-sales-analysis/</link>
 			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/walmart-sales-analysis/</guid>
 			<description>
-				
-				Purpose:This post is made to address a task from a data set posted to Kaggle. I will comply with task requests to exh...
-				
+			This post addresses a Kaggle task and attempts to create a model to predict weekly sales.
 			</description>
 		</item>
 		<item>
 			<title>US Government Spending On Kids</title>
 			<link>https://nyoung.rbind.io/post/government_spending/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/government_spending/</guid>
 			<description>
-				
-				TidyTuesdayJoin the R4DS Online Learning Community in the weekly #TidyTuesday event!Every week we post a ...
-				
+			Where would you have had the &#39;best&#39; education growing up?
 			</description>
 		</item>
 		<item>
 			<title>Beyoncé and Taylor Swift Lyrics</title>
 			<link>https://nyoung.rbind.io/post/beyonce_swift_nlp/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/beyonce_swift_nlp/</guid>
 			<description>
-				
-				Beyonce: public domain license, Taylor Swift: Creative Commons, taken by David Shankbone
-TidyTuesdayJoin the R...
-				
+			At one point in history, the only two women to have 6 consecutive albums reach No. 1, these ladies are undoubtedly adored. But how does what they say in their songs line up?
 			</description>
 		</item>
-		
 	</channel>
 </rss>

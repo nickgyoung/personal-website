@@ -1,0 +1,13 @@
+---
+title: "Grade Expectations: Exploring A/B Testing & Feature Selection Through Student GPAs"
+author: "Nick Young"
+date: '2025-07-16'
+tags: [R, Student GPA, Linear Regression, Feature Selection, LASSO Regression, A/B Testing]
+output: 
+  html_document:
+  theme: cosmo
+    
+description: 'A little educational primer on various statistical methods and feature selection by regression'
+---
+
+![Exam Taking](/img/exam_taking.jpg)

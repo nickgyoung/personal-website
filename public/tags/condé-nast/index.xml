@@ -8,21 +8,15 @@
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
 		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
-		
 		<atom:link href="https://nyoung.rbind.io/tags/cond%C3%A9-nast/index.xml" rel="self" type="application/rss+xml" />
-		
 		<item>
 			<title>A Tableau Story of Pitchfork Reviews (1999 - 2017)</title>
 			<link>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</link>
 			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</guid>
 			<description>
-				
-				First Let Me Say…It’s been a while since I’ve made a post. A lot of changes have been going on with me - we had the h...
-				
+			A neat little dashboard so you can learn a bit more about Pitchfork&#39;s reviews from 1999 - 2017
 			</description>
 		</item>
-		
 	</channel>
 </rss>

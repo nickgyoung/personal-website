@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Linear Regression on Nick Young</title>
+		<link>https://nyoung.rbind.io/tags/linear-regression/</link>
+		<description>Recent content in Linear Regression on nyoung.rbind.io</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 16 Jul 2025 00:00:00 +0000</lastBuildDate>
+		<atom:link href="https://nyoung.rbind.io/tags/linear-regression/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Grade Expectations: Exploring A/B Testing &amp; Feature Selection Through Student GPAs</title>
+			<link>https://nyoung.rbind.io/post/grade-expectations/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/grade-expectations/</guid>
+			<description>
+			A little educational primer on various statistical methods and feature selection by regression
+			</description>
+		</item>
+	</channel>
+</rss>

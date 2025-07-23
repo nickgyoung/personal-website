@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Grade Expectations: Exploring A/B Testing &amp; Feature Selection Through Student GPAs | Nick Young</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.148.1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Nick Young">
+<meta name="keywords" content="R, Student GPA, Linear Regression, Feature Selection, LASSO Regression, A/B Testing">
+<meta name="description" content="A little educational primer on various statistical methods and feature selection by regression">
+<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" /><link rel="stylesheet" href="/css/katex.css" crossorigin="anonymous">
+<script defer src="/js/katex.js"  integrity="sha384-PFWG8XW41D5NzhNv5FegM1CUkw9nNLdWug8DuwnUoNEVop9n5frjcnbtsZtxTNjw" crossorigin="anonymous"></script>
+<script defer src="/js/auto-render.js" integrity="sha384-EN2q+JG5/3Z8gD7hT5WZqq+W+9wQR4P3IezfuZmGG5RkNXaaaks85seDJO7WkZlY" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() { renderMathInElement(document.body, { delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false} ] }); });
+</script>
+
+
+
+
+<meta property="og:url" content="https://nyoung.rbind.io/post/grade-expectations/">
+  <meta property="og:site_name" content="Nick Young">
+  <meta property="og:title" content="Grade Expectations: Exploring A/B Testing & Feature Selection Through Student GPAs">
+  <meta property="og:description" content="A little educational primer on various statistical methods and feature selection by regression">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-07-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-07-16T00:00:00+00:00">
+    <meta property="article:tag" content="R">
+    <meta property="article:tag" content="Student GPA">
+    <meta property="article:tag" content="Linear Regression">
+    <meta property="article:tag" content="Feature Selection">
+    <meta property="article:tag" content="LASSO Regression">
+    <meta property="article:tag" content="A/B Testing">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Grade Expectations: Exploring A/B Testing & Feature Selection Through Student GPAs">
+  <meta name="twitter:description" content="A little educational primer on various statistical methods and feature selection by regression">
+
+
+  <meta itemprop="name" content="Grade Expectations: Exploring A/B Testing & Feature Selection Through Student GPAs">
+  <meta itemprop="description" content="A little educational primer on various statistical methods and feature selection by regression">
+  <meta itemprop="datePublished" content="2025-07-16T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-07-16T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2">
+  <meta itemprop="keywords" content="R,Student GPA,Linear Regression,Feature Selection,LASSO Regression,A/B Testing">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nyoung.rbind.io/"><img src="/img/linkedin_headshot.jpg" alt="Nick Young"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nyoung.rbind.io/">Nick Young</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Analysis and visualizations - for the interesting and inane.</p>
+<div id="social">
+<nav><ul>
+<li><a href="https://github.com/nickgyoung"><i title="Github" class="icons fab fa-github"></i></a></li>
+<li><a href="mailto:nick.g.young@gmail.com"><i title="Email" class="icons fas fa-envelope"></i></a></li>
+<li><a><i title="Switch Dark Mode" class="dark-mode icons fas fa-moon"></i></a></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/post">All Posts</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/tags">Tags</a></li>
+<li><a href="/categories">Categories</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post">
+<article>
+<div class="post-header">
+<div class="meta">
+<div class="date">
+<span class="day">16</span>
+<span class="rest">Jul 2025</span>
+</div>
+</div>
+<div class="matter">
+<h1 class="title">Grade Expectations: Exploring A/B Testing &amp; Feature Selection Through Student GPAs</h1>
+<p class="post-meta">
+<span class="post-meta">
+
+
+
+
+
+<i class="fas fa-user"></i>&nbsp;
+
+Nick Young
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+
+
+
+<div class="float">
+<img src="/img/exam_taking.jpg" alt="Exam Taking" />
+<div class="figcaption">Exam Taking</div>
+</div>
+
+</div>
+<div class="tags">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/tags/a/b%20testing/">a/b testing</a>
+<a href="/tags/feature%20selection/">feature selection</a>
+<a href="/tags/lasso%20regression/">lasso regression</a>
+<a href="/tags/linear%20regression/">linear regression</a>
+<a href="/tags/r/">r</a>
+<a href="/tags/student%20gpa/">student gpa</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Copyright notice | <a href="https://github.com/dataCobra/hugo-vitae" target="_blank">Vitae</a> theme for <a href="https://gohugo.io" target="_blank">Hugo</a>
+
+</footer><script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

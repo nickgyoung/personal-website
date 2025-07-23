@@ -1,12 +1,114 @@
----
-title: "Walmart Sales Analysis"
-author: "Nick Young"
-date: '2020-11-18'
-tags: [R, Walmart, Sales Forecasting, Multiple Linear Regress, ggplot]
-output: 
-  html_document: 
-    theme: cosmo
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Walmart Sales Analysis | Nick Young</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.148.1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Nick Young">
+<meta name="keywords" content="R, Walmart, Sales Forecasting, Multiple Linear Regress, ggplot">
+<meta name="description" content="This post addresses a Kaggle task and attempts to create a model to predict weekly sales.">
+<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" /><link rel="stylesheet" href="/css/katex.css" crossorigin="anonymous">
+<script defer src="/js/katex.js"  integrity="sha384-PFWG8XW41D5NzhNv5FegM1CUkw9nNLdWug8DuwnUoNEVop9n5frjcnbtsZtxTNjw" crossorigin="anonymous"></script>
+<script defer src="/js/auto-render.js" integrity="sha384-EN2q+JG5/3Z8gD7hT5WZqq+W+9wQR4P3IezfuZmGG5RkNXaaaks85seDJO7WkZlY" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() { renderMathInElement(document.body, { delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false} ] }); });
+</script>
+
+
+
+
+<meta property="og:url" content="https://nyoung.rbind.io/post/walmart-sales-analysis/">
+  <meta property="og:site_name" content="Nick Young">
+  <meta property="og:title" content="Walmart Sales Analysis">
+  <meta property="og:description" content="This post addresses a Kaggle task and attempts to create a model to predict weekly sales.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-11-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-11-18T00:00:00+00:00">
+    <meta property="article:tag" content="R">
+    <meta property="article:tag" content="Walmart">
+    <meta property="article:tag" content="Sales Forecasting">
+    <meta property="article:tag" content="Multiple Linear Regress">
+    <meta property="article:tag" content="Ggplot">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Walmart Sales Analysis">
+  <meta name="twitter:description" content="This post addresses a Kaggle task and attempts to create a model to predict weekly sales.">
+
+
+  <meta itemprop="name" content="Walmart Sales Analysis">
+  <meta itemprop="description" content="This post addresses a Kaggle task and attempts to create a model to predict weekly sales.">
+  <meta itemprop="datePublished" content="2020-11-18T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-11-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4743">
+  <meta itemprop="keywords" content="R,Walmart,Sales Forecasting,Multiple Linear Regress,Ggplot">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nyoung.rbind.io/"><img src="/img/linkedin_headshot.jpg" alt="Nick Young"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nyoung.rbind.io/">Nick Young</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Analysis and visualizations - for the interesting and inane.</p>
+<div id="social">
+<nav><ul>
+<li><a href="https://github.com/nickgyoung"><i title="Github" class="icons fab fa-github"></i></a></li>
+<li><a href="mailto:nick.g.young@gmail.com"><i title="Email" class="icons fas fa-envelope"></i></a></li>
+<li><a><i title="Switch Dark Mode" class="dark-mode icons fas fa-moon"></i></a></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/post">All Posts</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/tags">Tags</a></li>
+<li><a href="/categories">Categories</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post">
+<article>
+<div class="post-header">
+<div class="meta">
+<div class="date">
+<span class="day">18</span>
+<span class="rest">Nov 2020</span>
+</div>
+</div>
+<div class="matter">
+<h1 class="title">Walmart Sales Analysis</h1>
+<p class="post-meta">
+<span class="post-meta">
+
+
+
+
+
+<i class="fas fa-user"></i>&nbsp;
+
+Nick Young
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
 
 <link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
@@ -511,3 +613,30 @@ summary(rndm_date_test_model)</code></pre>
 <p>The inspiration behind this post was a yearning to tackle a more traditional business issue and foster my skills in linear regression and its interpretation. Being that this statistical method is still relatively new to me, I welcome any criticisms and advice in model development, diagnostics, and analysis. In attempting this task I also developed skills in R coding by utilizing adept for loops, one-hot encoding variables for regression analysis, and creating user-defined functions to condense repeat tasks.</p>
 <p>I’m happy with the results of my linear model and would have been happy to test it on more data outside of the set provided. In the future, I think I would like to try other statistical models for forecasting. I made an attempt to learn ARIMA modeling (a typical model for forecasting time series data), but found it to be recondite and difficult to get grasp of in the time frame of which I wanted this post to go live.</p>
 </div>
+
+</div>
+<div class="tags">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/tags/ggplot/">ggplot</a>
+<a href="/tags/multiple%20linear%20regress/">multiple linear regress</a>
+<a href="/tags/r/">r</a>
+<a href="/tags/sales%20forecasting/">sales forecasting</a>
+<a href="/tags/walmart/">walmart</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Copyright notice | <a href="https://github.com/dataCobra/hugo-vitae" target="_blank">Vitae</a> theme for <a href="https://gohugo.io" target="_blank">Hugo</a>
+
+</footer><script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

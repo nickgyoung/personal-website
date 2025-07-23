@@ -6,6 +6,7 @@ tags: [R, Government Spending, Plotly, Interactive Charts, GGanimate, Child Educ
 output: 
   html_document: 
     theme: cosmo
+description: Where would you have had the 'best' education growing up?
 ---
 
 # TidyTuesday

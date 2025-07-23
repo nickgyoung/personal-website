@@ -7,22 +7,25 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
-		
+		<lastBuildDate>Mon, 01 Feb 2021 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://nyoung.rbind.io/tags/pitchfork/index.xml" rel="self" type="application/rss+xml" />
-		
+		<item>
+			<title>Using Spotify&#39;s API to Analyze Pitchfork&#39;s Best New Albums (1999 - 2017)</title>
+			<link>https://nyoung.rbind.io/post/pitchfork-best-new-album-cluster-analysis/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/pitchfork-best-new-album-cluster-analysis/</guid>
+			<description>
+			I sure love music, how about you? Have you ever wondered if a particular magazine or website only gives a certain type of music favorable reviews? Me too.
+			</description>
+		</item>
 		<item>
 			<title>A Tableau Story of Pitchfork Reviews (1999 - 2017)</title>
 			<link>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</link>
 			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/post/pitchfork-reviews-tableau-dashboard/</guid>
 			<description>
-				
-				First Let Me Say…It’s been a while since I’ve made a post. A lot of changes have been going on with me - we had the h...
-				
+			A neat little dashboard so you can learn a bit more about Pitchfork&#39;s reviews from 1999 - 2017
 			</description>
 		</item>
-		
 	</channel>
 </rss>

@@ -7,262 +7,358 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
-		
+		<lastBuildDate>Wed, 16 Jul 2025 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://nyoung.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
-		
+		<item>
+			<title>A/B Testing</title>
+			<link>https://nyoung.rbind.io/tags/a/b-testing/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/a/b-testing/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Feature Selection</title>
+			<link>https://nyoung.rbind.io/tags/feature-selection/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/feature-selection/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>LASSO Regression</title>
+			<link>https://nyoung.rbind.io/tags/lasso-regression/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/lasso-regression/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Linear Regression</title>
+			<link>https://nyoung.rbind.io/tags/linear-regression/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/linear-regression/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>R</title>
+			<link>https://nyoung.rbind.io/tags/r/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/r/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Student GPA</title>
+			<link>https://nyoung.rbind.io/tags/student-gpa/</link>
+			<pubDate>Wed, 16 Jul 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/student-gpa/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>CLIP</title>
+			<link>https://nyoung.rbind.io/tags/clip/</link>
+			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/clip/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Computer Vision</title>
+			<link>https://nyoung.rbind.io/tags/computer-vision/</link>
+			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/computer-vision/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Principal Component Analysis</title>
+			<link>https://nyoung.rbind.io/tags/principal-component-analysis/</link>
+			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/principal-component-analysis/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Python</title>
+			<link>https://nyoung.rbind.io/tags/python/</link>
+			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/python/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Travel</title>
+			<link>https://nyoung.rbind.io/tags/travel/</link>
+			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/travel/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Politics</title>
+			<link>https://nyoung.rbind.io/tags/politics/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/politics/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Power Outages</title>
+			<link>https://nyoung.rbind.io/tags/power-outages/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/power-outages/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Tableau</title>
+			<link>https://nyoung.rbind.io/tags/tableau/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/tableau/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Texas</title>
+			<link>https://nyoung.rbind.io/tags/texas/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/texas/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>K-Means Clustering</title>
+			<link>https://nyoung.rbind.io/tags/k-means-clustering/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/k-means-clustering/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Music</title>
+			<link>https://nyoung.rbind.io/tags/music/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/music/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Music Reviews</title>
+			<link>https://nyoung.rbind.io/tags/music-reviews/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/music-reviews/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Pitchfork</title>
+			<link>https://nyoung.rbind.io/tags/pitchfork/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/pitchfork/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Spotify</title>
+			<link>https://nyoung.rbind.io/tags/spotify/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/spotify/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>SpotifyR API</title>
+			<link>https://nyoung.rbind.io/tags/spotifyr-api/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/spotifyr-api/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>SQL</title>
+			<link>https://nyoung.rbind.io/tags/sql/</link>
+			<pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/sql/</guid>
+			<description>
+			
+			</description>
+		</item>
 		<item>
 			<title>Condé Nast</title>
 			<link>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</link>
 			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/cond%C3%A9-nast/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Dashboard</title>
 			<link>https://nyoung.rbind.io/tags/dashboard/</link>
 			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/dashboard/</guid>
 			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>Music</title>
-			<link>https://nyoung.rbind.io/tags/music/</link>
-			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
 			
-			<guid>https://nyoung.rbind.io/tags/music/</guid>
-			<description>
-				
-				
-				
 			</description>
 		</item>
 		<item>
-			<title>Pitchfork</title>
-			<link>https://nyoung.rbind.io/tags/pitchfork/</link>
-			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
-			<guid>https://nyoung.rbind.io/tags/pitchfork/</guid>
-			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>Tableau</title>
-			<link>https://nyoung.rbind.io/tags/tableau/</link>
-			<pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-			
-			<guid>https://nyoung.rbind.io/tags/tableau/</guid>
-			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>ggplot</title>
+			<title>Ggplot</title>
 			<link>https://nyoung.rbind.io/tags/ggplot/</link>
 			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/ggplot/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Multiple Linear Regress</title>
 			<link>https://nyoung.rbind.io/tags/multiple-linear-regress/</link>
 			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/multiple-linear-regress/</guid>
 			<description>
-				
-				
-				
-			</description>
-		</item>
-		<item>
-			<title>R</title>
-			<link>https://nyoung.rbind.io/tags/r/</link>
-			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
 			
-			<guid>https://nyoung.rbind.io/tags/r/</guid>
-			<description>
-				
-				
-				
 			</description>
 		</item>
 		<item>
 			<title>Sales Forecasting</title>
 			<link>https://nyoung.rbind.io/tags/sales-forecasting/</link>
 			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/sales-forecasting/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Walmart</title>
 			<link>https://nyoung.rbind.io/tags/walmart/</link>
 			<pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/walmart/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Child Education</title>
 			<link>https://nyoung.rbind.io/tags/child-education/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/child-education/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>GGanimate</title>
 			<link>https://nyoung.rbind.io/tags/gganimate/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/gganimate/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Government Spending</title>
 			<link>https://nyoung.rbind.io/tags/government-spending/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/government-spending/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Interactive Charts</title>
 			<link>https://nyoung.rbind.io/tags/interactive-charts/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/interactive-charts/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Plotly</title>
 			<link>https://nyoung.rbind.io/tags/plotly/</link>
 			<pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/plotly/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Beyonce</title>
 			<link>https://nyoung.rbind.io/tags/beyonce/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/beyonce/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>NLP</title>
 			<link>https://nyoung.rbind.io/tags/nlp/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/nlp/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
-			<title>reactable</title>
+			<title>Reactable</title>
 			<link>https://nyoung.rbind.io/tags/reactable/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/reactable/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
-			<title>sentiment analysis</title>
+			<title>Sentiment Analysis</title>
 			<link>https://nyoung.rbind.io/tags/sentiment-analysis/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/sentiment-analysis/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
 			<title>Taylor Swift</title>
 			<link>https://nyoung.rbind.io/tags/taylor-swift/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/taylor-swift/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
 		<item>
-			<title>wordcloud</title>
+			<title>Wordcloud</title>
 			<link>https://nyoung.rbind.io/tags/wordcloud/</link>
 			<pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-			
 			<guid>https://nyoung.rbind.io/tags/wordcloud/</guid>
 			<description>
-				
-				
-				
+			
 			</description>
 		</item>
-		
 	</channel>
 </rss>

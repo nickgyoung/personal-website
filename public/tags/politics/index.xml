@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Politics on Nick Young</title>
+		<link>https://nyoung.rbind.io/tags/politics/</link>
+		<description>Recent content in Politics on nyoung.rbind.io</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
+		<lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>
+		<atom:link href="https://nyoung.rbind.io/tags/politics/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Texas Elected Officials by ZIP: in Response to Winter Storm Uri</title>
+			<link>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</link>
+			<pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/post/texas-power-outages-and-elected-officials/</guid>
+			<description>
+			This is a Tableau dashboard in which anyone can look up a TX zip code to find out their national and local elected officials. If you live in TX, give a call and push for changes you want to see in energy.
+			</description>
+		</item>
+	</channel>
+</rss>

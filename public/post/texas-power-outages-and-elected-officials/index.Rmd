@@ -1,0 +1,34 @@
+---
+title: "Texas Elected Officials by ZIP: in Response to Winter Storm Uri"
+author: "Nick Young"
+date: '2021-02-22'
+tags: [R, Tableau, Texas, Power Outages, Politics]
+output: 
+  html_document:
+  theme: cosmo
+    
+description: 'This is a Tableau dashboard in which anyone can look up a TX zip code to find out their national and local elected officials. If you live in TX, give a call and push for changes you want to see in energy.'
+---
+
+
+``` {css echo = FALSE, include = TRUE}
+
+a.anchor-section::before {content: '';}
+
+```
+
+# My Experience
+I was without power and running water for two days. It's been a week later since the start of the major power outages and some people still don't have either. There have been reportedly dozens of deaths. Some publications have reported about 34 deaths, but the number is still being counted. 
+
+I'm thankful that I moved to Austin from NYC. In plenty of ways, this made me prepared for extreme cold. For example, we kept our heavy blankets and Winter apparel/accessories. Also I've driven on snow/ice before. In some other ways, I wasn't prepared at all: I didn't expect that a Winter storm could cause such widespread electrical outages, we only prepared by buying food that needed to be cooked (we have an electric oven), I didn't think that my running water would stop or that when it came back on it would need to be boiled prior to consumption. It's safe to say, most Texans were not prepared for outages this widespread.
+
+# My Goal
+
+These outages are quickly becoming a political debate on the merits of clean energy. Regardless of my beliefs, the aim of this post is not to sway opinions or incite debate. What I want to do is encourage participation.
+
+Below is a quick Tableau dashboard I put together using data pulled from the Google Civic API. For nearly all ZIP codes in Texas (Google Civic is missing data for some corporate ZIP codes and a handful of standard ZIP codes), it will show elected officials and contact info on the national, state, and local level. If you live in Texas and you want to see changes in our energy, I implore you to call your officials, know their positions, ask them to push for your position, and make it clear this is an issue you feel deeply about and they risk losing your future vote over it (if that's the case).
+
+Every single politician on here is elected to their role. If you are a constituent to them, then to some degree that is both literal and only symbolic **YOU ARE THEIR BOSS**. Even for any politician that has nothing to do with energy choices (judges, treasurers, etc.), the least they can do is publicly endorse your position regarding energy infrastructure.
+
+<iframe src="https://public.tableau.com/views/TexasElectedOfficialsbyZIP/TXElectedOfficialsbyZIP?:language=en&:retry=yes&:display_count=y&:origin=viz_share_link&:showVizHome=no&:embed=true" align="center" width="1225" height="850" frameborder="0" allowfullscreen></iframe>
+
