@@ -10,6 +10,12 @@ output:
 description: 'A little educational primer on various statistical methods and feature selection by regression'
 ---
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv')
+```
+
+
 ![](/img/exam_taking.jpg)
 
 # Abstract
@@ -72,10 +78,21 @@ There are a few different types of t-test depending (one sample, two sample, pai
 
 Similar to the Student's T-Test, however this measures difference in a binary value. I.e., does this product change yield more customer sign-ups than the status-quo. This has similar one sample, two sample, paired flavors as the t-test.
 
-# Non-Parametric Equivalents
+## Other Tests
 
-Before I start applying this to some real data, it's important the explain both the t-test and z-test make some assumptions when you use them.
+These are the two primary tests that get utilized in A/B testing. There are a myriad of other statistical tests that fit different purposes in particular scenarios. Non-parametric counterparts to the t and z test (Mann-Whitney U and Chi-square tests, respectively) *can* be used in lieu of the t and z test when the assumption of normality is not met. However they compare sample medians or ranks, where as the t and z test compare means or proportions.
 
-1. The observations are independent. The results for one given person do not affect the results of anyone else.
-2. The groups were obtained through random sampling and thus are expected to be representative of the population.
-3. The distribution of the sample means should be approximately normal. 
+There are also tests that extend beyond the A/B structure. ANOVA (analysis of variance) can be used to detect if there is some statistically significant variance among any number of groups, not just two. 
+
+# In Practice
+
+That was a bit more of a foreward than I probably wanted, but there was some exposition I needed to do for those unfamiliar. Now, I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
+
+So, here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables..
+
+```{r echo=F}
+reactable::reactable(head(grades_and_features))
+reactable::reactable(summary(grades_and_features))
+
+```
+

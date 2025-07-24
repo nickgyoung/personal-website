@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() { renderMathInElement(d
   <meta itemprop="description" content="A little educational primer on various statistical methods and feature selection by regression">
   <meta itemprop="datePublished" content="2025-07-16T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-07-16T00:00:00+00:00">
-  <meta itemprop="wordCount" content="2">
+  <meta itemprop="wordCount" content="1298">
   <meta itemprop="keywords" content="R,Student GPA,Linear Regression,Feature Selection,LASSO Regression,A/B Testing">
 </head>
 <body>
@@ -113,9 +113,63 @@ Nick Young
 
 
 
-<div class="float">
-<img src="/img/exam_taking.jpg" alt="Exam Taking" />
-<div class="figcaption">Exam Taking</div>
+<p><img src="/img/exam_taking.jpg" /></p>
+<div id="abstract" class="section level1">
+<h1>Abstract</h1>
+<p>I’ve been seeing a lot of demand for A/B testing experience in jobs I’ve been applying to lately. While I’ve done this type of work in academia, I can’t say I’ve formally performed it in a professional context. Not often, but on some occasions when I tell this to recruiters, I can feel the burgeoning hesitation they feel in advancing me to the next step. I’m kind of amazed when this is the limiting factor that prohibits me from advancing, because A/B testing in practice is not actually very complicated. Sure, there may be some more nuance to the context around it in a professional setting that one needs to understand, but the mechanics of the technique itself are not complex. In this post, I’m going to describe exactly what A/B testing is, how to perform it, its use as a feature selection method, and springboard into more advanced feature selection methods. After I’ve given a generalist approach to defining the A/B test, I will implement it in an example around synthetic student GPA data to better showcase its use.</p>
+</div>
+<div id="what-is-ab-testing" class="section level1">
+<h1>What is A/B testing?</h1>
+<p>Contrary to the reductionist language I’m seeing online and in interviews, an A/B test is not actually a specific statistical test, but actually a type of experimental design where we sample from a population and split them into a control group and experimental group (groups A and B). Then we subject some type of update from the status-quo to the experimental group and measure the occurrence of some metric between the two groups. Whether you know it or not, you’re probably familiar with some.</p>
+<p>Do you understand how in drug trials one group is given a placebo and another group is given some new drug to determine if it has any efficacy? This is an A/B test. Another type of A/B test that I’m being asked if I have experience with is product A/B testing. Let’s take a generic social media company for example. They have a vested interest in increasing the amount of time their users actually use their platform. They have some theory that the layout of their mobile application on a very specific phone is not optimized, thereby losing user engagement on that phone. To test if they can increase user engagement among users of this phone, they might run an A/B test featuring some new layout.</p>
+<p>This is the high-level organization of the experimental design: having two groups (A/B) and then impacting a change you’re trying to research the efficacy of one of said groups.</p>
+</div>
+<div id="important-preliminary-details" class="section level1">
+<h1>Important Preliminary Details</h1>
+<p>Before launching an A/B test, it’s essential to ensure several foundational conditions are met. These safeguards help ensure that the results are valid, interpretable, and actionable.</p>
+<div id="an-appropriate-sample-size" class="section level2">
+<h2>An appropriate sample size</h2>
+<p>Before you run an A/B test, it’s important to make sure your sample size is large enough. If your sample is too small, you might not be able to tell whether the difference you see between groups is real or just due to random chance.</p>
+<p>Let’s take a coin flip as an example. If I flipped a quarter 3 times and got heads twice, I might think heads comes up more often than tails. But with such a small number of flips, that result could easily be a fluke. Now imagine I flipped the coin 1,000 times and got 520 heads — I’d feel much more confident saying the coin is probably fair (or close to it).</p>
+<p>A/B tests work the same way. The more people or events included in the test, the more confident we can be in the results. In fact, the statistical test we use will output a number — often called a <em>p-value</em> or <em>confidence level</em> — that tells us how likely it is that the difference between groups is real. This number is heavily influenced by how much data we collect.</p>
+<p>That’s why planning for sample size is so important. If we want to be very confident in our results, we’ll need a large enough sample. But in real-world settings, there’s often a trade-off: running a longer test gives us more certainty, while shorter tests might give faster answers (and quicker product changes) but with more uncertainty.</p>
+</div>
+<div id="reasonably-identical-features-along-ab" class="section level2">
+<h2>Reasonably identical features along A/B</h2>
+<p>For an A/B test to be fair, the control group and the experiment group should be similar in every important way except for the thing you’re testing.</p>
+<p>Imagine testing a new medication designed to help people with a specific illness. It wouldn’t make sense to include people without that illness in the experiment group but only people with the illness in the control group. That would make it impossible to know if differences in results were due to the medicine or just differences in who was in each group.</p>
+<p>Similarly, if there’s another health condition that could affect how well the medicine works, you’d want to make sure that condition is either equally represented in both groups or excluded altogether. If not, the results could be misleading.</p>
+<p>This idea applies to any A/B test: the groups should be as similar as possible so you can be confident that differences in outcomes are caused by the change you made — not other factors.</p>
+</div>
+<div id="random-sampling" class="section level2">
+<h2>Random Sampling</h2>
+<p>To make sure the control and experiment groups are as similar as possible, we assign users to each group using random sampling.</p>
+<p>Random sampling means each user has an equal chance of being placed in either group. This helps avoid bias — so the groups don’t differ in any unexpected ways that could affect the results.</p>
+<p>By randomly assigning users, we can be more confident that any differences we see are due to the change we’re testing, not other factors.</p>
+</div>
+</div>
+<div id="so-if-ab-is-an-experimental-design-whats-the-test" class="section level1">
+<h1>So if A/B is an experimental design, what’s the test?</h1>
+<p>So, we’ve organized equal-sized and similar-featured group A and B to run a test… now what?
+Well, that all depends on what we’re trying to measure here. Are we expecting a higher frequency of a binary outcome (a patient is cured / not cured), or higher rates of a continuous value (the changes to a study app helped yield higher SAT scores among users)? Does our continuous value follow an approximately normal distribution? All these help us to choose the type of test we will run.</p>
+<div id="the-students-t-test" class="section level2">
+<h2>The Student’s T-Test</h2>
+<p>A very common type of statistical test run in an A/B experiment design is the Student’s T-test (published by a statistician and brewery chemist using the pseudonym <em>student</em>). This is used to compare the mean value of a variable of interest across our groups to determine if there is a statistically significant difference. I.e., is the average weight between this group that took a new weight loss pill and their placebo control group different and is that difference meaningful or just random chance? Note that this is not the same question as does this drug cause weight loss? <em>A/B tests do NOT imply causality.</em></p>
+<p>There are a few different types of t-test depending (one sample, two sample, paired), but without going into these I’ll just say two sample tests are what are used in A/B testing (two groups = two samples).</p>
+</div>
+<div id="z-test" class="section level2">
+<h2>Z-test</h2>
+<p>Similar to the Student’s T-Test, however this measures difference in a binary value. I.e., does this product change yield more customer sign-ups than the status-quo. This has similar one sample, two sample, paired flavors as the t-test.</p>
+</div>
+</div>
+<div id="non-parametric-equivalents" class="section level1">
+<h1>Non-Parametric Equivalents</h1>
+<p>Before I start applying this to some real data, it’s important the explain both the t-test and z-test make some assumptions when you use them.</p>
+<ol style="list-style-type: decimal">
+<li>The observations are independent. The results for one given person do not affect the results of anyone else.</li>
+<li>The groups were obtained through random sampling and thus are expected to be representative of the population.</li>
+<li>The distribution of the sample means should be approximately normal.</li>
+</ol>
 </div>
 
 </div>
