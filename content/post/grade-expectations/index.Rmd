@@ -12,6 +12,7 @@ description: 'A little educational primer on various statistical methods and fea
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(summarytools)
 grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv')
 ```
 
@@ -86,13 +87,105 @@ There are also tests that extend beyond the A/B structure. ANOVA (analysis of va
 
 # In Practice
 
-That was a bit more of a foreward than I probably wanted, but there was some exposition I needed to do for those unfamiliar. Now, I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
+That was a bit more of a foreword than I probably wanted, but there was some exposition I needed to do for those unfamiliar. Now, I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
 
 So, here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables..
 
+This is a head of all the data.
+
 ```{r echo=F}
 reactable::reactable(head(grades_and_features))
-reactable::reactable(summary(grades_and_features))
 
 ```
 
+Out here's some descriptive summary data.
+
+```{css, echo=FALSE}
+/* Table striping */
+.table-striped > tbody > tr:nth-of-type(odd),
+.st-table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9 !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(even),
+.st-table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #ffffff !important;
+}
+
+/* Table headers */
+.table th,
+.st-table th {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  font-weight: bold !important;
+}
+
+/* Keep all existing text color fixes */
+.st-container,
+.st-container *,
+.st-table,
+.st-table *,
+.st-table td,
+.st-table th,
+.st-table tr,
+.st-table tr td,
+.st-table tr th,
+table[style*="border-collapse:collapse"] td,
+table[style*="border-collapse:collapse"] th,
+table[style*="border-collapse:collapse"] tr,
+table[style*="border-collapse:collapse"] tr td,
+table[style*="border-collapse:collapse"] tr th {
+  color: inherit !important;
+}
+
+.st-table td,
+.st-table th,
+table[style*="border-collapse:collapse"] td,
+table[style*="border-collapse:collapse"] th {
+  color: var(--txt-color) !important;
+}
+
+.st-table table,
+.st-table table *,
+.st-table table td,
+.st-table table th,
+.st-table table tr,
+table[style*="border-collapse:collapse"] table,
+table[style*="border-collapse:collapse"] table *,
+table[style*="border-collapse:collapse"] table td,
+table[style*="border-collapse:collapse"] table th,
+table[style*="border-collapse:collapse"] table tr {
+  color: var(--txt-color) !important;
+}
+
+.st-table [style*="background-color:transparent"],
+table[style*="border-collapse:collapse"] [style*="background-color:transparent"] {
+  color: var(--txt-color) !important;
+}
+
+.container.st-container,
+.container.st-container * {
+  color: var(--txt-color) !important;
+}
+
+td[style*="padding:8;vertical-align:middle"] table td,
+td[style*="padding:0;vertical-align:middle"] table td {
+  color: var(--txt-color) !important;
+}
+
+body table td,
+body table th {
+  color: var(--txt-color) !important;
+}
+
+td[align="left"][style*="padding:8;vertical-align:middle"] table td[align="left"] {
+  color: var(--txt-color) !important;
+}
+```
+
+```{r echo = FALSE, results='asis'}
+# Generate HTML
+dfSummary(grades_and_features, varnumbers = F, valid.col = F, graph.magnif = 0.55, max.tbl.height = 500) %>% print(method = 'render')
+```
+
+earl

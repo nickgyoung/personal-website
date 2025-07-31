@@ -1,0 +1,121 @@
+/* Custom CSS for wider dfSummary tables */
+
+/* Target the dfSummary-generated wrapper with maximum specificity */
+div[class="dfSummary-fullwidth"] {
+  padding: 0 !important;
+  margin-left: -50px !important;
+  margin-right: -50px !important;
+  max-width: none !important;
+  width: 100vw !important;
+  overflow-x: auto !important;
+}
+
+/* Override the embedded CSS styles */
+.dfSummary-fullwidth * {
+  max-width: none !important;
+  width: auto !important;
+  min-width: max-content !important;
+}
+
+.dfSummary-fullwidth table {
+  width: auto !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  display: table !important;
+  table-layout: auto !important;
+}
+
+.dfSummary-fullwidth td,
+.dfSummary-fullwidth th {
+  white-space: nowrap !important;
+  min-width: max-content !important;
+  padding: 8px !important;
+}
+
+/* Target the container div specifically */
+.dfSummary-fullwidth .container {
+  max-width: none !important;
+  width: auto !important;
+  overflow-x: auto !important;
+}
+
+/* Ensure the table doesn't get compressed */
+.dfSummary-fullwidth .st-table {
+  width: auto !important;
+  min-width: max-content !important;
+  max-width: none !important;
+}
+
+/* Comprehensive fix for white text issue in dfSummary tables */
+/* Target all possible summarytools selectors with maximum specificity */
+.st-container,
+.st-container *,
+.st-table,
+.st-table *,
+.st-table td,
+.st-table th,
+.st-table tr,
+.st-table tr td,
+.st-table tr th,
+table[style*="border-collapse:collapse"] td,
+table[style*="border-collapse:collapse"] th,
+table[style*="border-collapse:collapse"] tr,
+table[style*="border-collapse:collapse"] tr td,
+table[style*="border-collapse:collapse"] tr th {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+/* Ensure text is visible in all table cells with explicit color */
+.st-table td,
+.st-table th,
+table[style*="border-collapse:collapse"] td,
+table[style*="border-collapse:collapse"] th {
+  color: var(--txt-color) !important;
+}
+
+/* Fix for nested tables within dfSummary */
+.st-table table,
+.st-table table *,
+.st-table table td,
+.st-table table th,
+.st-table table tr,
+table[style*="border-collapse:collapse"] table,
+table[style*="border-collapse:collapse"] table *,
+table[style*="border-collapse:collapse"] table td,
+table[style*="border-collapse:collapse"] table th,
+table[style*="border-collapse:collapse"] table tr {
+  color: var(--txt-color) !important;
+  background-color: transparent !important;
+}
+
+/* Override any inline styles that might be causing white text */
+.st-table [style*="background-color:transparent"],
+table[style*="border-collapse:collapse"] [style*="background-color:transparent"] {
+  color: var(--txt-color) !important;
+}
+
+/* Ensure proper text color for all summarytools elements */
+.container.st-container,
+.container.st-container * {
+  color: var(--txt-color) !important;
+}
+
+/* Additional fix for any remaining white text issues */
+/* Target the specific problematic elements we found in the HTML */
+td[style*="padding:8;vertical-align:middle"] table td,
+td[style*="padding:0;vertical-align:middle"] table td {
+  color: var(--txt-color) !important;
+  background-color: transparent !important;
+}
+
+/* Force text color for all table cells in the document */
+body table td,
+body table th {
+  color: var(--txt-color) !important;
+}
+
+/* Specific fix for the gender values and other categorical data */
+td[align="left"][style*="padding:8;vertical-align:middle"] table td[align="left"] {
+  color: var(--txt-color) !important;
+} 
