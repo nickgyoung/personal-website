@@ -13,6 +13,8 @@ description: 'A little educational primer on classical inference methods used in
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(summarytools)
+library(caret)
+library(tidymodels)
 grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv')
 ```
 
@@ -21,15 +23,17 @@ grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv
 
 # Abstract
 
-I've been seeing a lot of demand for A/B testing experience in jobs I've been applying to lately. While I've done this type of work in academia, I can't say I've formally performed it in a professional context. Not often, but on some occasions when I tell this to recruiters, I can feel the burgeoning hesitation they feel in advancing me to the next step. I'm kind of amazed when this is the limiting factor that prohibits me from advancing, because A/B testing in practice is not actually very complicated. Sure, there may be some more nuance to the context around it in a professional setting that one needs to understand, but the mechanics of the technique itself are not complex. In this post, I'm going to describe exactly what A/B testing is, how to perform it, its use as a feature selection method, and springboard into more advanced feature selection methods. After I've given a generalist approach to defining the A/B test, I will implement it in an example around synthetic student GPA data to better showcase its use.
+I've been seeing a lot of demand for A/B testing experience in jobs I've been applying to lately. While I've done this type of work in academia, I can't say I've formally performed it in a professional context. In this post I want to do some work to de-mythologize it, because I think often job recruiters and job applicants can make a mountain out of this mole hill. In addition to giving some educational primer on A/B testing (and the statistical inferential tests used therein), I will also go over some regression-based feature selection methods. I'll explore much of this from the context of some synthesized data of student exam scores and various independent predictor features.
+
+<!-- Not often, but on some occasions when I tell this to job recruiters, I can feel the burgeoning hesitation they feel in advancing me to the next step. I'm kind of amazed when this is the limiting factor that prohibits me from advancing, because A/B testing in practice is not actually very complicated. Sure, there may be some more nuance to the context around it in a professional setting that one needs to understand, but the mechanics of the technique itself are not complex. In this post, I'm going to describe exactly what A/B testing is, how to perform it, its use as a feature selection method, and springboard into more advanced feature selection methods. After I've given a generalist approach to defining the A/B test, I will implement it in an example around synthetic student GPA data to better showcase its use. -->
 
 # What is A/B testing?
 
-Contrary to the reductionist language I'm seeing online and in interviews, an A/B test is not actually a specific statistical test, but actually a type of experimental design where we sample from a population and split them into a control group and experimental group (groups A and B). Then we subject some type of update from the status-quo to the experimental group and measure the occurrence of some metric between the two groups. Whether you know it or not, you're probably familiar with some.
+An A/B test is not actually a specific statistical test, but rather a type of experimental design where we sample from a population and split them into a control group and experimental group (groups A and B). Then we subject some type of update from the status-quo to the experimental group and measure the occurrence of some metric between the two groups. Whether you know it or not, you're probably familiar with some examples.
 
-Do you understand how in drug trials one group is given a placebo and another group is given some new drug to determine if it has any efficacy? This is an A/B test. Another type of A/B test that I'm being asked if I have experience with is product A/B testing. Let's take a generic social media company for example. They have a vested interest in increasing the amount of time their users actually use their platform. They have some theory that the layout of their mobile application on a very specific phone is not optimized, thereby losing user engagement on that phone. To test if they can increase user engagement among users of this phone, they might run an A/B test featuring some new layout. 
+Do you understand how in drug trials one group is given a placebo and another group is given some new drug to determine if the drug has any efficacy? This is an A/B test. Another type of A/B test is product A/B testing. Let's take a generic social media company for example. They have a vested interest in increasing the amount of time their users are on their platform. They have some theory that the layout of their mobile application on a very specific phone is not optimized, thereby losing user engagement on that phone. To test if they can increase user engagement on this phone, they might run an A/B test featuring some new layout. 
 
-This is the high-level organization of the experimental design: having two groups (A/B) and then impacting a change you're trying to research the efficacy of one of said groups.
+This is the high-level organization of the experimental design: having two groups (A/B) and then impacting a change you're trying to research the efficacy of on one of the groups.
 
 # Important Preliminary Details
 
@@ -37,18 +41,19 @@ This is the high-level organization of the experimental design: having two group
 Before launching an A/B test, it’s essential to ensure several foundational conditions are met. These safeguards help ensure that the results are valid, interpretable, and actionable.
 
 ## An appropriate sample size
+
 Before you run an A/B test, it’s important to make sure your sample size is large enough. If your sample is too small, you might not be able to tell whether the difference you see between groups is real or just due to random chance.
 
-Let’s take a coin flip as an example. If I flipped a quarter 3 times and got heads twice, I might think heads comes up more often than tails. But with such a small number of flips, that result could easily be a fluke. Now imagine I flipped the coin 1,000 times and got 520 heads — I’d feel much more confident saying the coin is probably fair (or close to it).
+Let’s take a coin flip as an example. If I flipped a quarter 3 times and got heads twice, I might think heads comes up more often than tails (I could even say it happens twice as often). But with such a small number of flips, that result could easily be a fluke. Now imagine I flipped the coin 1,000 times and got 520 heads — I’d feel much more confident saying the coin is probably fair (or close to it).
 
 A/B tests work the same way. The more people or events included in the test, the more confident we can be in the results. In fact, the statistical test we use will output a number — often called a *p-value* or *confidence level* — that tells us how likely it is that the difference between groups is real. This number is heavily influenced by how much data we collect.
 
-That’s why planning for sample size is so important. If we want to be very confident in our results, we’ll need a large enough sample. But in real-world settings, there’s often a trade-off: running a longer test gives us more certainty, while shorter tests might give faster answers (and quicker product changes) but with more uncertainty.
+That’s why planning for sample size is so important. If we want to be very confident in our results, we’ll need a large enough sample. But in real-world settings, there’s often a trade-off: running a longer test gives us more certainty, while shorter tests might give faster answers. but with more uncertainty.
 
 
 ## Reasonably identical features along A/B
 
-For an A/B test to be fair, the control group and the experiment group should be similar in every important way except for the thing you’re testing. 
+For an A/B test to be fair, the control group and the experiment group should be similar in every important way except for the value you’re testing. 
 
 Imagine testing a new medication designed to help people with a specific illness. It wouldn’t make sense to include people without that illness in the experiment group but only people with the illness in the control group. That would make it impossible to know if differences in results were due to the medicine or just differences in who was in each group.
 
@@ -66,12 +71,12 @@ By randomly assigning users, we can be more confident that any differences we se
 
 # So if A/B is an experimental design, what's the test?
 
-So, we've organized equal-sized and similar-featured group A and B to run a test... now what?
+So, we've organized equal-sized and similar-featured groups A and B to run a test... now what?
 Well, that all depends on what we're trying to measure here. Are we expecting a higher frequency of a binary outcome (a patient is cured / not cured), or higher rates of a continuous value (the changes to a study app helped yield higher SAT scores among users)? Does our continuous value follow an approximately normal distribution? All these help us to choose the type of test we will run.
 
 ## The Student's T-Test
 
-A very common type of statistical test run in an A/B experiment design is the Student's T-test (published by a statistician and brewery chemist using the pseudonym _student_). This is used to compare the mean value of a variable of interest across our groups to determine if there is a statistically significant difference. I.e., is the average weight between this group that took a new weight loss pill and their placebo control group different and is that difference meaningful or just random chance? Note that this is not the same question as does this drug cause weight loss? *A/B tests do NOT imply causality.*
+A very common type of statistical test run in an A/B experiment design is the Student's T-test (published by a statistician and brewery chemist using the pseudonym _student_) or the Welch's t-test (a similar derivative of the former). This is used to compare the mean value of a variable of interest across our groups to determine if there is a statistically significant difference. I.e., is the average weight between this group that took a new weight loss pill and their placebo control group different and is that difference meaningful or just random chance? Note that this is not the same question as does this drug cause weight loss? *A/B tests do NOT imply causality.*
 
 There are a few different types of t-test depending (one sample, two sample, paired), but without going into these I'll just say two sample tests are what are used in A/B testing (two groups = two samples).
 
@@ -85,11 +90,12 @@ These are the two primary tests that get utilized in A/B testing. There are a my
 
 There are also tests that extend beyond the A/B structure. ANOVA (analysis of variance) can be used to detect if there is some statistically significant variance among any number of groups, not just two. 
 
-# In Practice
+# A t-test Demonstrated
 
-That was a bit more of a foreword than I probably wanted, but there was some exposition I needed to do for those unfamiliar. Now, I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
+## Understanding the Data
 
-So, here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables.
+I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
+Here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables. This was obtained from [Kaggle](https://www.kaggle.com/datasets/aryan208/student-habits-and-academic-performance-dataset).
 
 This is a head of all the data to familiarize yourself with the features.
 
@@ -233,13 +239,181 @@ t.test(rando_men, rando_women)
 
 ```
 
-The p-value tells us how likely it is that the difference in means we observed could happen just by chance if there were no real difference in the population. A p-value of 0.7962 means the observed difference is not statistically significant. Likewise, we can take a look at the means of both groups and see how they are nearly identical. In this case we do not have enough evidence to reject the null hypothesis and must accept that women and men have roughly the same exam scores.
+The p-value tells us how likely it is that the difference in means we observed could happen just by chance if there were no real difference in the population. A p-value of 0.7962 means the observed difference is not statistically significant. Likewise, we can take a look at the means of both groups and see how they are nearly identical. And finally, the 95% confidence interval for difference in means ranges from -0.4 to 0.52. Because this interval includes 0, it suggests there could be no difference at all in the means. In this case we do not have enough evidence to reject the null hypothesis and must accept that women and men have roughly the same exam scores.
 
 ## As a Tool for Feature Selection.
 
-Now consider beyond testing various groups for meaningful differences in exam scores, that I was even going so far as to develop to formula to help predict exam score. I could make a linear regression model, or some derivation of this model type, but then how would I go about choosing what features make the most sense? We've already seen there's no meaningful difference in exam scores based on gender. I guess I could just continue applying some inferential test along all the categorical variables in my data, but that could take a long time and would not help me choose amongst the numeric variables.
+Now consider beyond testing various groups for meaningful differences in exam scores that I was even going so far as to develop a formula to help predict exam score given some new student and all their other features. I could make a linear regression model, or some derivation of this model type, but then how would I go about choosing what features make the most sense? We've already seen there's no meaningful difference in exam scores based on gender. I guess I could just continue applying some inferential test along all the categorical variables in my data, but that could take a long time and would not help me choose the numeric variables.
 
 # Advanced Feature Selection Methods
 
 As a little addendum to this primer on inferential methods, I'll talk a bit about feature selection too.
-Consider that I want to build a type of model that takes some input and outputs a prediction of exam score. How will I find out what are the most important input variab
+Consider that I want to build a type of model that takes some input and outputs a prediction of exam score. How will I find out what are the most important input variables? Domain knowledge and subject matter expertise can help guide us, but in this particular instance perhaps not. I'm dealing with synthetic student data - someone created all this on their computer. For all I know, they could have reversed the expected relationship between `study_hours_per_day` and `exam_score`
+
+Rather than manually testing one feature at a time, measuring their predictive capacity, and iteratively adding / removing them from our model, we can do that automatically given some useful packages.
+
+## Stepwise Regression
+
+The methodology detailed above is actually known as stepwise regression. Given a dependent variable and a set of independent variables from which we want to craft a model, we can iteratively build the linear model one variable at a time greedily attempting to maximize some model statistic (often the Akaike Information Criterion, or AIC). This algorithm can be run forward - meaning we iteratively add one variable at a time. Backwards - we start from a full model and remove one variable at a time. Or employ both directions - we start from an empty model and add, then consider adding or removing one variable each step. The algorithm finishes with a final model once further steps no longer improve the AIC.
+
+Here's a model derived from stepwise regression using the `both` direction using an 80/20 train+validation/test split.
+
+```{r, message=FALSE, warning=FALSE}
+# forming a training+validation / test split
+
+# 80% goes to training and validation
+set.seed(512)
+trainval_indices <- createDataPartition(grades_and_features$exam_score, p = 0.8, list = FALSE)
+trainval_data <- grades_and_features[trainval_indices, ]
+test_data <- grades_and_features[-trainval_indices, ]
+
+# for later models, we cross validate the training data with a split of 5
+cv_obj <- vfold_cv(trainval_data, v = 5)
+
+# preprocessing recipe to one-hot encode and scale
+rec <- recipe(exam_score ~ ., data = trainval_data) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_normalize(all_predictors())
+
+prep_rec <- prep(rec, training = trainval_data)
+
+trainval_processed <- bake(prep_rec, new_data = trainval_data)
+test_processed <- bake(prep_rec, new_data = test_data)
+
+# accessing the stepwise model, if previously built
+model_path <- "cache/stepwise_model.RData"
+
+# if the cached model exists, load it
+if (file.exists(model_path)) {
+  load(model_path)  # loads `stepwise_model`
+} else {
+  # otherwise fit the model and save it
+  full_model <- lm(exam_score ~ ., data = trainval_processed)
+  stepwise_model <- stats::step(full_model, direction = "both", trace = 0)
+
+  # create cache folder if it doesn't exist
+  if (!dir.exists("cache")) dir.create("cache")
+  save(stepwise_model, file = model_path)
+}
+
+
+summary(stepwise_model)
+```
+
+And so from a total of 47 possible predictor variables, our stepwise regression algorithm has determined the most effective and necessary to make an accurate prediction are only a set of 4:
+
+- The student's `previous_gpa`
+- `internet_quality_low` as a binary - meaning the student did or did not have a low internet quality
+- `student_environment_Dorm` - the student did or did not study from a dorm
+- `learning_style_Visual` - the student's learning style was or was not visual.
+
+This model might not be perfect in the sense that there are still residuals (not that there is ever a perfectly predictive model), but it's a useful way to perform feature selection as a method of further understanding the predictive relationship between independent and dependent variables when subject matter expertise or domain knowledge are not available.
+
+## LASSO Regression
+
+One other regression based method of feature selection is LASSO regression. Whereas stepwise regression is an algorithmic step-based process that removes, or adds, or adds and removes variables from a model, searching for the optimal solution based on some criterion, LASSO is a singular process that shrinks the coefficients of variables to 0. It is essentially an update to the optimization problem of a standard linear regression (minimizing residuals), but we add a penalty term to coefficients that penalizes larger coefficients. So then, the algorithm must compete with minimizing residuals and keeping this penalty low. It will shrink inefficient variable coefficients to 0 if they do not substantially minimize the residuals such that they would be worth keeping in the model.
+I derive the linear model from the LASSO regression below.
+
+```{r}
+
+# setting a filepath to cache the model
+lasso_cache_file <- "lasso_model_cache.RData"
+
+if (file.exists(lasso_cache_file)) {
+  load(lasso_cache_file)
+} else {
+  # initializing the LASSO lm
+  lasso_spec <- linear_reg(penalty = tune(), mixture = 1) %>%
+    set_engine("glmnet")
+  
+  # defining the model and preprocessing steps into a tidymodels wf object
+  lasso_wf <- workflow() %>%
+    add_model(lasso_spec) %>%
+    add_recipe(rec)
+  
+  # grid tuning the lambda parameter via a logarithmic grid search
+  coarse_grid <- tibble(penalty = 10^seq(-4, 1, length.out = 30))
+  lasso_res_coarse <- tune_grid(
+    lasso_wf,
+    resamples = cv_obj,
+    grid = coarse_grid,
+    metrics = metric_set(rmse)
+  )
+  best_coarse <- select_best(lasso_res_coarse, metric = "rmse")
+  
+  # further fine tuning the appropriate lambda value 
+  log_best <- log10(best_coarse$penalty)
+  fine_grid <- tibble(penalty = 10^seq(log_best - 0.3, log_best + 0.3, length.out = 30))
+  lasso_res_fine <- tune_grid(
+    lasso_wf,
+    resamples = cv_obj,
+    grid = fine_grid,
+    metrics = metric_set(rmse)
+  )
+  best_fine <- select_best(lasso_res_fine, metric = "rmse")
+  
+  # final fitting of the model on the 
+  final_lasso_model <- finalize_workflow(lasso_wf, best_fine) %>%
+    fit(data = trainval_data)
+  
+  # pulling the chosen non-zero coefficients
+  glmnet_fit <- extract_fit_parsnip(final_lasso_model)$fit
+  selected_features <- coef(glmnet_fit, s = best_fine$penalty) %>%
+    as.matrix() %>%
+    as_tibble(rownames = "term") %>%
+    rename(estimate = 2) %>%
+    filter(estimate != 0)
+  
+  # save this model to cache
+  save(final_lasso_model, best_fine, selected_features, file = lasso_cache_file)
+}
+
+# extract the formula
+formula_text <- paste(
+  "exam_score ~",
+  paste(selected_features$term[selected_features$term != "(Intercept)"], collapse = " + ")
+)
+# create an lm model of this formula for nice clean summary output. The coefficients are validated as the same.
+lasso_model <- lm(formula_text, data = trainval_processed)
+# summary output
+summary(lasso_model)
+
+
+```
+
+And now the LASSO regression has derived the same R-squared and adjusted R-squared metrics as the stepwise model, but only using the one predictor `previous_gpa`
+
+# Which Model Performs Better?
+
+Given two models that appear to be near identical in performance, we might normally chose to call the simpler one better since it has about the same predictive power as a more complex model.
+
+We can choose some other metrics to compare these two models such as *root mean squared error* and *mean absolute error* as better indications of how they perform against data they've not yet seen before.
+
+```{r message = F , warning = F}
+
+# generating LASSO predictions
+lasso_preds <- predict(final_lasso_model, new_data = test_data) %>%
+  bind_cols(test_data %>% select(exam_score))
+
+# generating stepwise predictions
+test_for_stepwise <- bake(prep(rec, training = trainval_data), new_data = test_data)
+
+stepwise_preds <- predict(stepwise_model, newdata = test_for_stepwise) %>%
+  bind_cols(test_data %>% select(exam_score)) %>% rename('.pred' = '...1')
+
+# calculating rmse of both
+lasso_rmse <- sqrt(sum((lasso_preds$.pred - lasso_preds$exam_score)^2) / nrow(lasso_preds))
+
+stepwise_rmse <- sqrt(sum((stepwise_preds$.pred - stepwise_preds$exam_score)^2) / nrow(stepwise_preds)) 
+
+# calculating the MAE for both
+lasso_mae <- sum(abs(lasso_preds$.pred - lasso_preds$exam_score)) / nrow(lasso_preds)
+stepwise_mae <- sum(abs(stepwise_preds$.pred - stepwise_preds$exam_score)) / nrow(stepwise_preds)
+
+# printing results
+cat('The RMSE of the Stepwise Regression Model is' , stepwise_rmse, ', whereas the LASSO model clocks in at' , lasso_rmse, '\n', 'The MAE of the Stepwise Regression Model is' , stepwise_mae, ', whereas the LASSO model clocks in at' , lasso_mae)
+```
+
+And still yet, these two models are near identical by their error metrics. In a legitimate context, I would think we should opt for the simpler model since it has roughly identical performance to the more complex model (possibly suggesting there's little to no predictive power to the additional variables).
+
+
