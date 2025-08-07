@@ -15,6 +15,7 @@ library(tidyverse)
 library(summarytools)
 library(caret)
 library(tidymodels)
+library(cobalt)
 grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv')
 ```
 
@@ -216,6 +217,7 @@ Before I sample from my population of men and women, let's check for confounding
 bal.tab(gender ~ ., data = grades_and_features %>% filter(gender != 'Other'))
 ```
 So we see here the differences of any variables between gender is pretty negligible - thus I should be able to safely proceed with an A/B test off of simple random sampling.
+
 
 ## The Mechanics of the Test
 
