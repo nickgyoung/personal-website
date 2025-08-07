@@ -23,7 +23,7 @@ grades_and_features <- read_csv('enhanced_student_habits_performance_dataset.csv
 
 # Abstract
 
-I've been seeing a lot of demand for A/B testing experience in jobs I've been applying to lately. While I've done this type of work in academia, I can't say I've formally performed it in a professional context. In this post I want to do some work to de-mythologize it, because I think often job recruiters and job applicants can make a mountain out of this mole hill. In addition to giving some educational primer on A/B testing (and the statistical inferential tests used therein), I will also go over some regression-based feature selection methods. I'll explore much of this from the context of some synthesized data of student exam scores and various independent predictor features.
+I've been seeing a lot of demand for A/B testing experience in jobs I've been applying to lately. While I've done this type of work in academia, I can't say I've formally performed it in a professional context. In this post I want to do some work to de-mythologize it. In addition to giving some educational primer on A/B testing (and the statistical inferential tests used therein), I will also go over some regression-based feature selection methods. I'll explore much of this from the context of some synthesized data of student exam scores and various independent predictor features.
 
 <!-- Not often, but on some occasions when I tell this to job recruiters, I can feel the burgeoning hesitation they feel in advancing me to the next step. I'm kind of amazed when this is the limiting factor that prohibits me from advancing, because A/B testing in practice is not actually very complicated. Sure, there may be some more nuance to the context around it in a professional setting that one needs to understand, but the mechanics of the technique itself are not complex. In this post, I'm going to describe exactly what A/B testing is, how to perform it, its use as a feature selection method, and springboard into more advanced feature selection methods. After I've given a generalist approach to defining the A/B test, I will implement it in an example around synthetic student GPA data to better showcase its use. -->
 
@@ -33,7 +33,7 @@ An A/B test is not actually a specific statistical test, but rather a type of ex
 
 Do you understand how in drug trials one group is given a placebo and another group is given some new drug to determine if the drug has any efficacy? This is an A/B test. Another type of A/B test is product A/B testing. Let's take a generic social media company for example. They have a vested interest in increasing the amount of time their users are on their platform. They have some theory that the layout of their mobile application on a very specific phone is not optimized, thereby losing user engagement on that phone. To test if they can increase user engagement on this phone, they might run an A/B test featuring some new layout. 
 
-This is the high-level organization of the experimental design: having two groups (A/B) and then impacting a change you're trying to research the efficacy of on one of the groups.
+This is the high-level organization of the experimental design: having two groups (A/B) and then impacting a change on one group to measure an effect.
 
 # Important Preliminary Details
 
@@ -44,11 +44,11 @@ Before launching an A/B test, it’s essential to ensure several foundational co
 
 Before you run an A/B test, it’s important to make sure your sample size is large enough. If your sample is too small, you might not be able to tell whether the difference you see between groups is real or just due to random chance.
 
-Let’s take a coin flip as an example. If I flipped a quarter 3 times and got heads twice, I might think heads comes up more often than tails (I could even say it happens twice as often). But with such a small number of flips, that result could easily be a fluke. Now imagine I flipped the coin 1,000 times and got 520 heads — I’d feel much more confident saying the coin is probably fair (or close to it).
+Let’s take a coin flip as an example. If I flipped a quarter 3 times and got heads twice, I might think heads comes up more often than tails (I could even say it happens twice as often). But with such a small number of flips, that result could easily be a fluke. Now imagine I flipped the coin 1,000 times and got 520 heads — I’d feel much more confident saying the coin is probably fair (or close to it). Thus, having a larger amount of samples gives us more confidence in the results, but at the cost of time. In real-world scenarios, product analysts often have to find the sweet spot in this trade-off: grabbing an appropriate amount of samples to have confidence in results without waiting for so many they're losing on time to impact a product change.
 
-A/B tests work the same way. The more people or events included in the test, the more confident we can be in the results. In fact, the statistical test we use will output a number — often called a *p-value* or *confidence level* — that tells us how likely it is that the difference between groups is real. This number is heavily influenced by how much data we collect.
+<!-- A/B tests work the same way. The more people or events included in the test, the more confident we can be in the results. In fact, the statistical test we use will output a number — often called a *p-value* or *confidence level* — that tells us how likely it is that the difference between groups is real. This number is heavily influenced by how much data we collect. -->
 
-That’s why planning for sample size is so important. If we want to be very confident in our results, we’ll need a large enough sample. But in real-world settings, there’s often a trade-off: running a longer test gives us more certainty, while shorter tests might give faster answers. but with more uncertainty.
+<!-- That’s why planning for sample size is so important. If we want to be very confident in our results, we’ll need a large enough sample. But in real-world settings, there’s often a trade-off: running a longer test gives us more certainty, while shorter tests might give faster answers. but with more uncertainty. -->
 
 
 ## Reasonably identical features along A/B
@@ -67,7 +67,7 @@ To make sure the control and experiment groups are as similar as possible, we as
 
 Random sampling means each user has an equal chance of being placed in either group. This helps avoid bias — so the groups don’t differ in any unexpected ways that could affect the results. 
 
-By randomly assigning users, we can be more confident that any differences we see are due to the change we’re testing, not other factors.
+Given that we have large samples, by randomly assigning users, we can be more confident that any differences we see are due to the change we’re testing, not other factors. This is what should occur in theory, but in reality analysts often don't have the luxury of time to generate large enough samples that this similarity across groups is met. It might just be such that group A skews older than B, or is heavier, or lives predominantly on the West Coast. Depending on what's being measured, these could all be confounding factors. In this scenario the analyst may have to employ other sampling techniques (stratified randomized samping, blocking, pruning).
 
 # So if A/B is an experimental design, what's the test?
 
@@ -76,7 +76,7 @@ Well, that all depends on what we're trying to measure here. Are we expecting a 
 
 ## The Student's T-Test
 
-A very common type of statistical test run in an A/B experiment design is the Student's T-test (published by a statistician and brewery chemist using the pseudonym _student_) or the Welch's t-test (a similar derivative of the former). This is used to compare the mean value of a variable of interest across our groups to determine if there is a statistically significant difference. I.e., is the average weight between this group that took a new weight loss pill and their placebo control group different and is that difference meaningful or just random chance? Note that this is not the same question as does this drug cause weight loss? *A/B tests do NOT imply causality.*
+A very common type of statistical test run in an A/B experiment design is the Student's T-test (published by a statistician and brewery chemist using the pseudonym _student_) or the Welch's t-test (a similar derivative of the former). This is used to compare the mean value of a variable of interest across our groups to determine if there is a statistically significant difference. I.e., is the average weight between this group that took a new weight loss pill and their placebo control group different and is that difference meaningful or just random chance? If the A/B test has been well designed and all confounding variables accounted for, we can use the results to *imply causality*. I.e., this drug does in fact cause weight loss.
 
 There are a few different types of t-test depending (one sample, two sample, paired), but without going into these I'll just say two sample tests are what are used in A/B testing (two groups = two samples).
 
@@ -208,6 +208,15 @@ H_0: Women\ and\ men\ are\ equally\ smart\ (no\ difference\ in\ exam\_scores)
 H_{a}: Women\ are\ smarter\ than\ men\ (will\ have\ higher\ exam\_scores )
 $$
 
+## Checking for Confounding Variables
+
+Before I sample from my population of men and women, let's check for confounding variables against these groups. I can generate a covariate balance plot in R to check standardized mean differences of all my other variables. With this, I'll be able to see if there is some larger difference in any variables across gender that might otherwise impact the results of my test. What I'm looking for here are small values (ideally less than 0.1).
+
+```{r}
+bal.tab(gender ~ ., data = grades_and_features %>% filter(gender != 'Other'))
+```
+So we see here the differences of any variables between gender is pretty negligible - thus I should be able to safely proceed with an A/B test off of simple random sampling.
+
 ## The Mechanics of the Test
 
 Assuming you know how to calculate an average and a standard deviation, this is the formula to get the t-statistic that will allow us to compare the means of our two groups.
@@ -307,7 +316,7 @@ And so from a total of 47 possible predictor variables, our stepwise regression 
 - `student_environment_Dorm` - the student did or did not study from a dorm
 - `learning_style_Visual` - the student's learning style was or was not visual.
 
-This model might not be perfect in the sense that there are still residuals (not that there is ever a perfectly predictive model), but it's a useful way to perform feature selection as a method of further understanding the predictive relationship between independent and dependent variables when subject matter expertise or domain knowledge are not available.
+This model might not be perfect in the sense that there are still residuals (not that there is ever a perfectly predictive model), but it's a useful way to perform feature selection as a method of further understanding the predictive relationship between independent and dependent variables when subject matter expertise or domain knowledge are not available. The stepwise regression algorithm is a heuristic that can reach local minimums, so it's not guaranteed to reach a truly optimal solution, but it can be a nice way to quickly research variable interactions and start off a basic and effective predictive model.
 
 ## LASSO Regression
 
