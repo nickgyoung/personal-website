@@ -1,7 +1,7 @@
 ---
 title: "Grade Expectations: Exploring A/B Testing & Feature Selection Through Student GPAs"
 author: "Nick Young"
-date: '2025-07-16'
+date: '2025-08-11'
 tags: [R, Student GPA, Linear Regression, Feature Selection, LASSO Regression, A/B Testing]
 output: 
   html_document:
@@ -428,3 +428,6 @@ cat('The RMSE of the Stepwise Regression Model is' , stepwise_rmse, ', whereas t
 And still yet, these two models are near identical by their error metrics. In a legitimate context, I would think we should opt for the simpler model since it has roughly identical performance to the more complex model (possibly suggesting there's little to no predictive power to the additional variables).
 
 
+# Conclusion
+
+And there we've seen demonstrated inferential tests used in A/B testing, how those methodologies can be extended to use in feature selection, and some more advanced regression-based feature selection methods. Nowhere near the best methodologies of today (I would argue winning strategies always rely on domain knowledge/expert opinion to start), but certainly methods that can be used to kick start off some exploration of intervariable relationships with little to no preliminary knowledge.
