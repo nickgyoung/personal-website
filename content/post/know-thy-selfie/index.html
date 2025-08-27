@@ -1,0 +1,46 @@
+---
+title: 'Know Thy Selfie: Identifying Myself in Pictures Using DeepFace'
+author: 'Nick Young'
+date: '2025-08-24'
+tags: [Python, DeepFace, Facial Recognition, CLIP, Computer Vision]
+output: 
+  html_document: 
+    theme: cosmo
+description: Could you pick me out as a face in a crowd? Could you do it as well as AI? This post explores that a bit and some shortcomings of face verification in DeepFace.
+---
+
+
+
+<p><img src="/img/facial_recognition.jpg" /></p>
+<div id="where-am-i" class="section level1">
+<h1>Where Am I!?</h1>
+<p>For dating apps, social media, and some other instances, it can be really helpful to have all the photos that are of you strictly separated from other pictures on your phone. Do you really want to scroll past the 1800 pictures you took of pasta or your cat in the past 3 years to find the best visual representations of yourself? I explored facial verification capabilities and learned about their common shortcomings by scripting a Python script to partition # photos I took on vacation into pictures of me / not pictures of me. The Jupyter notebook can be read in full here. This project wasn’t necessarily about creating the optimal facial recognition pipeline, but solving a problem I had through some code and data science.</p>
+</div>
+<div id="detector-models-and-vector-embeddings" class="section level1">
+<h1>Detector Models, and Vector Embeddings</h1>
+<p>I didn’t know much about facial recognition prior to this project. I vaguely understood that open source models have been built by think-tanks, universities, or companies to numerically represent a face. From my learnings, I understand now these models typically rely on neural network transformations to represent faces by vector-embeddings, which can reach lengths of up to 4096. Can you think of how to describe your face in 4096 different numbers? Vector embeddings aren’t human-readable. This is a shortcoming of neural networks, they’re a bit of a black box. They can be used to solve very complex problems, but how they reach their output is obfuscated, and thereby we are unable to trace the meaning of the numbers they spit out.</p>
+<p>Prior to this, there’s something else happening in the backend. Another convolutional neural network scans over the image to detect possible faces. Through much training data, this model has learned what the general shape of a human face is. It scans through the image for what could be interpreted as a face. Based on model parameters, if it is confident enough in its identifications, it will crop to these faces, apply “alignment” transformations (rotate, skew, etc. so that the face is right-side up and looking directly at the camera as much as it can) and then pass that along to the vector embedding model.</p>
+<p>There are a variety of Python packages that simplify this two-prong process by incorporating many of these models into one unified package. The one I used for my purposes was <a href="https://github.com/serengil/deepface">DeepFace</a>. I chose to use this package as it had an active and well-explained Github repo with many vignettes of use cases.</p>
+</div>
+<div id="my-methodologies" class="section level1">
+<h1>My Methodologies</h1>
+<p>Being a beginner to the space, I had a lot of theories on how I could leverage the tools in DeepFace to separate the photos of myself from my corpus. They all relied on calculating some distance metric between the observed faces in my corpus, but they differed in their preprocessing steps if any. To improve results, I could apply grayscale, heighten contrast, create an aggregate vector embedding of my face, reduce dimensionality by way of principal component analysis. With all the options at my feet, I figured it would just be easiest to start with (what I thought) was the simplest solution and revise as needed.</p>
+</div>
+<div id="method-1-aggregated-vector-embedding-of-my-face." class="section level1">
+<h1>Method 1: Aggregated Vector Embedding of My Face.</h1>
+<p>As previously mentioned, these models create a vector embedding per face. But one face doesn’t necessarily look the same in every context. I wear glasses, and I’ve worn a lot of different glasses over the years, and sometimes (in the pool) I might even take my glasses off. Also, sometimes my face is not exactly pointed straight at the camera, or sometimes I’m a bit in shadow (cause I know photography and how nice people look when they’re short-lit). If I had a lot of these types of instances in my corpus, maybe there was someway to maximize the efficiency of the vector embedding that I calculated the distance metric from? This theory informed my first strategy: I took 16 photos of my face: 4 wearing sunglasses and looking up, down, left, and right. Another 4 doing the same without my new glasses. Another 4 with my old glasses. And a final 4 without glasses. These were my “training” images. For these 16 faces, I used DeepFace to generate their 4096-dimensional vector embeddings. Then I created an average vector-embedding across all 16. In theory, this creates some amalgamated representation of my face that I believed would be robust in a variety of circumstances.</p>
+<p>Then, for all x numbers in my test corpus, I generated vector embeddings from the faces in those. For all photos that suceeded in generating at least one vector embedding, I moved them to a sub folder in their directory called <code>has_faces</code>. This is because all other photos were not actually pictures of people, so I wouldn’t need to continue including them in this project. There were however some false positives (pictures of artwork depicting people).</p>
+<p>The results were not as promising as I’d hoped. I calculated the Euclidean distance between my average embedded vector and all other vectors. In theory, the pictures with the least distance should be of me, and those with the most distance should not be of me, but I found these classes represented on both ends of the spectrum. I won’t say they were equally represented, my method worked to some degree as there was some more representation of me at lower values of Euclidean distance, but there were enough pictures that weren’t of me (and obvious pictures of me on the high end) that I didn’t find this method to be suitable.</p>
+<p>I tried this method again using cosine distance as my distance metric after reading this could be more reliable in facial verification, but this did not prove useful either.</p>
+</div>
+<div id="method-2---singular-vector-representation-and-leveraging-deepface" class="section level1">
+<h1>Method 2 - Singular Vector Representation and Leveraging DeepFace</h1>
+<p>I started to think, maybe creating an aggregate representation of my face wasn’t ideal. Imagine compressing 16 different photos of you - looking different each time - into one. Would this give someone an accurate idea of what you look like, or ultimately just be a little confusing? So then, I decided to calculate distance metrics between one photo I thought best represented my face, and all others. Also, rather than calculating all the distance metrics manually, I leveraged DeepFace methods. This did everything I did before in fewer lines of code and decided if the faces were a match by their own distance threshold. One of the critical benefits was that I could output the decision, the distance, and the threshold to a dictionary output, so I could later adjust the threshold and change the decision if I felt the model parameters were too lenient or strict on what a match was.</p>
+<p>This provided some pretty reliable results! This method identified x photos of me with only 1 false positive. Then I was left with x photos that weren’t tagged as me with x false negatives. I had to think of a way of grabbing the rest of the photos of me without grabbing all the photos that weren’t of me.</p>
+</div>
+<div id="method-3---openai-clip-as-preprocessing" class="section level1">
+<h1>Method 3 - OpenAI CLIP as Preprocessing</h1>
+<p>From a previous project where I differentiated between pics of art and text labels, I was familiar with OpenAI’s Contrastive Label Image Pre-Training model. With this, I could define some text labels (“a fish” , “a dog” , “a cat” , “a human”), give an image to CLIP, and get a prediction of these labels best matched to the input image. I’d believed this could help me as a processing step, because much of the pictures that weren’t of me were actually pictures of artwork. There were paintings, photographs, and statues in museums that sat somewhere in the median and upper/lower bounds of the distance metric: they were unavoidable if I simply adjusted the threshold by which I determined a matching picture.</p>
+<p>I theorized that OpenAI CLIP could help me identify and separate all pictures of artwork prior to adjusting the threshold by which I defined a matching photo. I ran this model with the text labels:</p>
+<p>It identified x photos belong to the artwork labels. Of those, x were false positives. Of the balance that were not identified</p>
+</div>
