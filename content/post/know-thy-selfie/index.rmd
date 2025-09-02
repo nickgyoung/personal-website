@@ -1,0 +1,256 @@
+---
+title: 'Know Thy Selfie: Identifying Myself in Pictures Using DeepFace'
+author: 'Nick Young'
+date: '2025-08-24'
+tags: [Python, DeepFace, Facial Recognition, CLIP, Computer Vision]
+output: 
+  html_document: 
+    theme: cosmo
+description: Could you pick me out as a face in a crowd? Could you do it as well as AI? This post explores that a bit and some shortcomings of face verification in DeepFace.
+---
+
+![](/img/facial_recognition.jpg)
+
+# Where Am I!?
+
+For dating apps, social media, and some other instances, it can be really helpful to have all the photos that are of you strictly separated from other pictures on your phone. Do you really want to scroll past the 1800 pictures you took of pasta or your cat in the past 3 years to find the best visual representations of yourself? I explored facial verification capabilities and learned about their common shortcomings by writing a Python script to partition 4187 photos I took on vacation into pictures of me / not pictures of me. The Jupyter notebook can be read in full [here](https://github.com/nickgyoung/who-am-i/blob/main/detecting_my_face.ipynb). This project wasn't necessarily about creating the optimal facial recognition pipeline, but solving a problem I had through some code and light data science whilst learning a bit about facial verification along the way.
+
+# Detector Models, and Vector Embeddings
+
+I didn't know much about facial recognition prior to this project. I vaguely understood that open source models have been built by think-tanks, universities, or companies to numerically represent a face. From my learning, I understand now these models typically rely on neural network transformations to represent faces by vector embeddings, which can reach lengths of up to 4096. Can you think of how to describe your face in 4096 different numbers? Vector embeddings aren't human-readable. This is a shortcoming of neural networks: they're a bit of a black box. They can be used to solve very complex problems, but how they reach their output is obfuscated, and thereby we are unable to trace the meaning of the numbers they spit out.
+
+Prior to this, there's something else happening in the back end. Another convolutional neural network scans over the image to detect possible faces. Through much training data, this model has learned what the general shape of a human face is. It scans through the image for what could be interpreted as a face. Based on model parameters, if it is confident enough in its identifications, it will crop to these faces, apply "alignment" transformations (rotate, skew, etc.) so that the face is right-side up and looking directly at the camera as much as it can and then pass that along to the vector embedding model.
+
+Here's a video that I think does a great job explaining the technical process without going in the weeds too much:
+
+<div style="display:flex; justify-content:center;">
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/9H72QbYqxXU?si=Sy-PeL9Fe9hpQk5P" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+There are a variety of Python packages that simplify this two-prong process by incorporating many of these models into one unified package. The one I used for my project was [DeepFace](https://github.com/serengil/deepface). I chose to use this package as it had an active and well-explained Github repo with many vignettes of use cases. 
+
+# My Methodologies
+
+Being a beginner to the space, I had a lot of theories on how I could leverage the tools in DeepFace to separate the photos of myself from my corpus. They all relied on calculating some distance metric between the observed faces in my corpus, but they differed in their preprocessing steps, if any. To improve results, I could apply grayscale, heighten contrast, create an aggregate vector embedding of my face, reduce dimensionality by way of principal component analysis, etc. With all the options at my feet, I figured it would just be easiest to start with (what I thought) was the simplest solution and revise as needed.
+
+# Method 1: Aggregated Vector Embedding of My Face.
+
+As previously mentioned, these models create a vector embedding per face. But one face doesn't necessarily look the same in every context. I wear glasses, and I've worn a lot of different glasses over the years, and sometimes (in the pool) I might even take my glasses off. Also, sometimes my face is not exactly pointed straight at the camera, or sometimes I'm a bit in shadow (cause I know photography and how nice people look when they're short-lit). If I had a lot of these types of instances in my corpus, maybe there was someway to maximize the efficiency of the vector embedding that I calculated the distance metric from? This theory informed my first strategy: I took 20 photos of my face: 5 wearing sunglasses and looking straight, up, down, left, and right. Another 5 doing the same without my new glasses. Another 5 with my old glasses. And a final 5 without glasses. These were my "training" images. For these 20 faces, I used DeepFace to generate their 4096-dimensional vector embeddings. Then I created an average vector-embedding across all 20. In theory, this creates some amalgamated representation of my face that I believed would be robust for a variety of comparisons.
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20250813_173049212.jpg" style="width:35%; display:block;">
+  <img src="/img/selfies/PXL_20250813_173051897.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173054079.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173057496.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173102830.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173749048.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173751031.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173752399.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173754431.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173756046.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173843948.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173845546.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173847078.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173848336.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173851241.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173949467.jpg" style="width:35%; display:none;"> 
+  <img src="/img/selfies/PXL_20250813_173951351.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173954123.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173956395.MP.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250813_173957973.jpg" style="width:35%; display:none;"> 
+
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+</div>
+
+<center><i>My 20 "training" images.</center></i>
+
+
+
+
+Then, for all 4187 photos in my test corpus, I generated vector embeddings from the faces in those. For all photos that succeeded in generating at least one vector embedding, I moved them to a sub folder in their directory called `has_faces`. This is because all other photos were not actually pictures of people (in theory), so I wouldn't need to continue including them in this project. This method generated some false positives / false negatives or otherwise interesting results. 
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20241014_114619073.jpg" style="width:35%; display:block;" data-caption="No face detected - which I guess is technically true. DeepFace must have a hard time with pointillism ">
+  <img src="/img/selfies/PXL_20241006_160804390.PORTRAIT.jpg" style="width:35%; display:none;" data-caption="Couldn't detect the face, which is odd, I've seen further zoomed out photos correctly detected.">
+  <img src="/img/selfies/PXL_20241110_115243438.jpg" style="width:35%; display:none;" data-caption="No face detected, but there are photos taken immediately after this (burst) where faces were detected.">
+  <img src="/img/selfies/PXL_20241003_104755793.jpg" style="width:35%; display:none;" data-caption="Face was detected here, pointillism is no good but impasto is fine? Make up your mind, DeepFace!">
+  <img src="/img/selfies/PXL_20241215_041027855.jpg" style="width:35%; display:none;" data-caption="A statue that was detected as real face, but I can't blame DeepFace. It's pretty lifelike.">
+  <img src="/img/selfies/PXL_20241224_113537806.jpg" style="width:35%; display:none;" data-caption="This monkey's face was detected! Although other pics of monkeys were not.">
+  <img src="/img/selfies/PXL_20250121_064538389.MP.jpg" style="width:35%; display:none;" data-caption="Actual photographs in museums were detected.">
+  <img src="/img/selfies/PXL_20250317_231633584.PORTRAIT.jpg" style="width:35%; display:none;" data-caption="Face detected from toys, probably due to the Dragonball Z figure at the left.">
+
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+  <div class="carousel-caption" style="margin-top:8px; font-style:italic;"></div>
+</div>
+
+The results were not as promising as I'd hoped given DeepFace's false positive and negatives. Still, I calculated the Euclidean distance between my average embedded vector and all other vectors. In theory, the pictures with the least distance should be of me, and those with the most distance should not be of me, but I found these classes represented on both ends of the spectrum. I chose a distance of 0.969 as a threshold from a glance and wound up with these results.
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20241003_094630350.jpg" style="width:35%; display:block;" data-caption="">
+  <img src="/img/selfies/PXL_20241019_111305140.jpg" style="width:35%; display:none;" data-caption="">
+  <img src="/img/selfies/PXL_20241022_095355236.jpg" style="width:35%; display:none;" data-caption="">
+  <img src="/img/selfies/PXL_20241124_144803414.jpg" style="width:35%; display:none;" data-caption="">
+  <img src="/img/selfies/PXL_20241202_233344297.PORTRAIT.ORIGINAL.jpg" style="width:35%; display:none;" data-caption="">
+  <img src="/img/selfies/PXL_20241205_052933976.jpg" style="width:35%; display:none;" data-caption="">
+  <img src="/img/selfies/PXL_20241217_033312206.jpg" style="width:35%; display:none;" data-caption="">
+  
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+  <div class="carousel-caption" style="margin-top:8px; font-style:italic;"></div>
+</div>
+
+<center><i>False and true positives from the Euclidean distance threshold method</center></i>
+
+
+I won't say they were equally represented, my method worked to some degree as there was some more representation of me at lower values of Euclidean distance, but there were enough pictures that weren't of me (and obvious pictures of me on the high end) that I didn't find this method to be suitable.
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20250106_101912508.jpg" style="width:50%; display:block;" data-caption="Lowest Euclidean distance">
+  <img src="/img/selfies/PXL_20250103_064050506.jpg" style="width:50%; display:none;" data-caption="2nd lowest by Euclidean distance. Supposedly someone in this painting REALLY looks like me.">
+  <img src="/img/selfies/PXL_20241225_080622109.jpg" style="width:50%; display:none;" data-caption="3rd lowest by Euclidean distance">
+  <img src="/img/selfies/PXL_20241226_043245913.MP.jpg" style="width:50%; display:none;" data-caption="4th lowest by Euclidean distance">
+  <img src="/img/selfies/PXL_20250125_102255398.jpg" style="width:50%; display:none;" data-caption="5th lowest by Euclidean distance">
+  <img src="/img/selfies/PXL_20250131_055651322.jpg" style="width:50%; display:none;" data-caption="6th lowest by Euclidean distance">
+
+  
+  <img src="/img/selfies/PXL_20250131_062911140.MP.jpg" style="width:50%; display:block;" data-caption="6th highest Euclidean distance">
+  <img src="/img/selfies/PXL_20241021_160326194.jpg" style="width:50%; display:none;" data-caption="5th highest Euclidean distance">
+  <img src="/img/selfies/PXL_20241008_103951359.MP.jpg" style="width:50%; display:none;" data-caption="4th highest Euclidean distance">
+  <img src="/img/selfies/PXL_20250103_052058985.jpg" style="width:50%; display:none;" data-caption="3rd highest Euclidean distance">
+  <img src="/img/selfies/PXL_20241008_100940251.jpg" style="width:50%; display:none;" data-caption="2nd highest Euclidean distance">
+  <img src="/img/selfies/PXL_20250417_203058047.MP.jpg" style="width:50%; display:none;" data-caption="Highest Euclidean distance. I guess when I'm smiling I don't even look like me.">
+
+  
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+  <div class="carousel-caption" style="margin-top:8px; font-style:italic;"></div>
+</div>
+
+
+
+For photos containing multiple faces, I determined match by the lowest distance scoring face. I tried this method again using cosine distance as my distance metric after reading this could be more reliable in facial verification, but this did not prove useful either.
+
+
+
+# Method 2 - Singular Vector Representation and Leveraging DeepFace
+
+I started to think, maybe creating an aggregate representation of my face wasn't ideal. Imagine compressing 20 different photos of you - looking different each time - into one. Would this give someone an accurate idea of what you look like, or ultimately just be a little confusing? Hard to say, and perhaps my analogy isn't perfect. Vector embeddings aren't like pictures, they're measurements of features in a large dimensional space. A vector average could be the right approach, given the pictures are good. It didn't seem like taking my vector average from so many different facial orientations and glasses was really doing me any favors.
+
+So then, I decided to calculate distance metrics between one photo I thought best represented my face (looking straight ahead, no glasses), and all others. Also, rather than calculating all the distance metrics manually, I leveraged DeepFace methods. This did everything I did before in fewer lines of code and decided if the faces were a match by their own distance threshold. One of the critical benefits was that I could output the decision, the distance, and the threshold to a dictionary output, so I could later adjust the threshold and change the decision if I felt the model parameters were too lenient or strict on what a match was.
+
+This provided some pretty reliable results! This method identified 655 photos of me with only 1 false positive. Then I was left with 578 photos that weren't tagged as me with 150 false negatives (some of that is understandable - face obstructed, in shadows, etc). I had to think of a way of grabbing the rest of the photos of me without grabbing all the photos that weren't of me.
+
+<img src="/img/selfies/PXL_20250121_070308257.jpg" style="width:35%; display:block; margin:auto;">
+<center><i>Only one false positive from using DeepFace verification out of the box! I am none of these Vietnamese athletes with disabilities.</i></center>
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20241205_045142949.MP.jpg" style="width:35%; display:block;">
+  <img src="/img/selfies/PXL_20241225_051936932.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20241226_103844137.PORTRAIT.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250106_104022081.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250131_055651322.jpg" style="width:35%; display:none;">
+
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+</div>
+
+<center><i>Some of the false negatives (pictures of me that were missed)</center></i>
+
+
+
+
+# Method 3 - OpenAI CLIP as Preprocessing
+
+From a previous project where I differentiated between pics of art and text labels, I became familiar with OpenAI's Contrastive Label Image Pre-Training model. With this, I could define some text labels ("a painting" , "a statue" , "a real human"), give an image to CLIP, and get a prediction of these labels best matched to the input image. I'd believed this could help me as a processing step, because much of the pictures that weren't of me were actually pictures of artwork. There were paintings, photographs, and statues in museums that sat somewhere in the median and upper/lower bounds of the distance metric: they were unavoidable if I simply adjusted the threshold by which I determined a matching picture.
+
+I theorized that OpenAI CLIP could help me identify and separate all pictures of artwork prior to adjusting the threshold by which I defined a matching photo. I ran this model with the text labels: `[  "a graffiti", "a painting", "a statue", "an artwork in a museum", "a mural", "a sculpture", "a person", "a living human being", "a picture of humans at a tourist attraction", "a person with sunglasses on"]`
+
+It identified 210 photos belong to the artwork labels. Of those, 43 were false positives (in the sense they had real humans in them). This was a diverging point in my project where I began to think soon I'd approach the point of diminishing returns for model improvement. The 43 false positives were photos of people (not always me) in artistic settings. In museums near artwork, in concert halls, in interactive digital art exhibits, etc. They weren't necessarily photos I wanted to grab for my purposes, even if they did happen to be photos of me.
+
+<div class="my-carousel" style="max-width:600px; margin:auto; position:relative; text-align:center;">
+  <img src="/img/selfies/PXL_20241113_193819261.jpg" style="width:35%; display:block;">
+  <img src="/img/selfies/PXL_20241122_150503672.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20241210_080016760.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250223_101025793.jpg" style="width:35%; display:none;">
+  <img src="/img/selfies/PXL_20250225_123658115.jpg" style="width:35%; display:none;">
+
+  <!-- Controls -->
+  <button class="prev" style="position:absolute; top:50%; left:10px;">&#10094;</button>
+  <button class="next" style="position:absolute; top:50%; right:10px;">&#10095;</button>
+</div>
+
+<center><i>False positive identifications of artwork by CLIP.</center></i>
+
+
+
+After this I scanned through the balance 255 photos that were left. I arranged them by their distance to the training photo and picked a distance I thought best captured the rest of the photos I wanted to be included as positively identified. I iterated over any file that met this distance and moved them into another new subfolder `dfv_indicated_increased_thresh`. In this folder there are 91 photos and only 9 aren't of me. This leaves 164 photos that were categorized as not me by omission - and of this only 48 are false negatives, but again these were generally usually photos where I was not looking directly at the camera, or had sunglasses on, or there was some camera glare.
+
+# Conclusion & Final Thoughts
+
+From the folders of photos I successfully categorized as being of me, I appended all their file names to a list that was saved as a .txt file. There are some false negatives that I manually added to this list. I used Android Debug Bridge and some command line magic to move all these files from my main phone gallery folder in a subfolder. Now when I'm prompted to use a photo of me for something, I'll have roughly 750 pics to choose from without scrolling past all the pictures of pasta I've taken in between.
+
+This was a neat little way to solve a strange and very first world problem. If I went about this again there's some other things I'd do:
+
+* I'd try to apply grayscale as a preprocessing step to see if that boosted performance in any regard. It's usually not necessary for modern detector and vector-embeddings models, but can boost performance for photos with extreme lighting conditions (of which I have a few)
+* I'd use a smaller vector embedding models than VGG-Face (used in Method 1). This is a default of DeepFace that I hadn't checked, but having more dimensionality to vector-embeddings can have diminishing returns. It tends to make the representation noisy and not fit for calculating distances - which is exactly what I used it for. Research has shown high accuracy in [facial recognition can be achieved with as little as 128 dimensions](https://arxiv.org/abs/1503.03832?utm_source=chatgpt.com).
+* It might have been interesting or more efficient if I organized this project as a classification problem. I could have labeled some photos of me, some that weren't me, and for any new photo determine what class it belong to by which group it's closest to - effectively a k-means cluster or k-nearest-neighbors solution.
+
+Some thoughts on facial recognition and limitations I encountered:
+
+* Lack of diversity in tech impacting algorithm training data has [previously been reported](https://jolt.law.harvard.edu/digest/why-racial-bias-is-prevalent-in-facial-recognition-technology) to impact how these types of models perform with POC. I did see myself being mistaken for other Asian men across my photos.
+* Sunglasses [have been shown](https://arxiv.org/html/2412.05721v1#S5) to drastically reduce the efficiency of facial verification - I wear sunglasses across a lot of my photos.
+
+Either way, all my pics are sorted on my phone now. If you ever have this niche problem, hopefully you can take and adapt my Jupyter Notebook to your needs!
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".my-carousel").forEach(carousel => {
+    const slides = carousel.querySelectorAll("img");
+    const captionDiv = carousel.querySelector(".carousel-caption");
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((img, i) => {
+        img.style.display = i === index ? "block" : "none";
+      });
+      if(captionDiv) {
+        const currentSlide = slides[index];
+        captionDiv.textContent = currentSlide.dataset.caption || "";
+      }
+    }
+
+    const nextBtn = carousel.querySelector(".next");
+    const prevBtn = carousel.querySelector(".prev");
+    
+    if(nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      });
+    }
+    
+    if(prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+      });
+    }
+
+    showSlide(current); // always show first slide
+  });
+});
+</script>

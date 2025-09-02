@@ -7,8 +7,53 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© Copyright notice | Vitae theme for Hugo</copyright>
-		<lastBuildDate>Wed, 16 Jul 2025 00:00:00 +0000</lastBuildDate>
+		<lastBuildDate>Sun, 24 Aug 2025 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://nyoung.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>CLIP</title>
+			<link>https://nyoung.rbind.io/tags/clip/</link>
+			<pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/clip/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Computer Vision</title>
+			<link>https://nyoung.rbind.io/tags/computer-vision/</link>
+			<pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/computer-vision/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>DeepFace</title>
+			<link>https://nyoung.rbind.io/tags/deepface/</link>
+			<pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/deepface/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Facial Recognition</title>
+			<link>https://nyoung.rbind.io/tags/facial-recognition/</link>
+			<pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/facial-recognition/</guid>
+			<description>
+			
+			</description>
+		</item>
+		<item>
+			<title>Python</title>
+			<link>https://nyoung.rbind.io/tags/python/</link>
+			<pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
+			<guid>https://nyoung.rbind.io/tags/python/</guid>
+			<description>
+			
+			</description>
+		</item>
 		<item>
 			<title>A/B Testing</title>
 			<link>https://nyoung.rbind.io/tags/a/b-testing/</link>
@@ -64,37 +109,10 @@
 			</description>
 		</item>
 		<item>
-			<title>CLIP</title>
-			<link>https://nyoung.rbind.io/tags/clip/</link>
-			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
-			<guid>https://nyoung.rbind.io/tags/clip/</guid>
-			<description>
-			
-			</description>
-		</item>
-		<item>
-			<title>Computer Vision</title>
-			<link>https://nyoung.rbind.io/tags/computer-vision/</link>
-			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
-			<guid>https://nyoung.rbind.io/tags/computer-vision/</guid>
-			<description>
-			
-			</description>
-		</item>
-		<item>
 			<title>Principal Component Analysis</title>
 			<link>https://nyoung.rbind.io/tags/principal-component-analysis/</link>
 			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
 			<guid>https://nyoung.rbind.io/tags/principal-component-analysis/</guid>
-			<description>
-			
-			</description>
-		</item>
-		<item>
-			<title>Python</title>
-			<link>https://nyoung.rbind.io/tags/python/</link>
-			<pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
-			<guid>https://nyoung.rbind.io/tags/python/</guid>
 			<description>
 			
 			</description>

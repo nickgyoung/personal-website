@@ -7,7 +7,7 @@ output:
   html_document:
   theme: cosmo
     
-description: 'A little educational primer on various statistical methods and feature selection by regression'
+description: 'A little educational primer on classical inference methods used in A/B testing and feature selection by regression.'
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -81,7 +81,7 @@ Similar to the Student's T-Test, however this measures difference in a binary va
 
 ## Other Tests
 
-These are the two primary tests that get utilized in A/B testing. There are a myriad of other statistical tests that fit different purposes in particular scenarios. Non-parametric counterparts to the t and z test (Mann-Whitney U and Chi-square tests, respectively) *can* be used in lieu of the t and z test when the assumption of normality is not met. However they compare sample medians or ranks, where as the t and z test compare means or proportions.
+These are the two primary tests that get utilized in A/B testing. There are a myriad of other statistical tests that fit different purposes in particular scenarios. Non-parametric counterparts to the t and z-test (Mann-Whitney U and Chi-square tests, respectively) *can* be used in lieu of the t and z-test when the assumption of normality is not met. However they compare sample medians or ranks, where as the t and z-test compare means or proportions.
 
 There are also tests that extend beyond the A/B structure. ANOVA (analysis of variance) can be used to detect if there is some statistically significant variance among any number of groups, not just two. 
 
@@ -89,16 +89,16 @@ There are also tests that extend beyond the A/B structure. ANOVA (analysis of va
 
 That was a bit more of a foreword than I probably wanted, but there was some exposition I needed to do for those unfamiliar. Now, I want to jump into a set of data I came across to show how we can use the common tests used in A/B experiment design for feature selection.
 
-So, here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables..
+So, here we have a synthetic dataset representing the exam scores of 80,000 students and potentially related predicting variables.
 
-This is a head of all the data.
+This is a head of all the data to familiarize yourself with the features.
 
 ```{r echo=F}
 reactable::reactable(head(grades_and_features))
 
 ```
 
-Out here's some descriptive summary data.
+And some descriptive summary statistics to understand the shape of the data a bit more. 
 
 ```{css, echo=FALSE}
 /* Table striping */
@@ -188,4 +188,58 @@ td[align="left"][style*="padding:8;vertical-align:middle"] table td[align="left"
 dfSummary(grades_and_features, varnumbers = F, valid.col = F, graph.magnif = 0.55, max.tbl.height = 500) %>% print(method = 'render')
 ```
 
-earl
+It's important to remember, this is synthetic data. Whoever made this has done very well to ensure there are near even distributions between our categorical variables and continuous numeric variables are roughly normally distributed.
+
+## Forming a Hypothesis
+
+All inferential statistical tests begin with a hypothesis. For an A/B test we hope or hypothesize that there will be some measurable difference in outcome between two groups.
+
+So let me throw out some arbitrary hypothesis.
+
+$$
+H_0: Women\ and\ men\ are\ equally\ smart\ (no\ difference\ in\ exam\_scores)
+\\ 
+H_{a}: Women\ are\ smarter\ than\ men\ (will\ have\ higher\ exam\_scores )
+$$
+
+## The Mechanics of the Test
+
+Assuming you know how to calculate an average and a standard deviation, this is the formula to get the t-statistic that will allow us to compare the means of our two groups.
+
+<img src="/img/abt_test.png" width="35%">
+
+With the value *t* we do further work to compare against a critical value we obtain from a t-distribution, but going into that is a little further than I want to write about. Just let it be known we can calculate this by hand given some resources - or we can use statistical packages in R to quickly output the results.
+
+```{r}
+# seed for reproducability
+set.seed(6391)
+
+# work has been done separately to ensure there are no confounding variables
+
+# sampling 5000 rows of women
+rando_women <- grades_and_features %>%
+  filter(gender == 'Female') %>%
+  .[sample(nrow(.), 5000), ] %>%
+  pull(exam_score)
+    
+# sampling 5000 rows of men
+rando_men <- grades_and_features %>%
+  filter(gender == 'Male') %>%
+  .[sample(nrow(.), 5000), ] %>%
+  pull(exam_score)
+
+t.test(rando_men, rando_women)
+
+
+```
+
+The p-value tells us how likely it is that the difference in means we observed could happen just by chance if there were no real difference in the population. A p-value of 0.7962 means the observed difference is not statistically significant. Likewise, we can take a look at the means of both groups and see how they are nearly identical. In this case we do not have enough evidence to reject the null hypothesis and must accept that women and men have roughly the same exam scores.
+
+## As a Tool for Feature Selection.
+
+Now consider beyond testing various groups for meaningful differences in exam scores, that I was even going so far as to develop to formula to help predict exam score. I could make a linear regression model, or some derivation of this model type, but then how would I go about choosing what features make the most sense? We've already seen there's no meaningful difference in exam scores based on gender. I guess I could just continue applying some inferential test along all the categorical variables in my data, but that could take a long time and would not help me choose amongst the numeric variables.
+
+# Advanced Feature Selection Methods
+
+As a little addendum to this primer on inferential methods, I'll talk a bit about feature selection too.
+Consider that I want to build a type of model that takes some input and outputs a prediction of exam score. How will I find out what are the most important input variab
