@@ -6,14 +6,14 @@ tags: [Python, DeepFace, Facial Recognition, CLIP, Computer Vision]
 output: 
   html_document: 
     theme: cosmo
-description: Could you pick me out as a face in a crowd? Could you do it as well as AI? This post explores that a bit and some shortcomings of face verification in DeepFace.
+description: Could you pick me out as a face in a crowd? Could you do it as well as AI? This post explores my learnings in a project where I used DeepFace to partition about 4000 photos in photos of me / not me.
 ---
 
 ![](/img/facial_recognition.jpg)
 
 # Where Am I!?
 
-For dating apps, social media, and some other instances, it can be really helpful to have all the photos that are of you strictly separated from other pictures on your phone. Do you really want to scroll past the 1800 pictures you took of pasta or your cat in the past 3 years to find the best visual representations of yourself? I explored facial verification capabilities and learned about their common shortcomings by writing a Python script to partition 4187 photos I took on vacation into pictures of me / not pictures of me. The Jupyter notebook can be read in full [here](https://github.com/nickgyoung/who-am-i/blob/main/detecting_my_face.ipynb). This project wasn't necessarily about creating the optimal facial recognition pipeline, but solving a problem I had through some code and light data science whilst learning a bit about facial verification along the way.
+In dating apps, social media, and some other instances, it can be really helpful to have all the photos that are of you strictly separated from other pictures on your phone. Do you really want to scroll past the 1800 pictures you took of pasta or your cat in the past 3 years to find the best visual representations of yourself? I explored facial verification capabilities and learned about their common shortcomings by writing a Python script to partition 4187 photos I took on vacation into pictures of me / not pictures of me. The Jupyter notebook can be read in full [here](https://github.com/nickgyoung/who-am-i/blob/main/detecting_my_face.ipynb). This project wasn't necessarily about creating the optimal facial recognition pipeline, but solving a problem I had through some code and light data science whilst learning a bit about facial verification along the way.
 
 # Detector Models, and Vector Embeddings
 
@@ -194,8 +194,6 @@ It identified 210 photos belong to the artwork labels. Of those, 43 were false p
 </div>
 
 <center><i>False positive identifications of artwork by CLIP.</center></i>
-
-
 
 After this I scanned through the balance 255 photos that were left. I arranged them by their distance to the training photo and picked a distance I thought best captured the rest of the photos I wanted to be included as positively identified. I iterated over any file that met this distance and moved them into another new subfolder `dfv_indicated_increased_thresh`. In this folder there are 91 photos and only 9 aren't of me. This leaves 164 photos that were categorized as not me by omission - and of this only 48 are false negatives, but again these were generally usually photos where I was not looking directly at the camera, or had sunglasses on, or there was some camera glare.
 
